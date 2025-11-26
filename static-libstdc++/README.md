@@ -8,5 +8,5 @@ Reproducer for problem with `-static-libstdc++` in shared libraries by Aleksei S
 
 ## External resources
 Documentation:
-* GCC [Options for Linking](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html) - documents `-static-libstdc++`
+* GCC [Options for Linking](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html) - documents `-static-libstdc++` (doc source: [gcc/doc/invoke.texi](https://github.com/gcc-mirror/gcc/blob/master/gcc/doc/invoke.texi#L20038))
 * GNU binutils [LD](https://sourceware.org/binutils/docs/ld.html) - documents `--exclude-libs`
