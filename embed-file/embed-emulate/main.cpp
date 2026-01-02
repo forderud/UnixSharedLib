@@ -6,14 +6,14 @@ const unsigned char file[] = {
 
 // WIP: Attempt on creating a #embed wrapper
 #define INCBIN(FILENAME) \
-  const unsigned char data_##FILENAME[] = { \
+  const unsigned char FILENAME##_data[] = { \
   };
 
 INCBIN(embed_example_txt)
 
 
 int main() {
-    const unsigned char* ptr = data_embed_example_txt;
+    const unsigned char* ptr = embed_example_txt_data;
  
     printf("Size   : %lu\n", sizeof(file));
     printf("Content: %.*s\n", (int)sizeof(file), file); // specify size since file content is not null-terminated
