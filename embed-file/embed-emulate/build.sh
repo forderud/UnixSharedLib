@@ -3,7 +3,7 @@ rm -f *.o mainApp
 
 
 echo Building mainApp...
-g++ -std=c++2c -Wc23-extensions main.cpp -o mainApp
+g++ -std=c++23 main.cpp -o mainApp
 
 echo ""
 echo Running mainApp:
