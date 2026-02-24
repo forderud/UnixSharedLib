@@ -4,6 +4,16 @@
 #include <fstream>
 #include "ModernStuff.hpp"
 
+class RttiClass {
+public:
+    RttiClass() {
+        printf("ctor\n");
+    }
+    virtual ~RttiClass() {
+        printf("dtor\n");
+    }
+};
+
 int main () {
     printf("executable built against glibc %d.%d\n", __GLIBC__, __GLIBC_MINOR__);
     printf("executable built against libstdc++ %d\n", _GLIBCXX_RELEASE);
@@ -13,10 +23,14 @@ int main () {
     printf("Return-value %i\n", sum);
 
     {
+        // trigger "-lgcc_eh" need
         std::ifstream file("README.md");
         if (!file.is_open()) {
             printf("ERROR: Unable to open file!\n");
         }
+
+        // test RTTI
+        printf("Typeid: %s\n", typeid(RttiClass).name());
     }
     
     return 0;
