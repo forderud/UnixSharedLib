@@ -16,8 +16,9 @@ link_flags="-Wl,-rpath=\$ORIGIN"
 echo Building C++ application with old compiler with outdated libstdc++...
 # Passing -nodefaultlibs to avoid auto-linking to GCC-bundled libstdc++ (/usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so)
 # TODO: Switch to -nostdlib++ after upgrading to GCC 13
+# Need to link to static GCC exception handling library (gcc_eh) if using std::ifstream
 # Add -Wl,--trace to list linked-to libraries
-g++ main.cpp -nodefaultlibs -L. -lc `pwd`/libstdc++.so.6 -lModernStuff $link_flags
+g++ main.cpp -nodefaultlibs -lgcc_eh -L. -lc `pwd`/libstdc++.so.6 -lModernStuff $link_flags
 
 #echo executable dependencies:
 #ldd a.out

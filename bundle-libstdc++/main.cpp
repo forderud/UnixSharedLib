@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cstdint>
+#include <fstream>
 #include "ModernStuff.hpp"
 
 int main () {
@@ -11,5 +12,12 @@ int main () {
     int sum = compute_sum(3, 4);
     printf("Return-value %i\n", sum);
 
+    {
+        std::ifstream file("README.md");
+        if (!file.is_open()) {
+            printf("ERROR: Unable to open file!\n");
+        }
+    }
+    
     return 0;
 }
