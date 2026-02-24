@@ -16,10 +16,12 @@ public:
 };
 
 int compute_sum (int a, int b) {
-    printf("ModernStuff built against glibc %d.%d\n", __GLIBC__, __GLIBC_MINOR__);
-    printf("ModernStuff built against libstdc++ %d\n", _GLIBCXX_RELEASE);
-	printf("ModernStuff C++ ABI %u\n", __GXX_ABI_VERSION);
-
+    {
+        std::string libName = "ModernStuff";
+        printf("%s built against glibc %d.%d\n", libName.c_str(), __GLIBC__, __GLIBC_MINOR__);
+        printf("%s built against libstdc++ %d\n", libName.c_str(), _GLIBCXX_RELEASE);
+        printf("%s C++ ABI %u\n", libName.c_str(), __GXX_ABI_VERSION);
+    }
     {
         printf("Testing dynamic memory allocation...\n");
         std::vector<uint8_t> buffer(1024*1014, (uint8_t)0);
