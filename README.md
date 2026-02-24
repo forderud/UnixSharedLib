@@ -5,6 +5,7 @@
 | Ubuntu 18.04 (Bionic Beaver)  |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
 | Ubuntu 22.04 (Jammy Jellyfish)|Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  | 11            |
 | Ubuntu 24.04 (Noble Numbat)   |Apr '24 - Apr '34| 6.8          | 2.39  | 13            |
+| Ubuntu 26.04 (Resolute Raccoon)|Apr '26 - TBD|           |   |             |
 | Fedora 43                     |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
 
 Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions) and [Fedora Linux release history](https://en.wikipedia.org/wiki/Fedora_Linux_release_history).
