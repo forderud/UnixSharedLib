@@ -15,7 +15,7 @@ Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikiped
 
 ### Glibc/GCC links
 * Glibc [Release Timeline](https://sourceware.org/glibc/wiki/Glibc%20Timeline)
-* Glibc [README](https://github.com/bminor/glibc/blob/master/README) (glibc 2.24-2.42 require Linux 3.2 or newer)
+* Glibc [README](https://github.com/bminor/glibc/blob/master/README) (glibc 2.24-2.42 require Linux 3.2 or newer that was released back in 2012)
 * [GCC Releases](https://gcc.gnu.org/releases.html) with dates
 * GNU C++ Library Manual: [Chapter 2. Setup](https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/doc/html/manual/setup.html) (glibc 2.3 or later is required for GCC >=4.6)
 * [C++ Standards Support in GCC](https://gcc.gnu.org/projects/cxx-status.html)
