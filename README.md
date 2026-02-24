@@ -3,7 +3,7 @@
 | Distro                        | Support life    | Linux kernel | Glibc | GCC/libstdc++ |
 |-------------------------------|-----------------|--------------|-------|---------------|
 | Ubuntu 18.04 (Bionic Beaver)  |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
-| Ubuntu 22.04 (Jammy Jellyfish)|Apr '22 - Apr '32| 5.15 or 5.17 |       |               |
+| Ubuntu 22.04 (Jammy Jellyfish)|Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  |               |
 | Ubuntu 24.04 (Noble Numbat)   |Apr '24 - Apr '34| 6.8          | 2.39  | 13            |
 | Fedora 43                     |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
 
