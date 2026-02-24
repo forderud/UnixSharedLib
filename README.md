@@ -1,6 +1,6 @@
 ### C/C++ libraries bundled with Linux distros
 
-| Distro                        | Support life    | Linux kernel | Glibc | GCC/libstdc++ |
+| Distro                        | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
 |-------------------------------|-----------------|--------------|-------|---------------|
 | Ubuntu 18.04 (Bionic Beaver)  |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
 | Ubuntu 22.04 (Jammy Jellyfish)|Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  | 11            |
