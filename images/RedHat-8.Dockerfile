@@ -1,4 +1,5 @@
-FROM redhat/ubi8:8.8
+#FROM redhat/ubi8:8.8
+FROM redhat/ubi8:8.10
 
 # Download & install GEHC root certificates
 RUN curl -o /etc/pki/ca-trust/source/anchors/gehealthcarerootca1.crt http://aia.ge-healthcare.net/gehealthcarerootca1.pem \
