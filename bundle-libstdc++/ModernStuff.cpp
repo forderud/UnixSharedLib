@@ -20,6 +20,9 @@ int compute_sum (int a, int b) {
     {
         std::string str = "Hello from string!";
         printf("String content: %s\n", str.c_str());
+
+        if (str.empty())
+            throw std::runtime_error("string missing");
     }
     {
         printf("Testing std::async...\n");
