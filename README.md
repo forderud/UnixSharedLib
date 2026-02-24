@@ -24,3 +24,6 @@ Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikiped
 * Fedora [`glibc` package](https://packages.fedoraproject.org/pkgs/glibc/glibc/), [`libstdc++` package](https://packages.fedoraproject.org/pkgs/gcc/libstdc++/)
 * DistroWatch: https://distrowatch.com/table.php?distribution=redhat (glibc 2.28 since RHEL 8.10 and glibc 2.17 since RHEL 7.9)
 * [Red Hat Enterprise Linux Life Cycle](https://access.redhat.com/support/policy/updates/errata) (RHEL 8 is supported from 2019-2029)
+
+### Other links
+* GCC demangler: https://www.demangler.com/
