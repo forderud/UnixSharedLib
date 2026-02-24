@@ -17,7 +17,10 @@ int compute_sum (int a, int b) {
         assert(buffer[1024] == 0);
         printf("[success]\n\n");
     }
-
+    {
+        std::string str = "Hello from string!";
+        printf("String content: %s\n", str.c_str());
+    }
     {
         printf("Testing std::async...\n");
         std::future<int> multiply = std::async(std::launch::async, [](int a, int b){
