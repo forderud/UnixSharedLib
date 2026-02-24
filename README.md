@@ -2,7 +2,7 @@
 
 | Distro                        | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
 |-------------------------------|-----------------|--------------|-------|---------------|
-| RedHat 8.8 - 8.10             |                 |              | 2.28  |               |
+| RedHat 8.8 - 8.10             | 2019 - 2029     |              | 2.28  |               |
 | Ubuntu 18.04 (Bionic Beaver)  |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
 | Ubuntu 22.04 (Jammy Jellyfish)|Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  | 11            |
 | Ubuntu 24.04 (Noble Numbat)   |Apr '24 - Apr '34| 6.8          | 2.39  | 13            |
