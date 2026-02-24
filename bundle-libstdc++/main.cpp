@@ -19,9 +19,14 @@ int main () {
     printf("executable built against libstdc++ %d\n", _GLIBCXX_RELEASE);
 	printf("executable C++ ABI %u\n", __GXX_ABI_VERSION);
 
+    printf("\n");
+    printf("Calling ModernStuff library...\n");
+
     int sum = compute_sum(3, 4);
     printf("Return-value %i\n", sum);
 
+    printf("\n");
+    printf("Client-side tests...\n");
     {
         // trigger "-lgcc_eh" need
         std::ifstream file("README.md");
