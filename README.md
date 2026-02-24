@@ -8,6 +8,8 @@
 | Ubuntu 26.04 (Resolute Raccoon)|Apr '26 - TBD|           |   |             |
 | Fedora 43                     |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
 
+Please note that the Linux kernel version is determined by the host when running Docker containers, since containers doesn't contain their own kernel.
+
 Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions) and [Fedora Linux release history](https://en.wikipedia.org/wiki/Fedora_Linux_release_history).
 
 ### Glibc/GCC links
