@@ -5,6 +5,15 @@
 #include <vector>
 #include "ModernStuff.hpp"
 
+class InternalRttiClass {
+public:
+    InternalRttiClass() {
+        printf("ctor\n");
+    }
+    virtual ~InternalRttiClass() {
+        printf("dtor\n");
+    }
+};
 
 int compute_sum (int a, int b) {
     printf("ModernStuff built against glibc %d.%d\n", __GLIBC__, __GLIBC_MINOR__);
@@ -33,6 +42,9 @@ int compute_sum (int a, int b) {
         assert(val == 12);
         printf("[success]\n");
     }
+
+    // test RTTI
+    printf("Typeid: %s\n", typeid(InternalRttiClass).name());
 
     return 12;
 }
