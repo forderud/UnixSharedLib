@@ -8,20 +8,20 @@
 #include <iostream>
 
 
-void PrintSymbolTable(char *cbytes, size_t dynstr_off, size_t dynsym_off, size_t dynsym_sz) {
-  printf("final value for dynstr_off = %zd\n", dynstr_off);
-  printf("final value for dynsym_off = %zd\n", dynsym_off);
-  printf("final value for dynsym_sz = %zd\n", dynsym_sz);
+void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
+  printf("str_off = %zd\n", dynstr_off);
+  printf("sym_off = %zd\n", dynsym_off);
+  printf("sym_sz = %zd\n", dynsym_sz);
 
-  for (size_t j = 0; j * sizeof(Elf64_Sym) < dynsym_sz; j++) {
+  for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym;
-    size_t absoffset = dynsym_off + j * sizeof(Elf64_Sym);
+    size_t absoffset = sym_off + j * sizeof(Elf64_Sym);
     memcpy(&sym, cbytes + absoffset, sizeof(sym));
 
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
-      printf(" (%s)", cbytes + dynstr_off + sym.st_name);
+      printf(" (%s)", cbytes + str_off + sym.st_name);
     }
     printf("\n");
     printf("st_info = %d\n", sym.st_info);
