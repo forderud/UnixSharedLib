@@ -156,6 +156,8 @@ int main(int argc, char **argv) {
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
+        dynsym_off = shdr.sh_offset;
+        dynsym_sz = shdr.sh_size;
         printf("found symtab table at offset %zd (index %zd)\n", shdr.sh_offset, i);
         // TODO: implement
         break;
@@ -167,8 +169,8 @@ int main(int argc, char **argv) {
         }
         break;
       case SHT_DYNSYM:
-        dynsym_off = shdr.sh_offset;
-        dynsym_sz = shdr.sh_size;
+        //dynsym_off = shdr.sh_offset;
+        //dynsym_sz = shdr.sh_size;
         printf("found dynsym table at %zd, size %zd (index %zd)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       default:
