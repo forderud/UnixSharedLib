@@ -13,5 +13,5 @@ echo Running mainApp:
 
 echo ""
 echo "Parsing mainApp symbols..."
-g++ parse_elf.cpp -o parse_elf
+g++ -g parse_elf.cpp -o parse_elf
 ./parse_elf mainApp
