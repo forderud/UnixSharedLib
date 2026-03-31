@@ -9,9 +9,9 @@
 
 
 void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
-  printf("str_off = %zd\n", str_off);
-  printf("sym_off = %zd\n", sym_off);
-  printf("sym_sz = %zd\n", sym_sz);
+  //printf("str_off = %zd\n", str_off);
+  //printf("sym_off = %zd\n", sym_off);
+  //printf("sym_sz = %zd\n", sym_sz);
 
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym;
@@ -161,8 +161,6 @@ int main(int argc, char **argv) {
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr;
           memcpy(&st_shdr, pybytes + st_offset, sizeof(st_shdr));
-          printf("... corresponding string table offset %zd\n", st_shdr.sh_offset);
-          fflush(stdout);
           // print symbols
           PrintSymbolTable(cbytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
