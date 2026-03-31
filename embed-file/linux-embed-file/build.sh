@@ -10,3 +10,7 @@ g++ main.cpp embed_example.o -o mainApp
 echo ""
 echo Running mainApp:
 ./mainApp
+
+echo "Parsing mainApp symbols..."
+g++ parse_elf.cpp -o parse_elf
+./parse_elf mainApp
