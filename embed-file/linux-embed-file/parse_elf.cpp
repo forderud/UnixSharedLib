@@ -18,6 +18,9 @@ void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_s
     size_t absoffset = sym_off + j * sizeof(Elf64_Sym);
     memcpy(&sym, cbytes + absoffset, sizeof(sym));
 
+    if (!sym.st_name)
+      continue; // skip entries without name
+
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
