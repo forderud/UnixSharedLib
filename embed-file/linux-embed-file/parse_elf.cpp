@@ -8,6 +8,33 @@
 #include <iostream>
 
 
+void PrintSymbolTable(char *cbytes, size_t dynstr_off, size_t dynsym_off, size_t dynsym_sz) {
+  printf("final value for dynstr_off = %zd\n", dynstr_off);
+  printf("final value for dynsym_off = %zd\n", dynsym_off);
+  printf("final value for dynsym_sz = %zd\n", dynsym_sz);
+
+  for (size_t j = 0; j * sizeof(Elf64_Sym) < dynsym_sz; j++) {
+    Elf64_Sym sym;
+    size_t absoffset = dynsym_off + j * sizeof(Elf64_Sym);
+    memcpy(&sym, cbytes + absoffset, sizeof(sym));
+
+    printf("SYMBOL TABLE ENTRY %zd\n", j);
+    printf("st_name = %d", sym.st_name);
+    if (sym.st_name != 0) {
+      printf(" (%s)", cbytes + dynstr_off + sym.st_name);
+    }
+    printf("\n");
+    printf("st_info = %d\n", sym.st_info);
+    printf("st_other = %d\n", sym.st_other);
+    printf("st_shndx = %d\n", sym.st_shndx);
+    printf("st_value = %p\n", (void *)sym.st_value);
+    printf("st_size = %zd\n", sym.st_size);
+    printf("\n");
+  }
+  printf("\n");
+}
+
+
 int main(int argc, char **argv) {
   if (argc != 2) {
     printf("usage: %s <elf-binary>\n", argv[0]);
@@ -147,28 +174,7 @@ int main(int argc, char **argv) {
   }
   assert(dynstr_off);
   assert(dynsym_off);
-  printf("final value for dynstr_off = %zd\n", dynstr_off);
-  printf("final value for dynsym_off = %zd\n", dynsym_off);
-  printf("final value for dynsym_sz = %zd\n", dynsym_sz);
-
-  for (size_t j = 0; j * sizeof(Elf64_Sym) < dynsym_sz; j++) {
-    Elf64_Sym sym;
-    size_t absoffset = dynsym_off + j * sizeof(Elf64_Sym);
-    memcpy(&sym, cbytes + absoffset, sizeof(sym));
-
-    printf("SYMBOL TABLE ENTRY %zd\n", j);
-    printf("st_name = %d", sym.st_name);
-    if (sym.st_name != 0) {
-      printf(" (%s)", cbytes + dynstr_off + sym.st_name);
-    }
-    printf("\n");
-    printf("st_info = %d\n", sym.st_info);
-    printf("st_other = %d\n", sym.st_other);
-    printf("st_shndx = %d\n", sym.st_shndx);
-    printf("st_value = %p\n", (void *)sym.st_value);
-    printf("st_size = %zd\n", sym.st_size);
-    printf("\n");
-  }
-  printf("\n");
+  PrintSymbolTable(cbytes, dynstr_off, dynsym_off, dynsym_sz);
+  
   return 0;
 }
