@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
       case SHT_DYNSYM:
         dynsym_off = shdr.sh_offset;
         dynsym_sz = shdr.sh_size;
-        printf("found dynsym table at %zd, size %zd (index %zd)\n", shdr.sh_offset, shdr.sh_size, i);
+        printf("found dynsym table at offset %zd, size %zd (index %zd)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       default:
         break;
