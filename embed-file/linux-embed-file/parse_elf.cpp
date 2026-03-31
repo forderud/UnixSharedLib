@@ -1,3 +1,4 @@
+// based on https://github.com/eklitzke/parse-elf
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
@@ -37,9 +38,10 @@ int main(int argc, char **argv) {
   fclose(pyfile);
   printf("%p\n", pybytes);
 
-  const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   Elf64_Ehdr elf_hdr;
-  memmove(&elf_hdr, pybytes, sizeof(elf_hdr));
+  memcpy(&elf_hdr, pybytes, sizeof(elf_hdr));
+
+  const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
     std::cerr << "Target is not an ELF executable\n";
     return 1;
@@ -70,7 +72,8 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr;
-    memmove(&phdr, pybytes + offset, sizeof(phdr));
+    memcpy(&phdr, pybytes + offset, sizeof(phdr));
+ 
     printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
     printf("========================\n");
     printf("p_type = ");
@@ -126,7 +129,8 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
     Elf64_Shdr shdr;
-    memmove(&shdr, pybytes + offset, sizeof(shdr));
+    memcpy(&shdr, pybytes + offset, sizeof(shdr));
+
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
       case SHT_STRTAB:
@@ -155,7 +159,8 @@ int main(int argc, char **argv) {
   for (size_t j = 0; j * sizeof(Elf64_Sym) < dynsym_sz; j++) {
     Elf64_Sym sym;
     size_t absoffset = dynsym_off + j * sizeof(Elf64_Sym);
-    memmove(&sym, cbytes + absoffset, sizeof(sym));
+    memcpy(&sym, cbytes + absoffset, sizeof(sym));
+
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
