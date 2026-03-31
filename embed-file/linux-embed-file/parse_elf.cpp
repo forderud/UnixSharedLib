@@ -54,10 +54,6 @@ int main(int argc, char **argv) {
     return 1;
   }
 #endif
-  if (elf_hdr.e_machine != EM_X86_64) {
-    std::cerr << "Sorry, only x86-64 is supported.\n";
-    return 1;
-  }
 
   printf("file size: %zd\n", pyfile_size);
   printf("program header offset: %zd\n", elf_hdr.e_phoff);
