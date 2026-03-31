@@ -156,13 +156,15 @@ int main(int argc, char **argv) {
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
-        printf("found symtab table at offset %zd, sh_link %zd (index %zd)\n", shdr.sh_offset, shdr.sh_link, i);
-        // access corresponding string table entry
-        size_t st_offset = elf_hdr.e_shoff + shdr.sh_offset * elf_hdr.e_shentsize;
-        Elf64_Shdr st_shdr;
-        memcpy(&st_shdr, pybytes + st_offset, sizeof(shdr));
-        // print symbols
-        PrintSymbolTable(cbytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+        {
+          printf("found symtab table at offset %zd, sh_link %zd (index %zd)\n", shdr.sh_offset, shdr.sh_link, i);
+          // access corresponding string table entry
+          size_t st_offset = elf_hdr.e_shoff + shdr.sh_offset * elf_hdr.e_shentsize;
+          Elf64_Shdr st_shdr;
+          memcpy(&st_shdr, pybytes + st_offset, sizeof(shdr));
+          // print symbols
+          PrintSymbolTable(cbytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+        }
         break;
       case SHT_STRTAB:
         printf("found string table at offset %zd (index %zd)\n", shdr.sh_offset, i);
