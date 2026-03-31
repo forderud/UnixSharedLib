@@ -9,9 +9,9 @@
 
 
 void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
-  printf("str_off = %zd\n", dynstr_off);
-  printf("sym_off = %zd\n", dynsym_off);
-  printf("sym_sz = %zd\n", dynsym_sz);
+  printf("str_off = %zd\n", str_off);
+  printf("sym_off = %zd\n", sym_off);
+  printf("sym_sz = %zd\n", sym_sz);
 
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym;
