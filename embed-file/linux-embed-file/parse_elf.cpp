@@ -156,6 +156,9 @@ int main(int argc, char **argv) {
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
+        printf("found symtab table at offset %zd (index %zd)\n", shdr.sh_offset, i);
+        // TODO: implement
+        break;
       case SHT_STRTAB:
         printf("found string table at offset %zd (index %zd)\n", shdr.sh_offset, i);
         // TODO: have to handle multiple string tables better
