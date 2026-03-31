@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
       case SHT_SYMTAB:
         //dynsym_off = shdr.sh_offset;
         //dynsym_sz = shdr.sh_size;
-        printf("found symtab table at offset %zd, sh_link%zd (index %zd)\n", shdr.sh_offset, shdr.sh_link, i);
+        printf("found symtab table at offset %zd, sh_link %zd (index %zd)\n", shdr.sh_offset, shdr.sh_link, i);
         // TODO: implement
         break;
       case SHT_STRTAB:
