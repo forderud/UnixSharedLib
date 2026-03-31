@@ -29,7 +29,7 @@ void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_s
     printf("\n");
     printf("st_info = %d\n", sym.st_info);
     printf("st_other = %d\n", sym.st_other);
-    printf("st_shndx = %d\n", sym.st_shndx);
+    printf("st_shndx = %d\n", sym.st_shndx); // associated section header table index
     printf("st_value = %p\n", (void *)sym.st_value);
     printf("st_size = %zd\n", sym.st_size);
     printf("\n");
