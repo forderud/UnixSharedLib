@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
           // access corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_offset * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr;
-          memcpy(&st_shdr, pybytes + st_offset, sizeof(shdr));
+          memcpy(&st_shdr, pybytes + st_offset, sizeof(st_shdr));
           printf("... corresponding string table offset %zd\n", st_shdr.sh_offset);
           fflush(stdout);
           // print symbols
