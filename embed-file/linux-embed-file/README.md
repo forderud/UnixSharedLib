@@ -2,4 +2,4 @@
 
 
 ## Documentation
-* Linux manual page - [elf(5)](https://man7.org/linux/man-pages/man5/elf.5.html)
+* Linux manual page - [elf(5)](https://man7.org/linux/man-pages/man5/elf.5.html) - documents `Elf64_Ehdr`, `Elf64_Phdr`, `Elf64_Shdr`, `Elf64_Sym`
