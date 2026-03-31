@@ -1,17 +1,12 @@
 // based on https://github.com/eklitzke/parse-elf
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
 #include <elf.h>
 #include <unistd.h>
 #include <sys/mman.h>
-
 #include <cassert>
 #include <cstdio>
 #include <cstring>
-
 #include <iostream>
+
 
 int main(int argc, char **argv) {
   if (argc != 2) {
