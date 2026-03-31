@@ -144,10 +144,6 @@ int main(int argc, char **argv) {
     printf("\n");
   }
 
-  size_t dynstr_off = 0;
-  size_t dynsym_off = 0;
-  size_t dynsym_sz = 0;
-
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
@@ -158,7 +154,7 @@ int main(int argc, char **argv) {
       case SHT_SYMTAB:
         {
           printf("found symtab table at offset %zd, sh_link %zd (index %zd)\n", shdr.sh_offset, shdr.sh_link, i);
-          // access corresponding string table entry
+          // get corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr;
           memcpy(&st_shdr, pybytes + st_offset, sizeof(st_shdr));
@@ -176,19 +172,14 @@ int main(int argc, char **argv) {
         }
         break;
       case SHT_DYNSYM:
-        dynsym_off = shdr.sh_offset;
-        dynsym_sz = shdr.sh_size;
+        //dynsym_off = shdr.sh_offset;
+        //dynsym_sz = shdr.sh_size;
         printf("found dynsym table at offset %zd, size %zd (index %zd)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       default:
         break;
     }
   }
-  printf("\n");
-
-  assert(dynstr_off);
-  assert(dynsym_off);
-  PrintSymbolTable(cbytes, dynstr_off, dynsym_off, dynsym_sz);
-  
+  printf("\n");  
   return 0;
 }
