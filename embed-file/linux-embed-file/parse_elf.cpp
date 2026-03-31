@@ -162,6 +162,7 @@ int main(int argc, char **argv) {
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_offset * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr;
           memcpy(&st_shdr, pybytes + st_offset, sizeof(shdr));
+          printf("... corresponding string table offset %zd\n", st_shdr.sh_offset);
           // print symbols
           PrintSymbolTable(cbytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
