@@ -156,9 +156,9 @@ int main(int argc, char **argv) {
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
       case SHT_STRTAB:
+        printf("found string table at %zd\n", shdr.sh_offset);
         // TODO: have to handle multiple string tables better
         if (!dynstr_off) {
-          printf("found string table at %zd\n", shdr.sh_offset);
           dynstr_off = shdr.sh_offset;
         }
         break;
@@ -172,6 +172,8 @@ int main(int argc, char **argv) {
         break;
     }
   }
+  printf("\n");
+
   assert(dynstr_off);
   assert(dynsym_off);
   PrintSymbolTable(cbytes, dynstr_off, dynsym_off, dynsym_sz);
