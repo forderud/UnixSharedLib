@@ -148,6 +148,7 @@ int main(int argc, char **argv) {
   size_t dynsym_off = 0;
   size_t dynsym_sz = 0;
 
+  // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
     Elf64_Shdr shdr;
