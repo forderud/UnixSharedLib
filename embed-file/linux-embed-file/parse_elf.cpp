@@ -167,9 +167,9 @@ int main(int argc, char **argv) {
       case SHT_STRTAB:
         printf("found string table at offset %zd (index %zd)\n", shdr.sh_offset, i);
         // TODO: have to handle multiple string tables better
-        if (!dynstr_off) {
-          dynstr_off = shdr.sh_offset;
-        }
+        //if (!dynstr_off) {
+        //  dynstr_off = shdr.sh_offset;
+        //}
         break;
       case SHT_DYNSYM:
         //dynsym_off = shdr.sh_offset;
