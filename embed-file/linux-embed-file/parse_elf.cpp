@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
       case SHT_STRTAB:
-        printf("found string table at %zd\n", shdr.sh_offset);
+        printf("found string table at offset %zd (index %zd)\n", shdr.sh_offset, i);
         // TODO: have to handle multiple string tables better
         if (!dynstr_off) {
           dynstr_off = shdr.sh_offset;
@@ -166,8 +166,7 @@ int main(int argc, char **argv) {
       case SHT_DYNSYM:
         dynsym_off = shdr.sh_offset;
         dynsym_sz = shdr.sh_size;
-        printf("found dynsym table at %zd, size %zd\n", shdr.sh_offset,
-               shdr.sh_size);
+        printf("found dynsym table at %zd, size %zd (index %zd)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       default:
         break;
