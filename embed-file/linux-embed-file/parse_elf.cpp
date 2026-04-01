@@ -17,8 +17,7 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
 
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym{};
-    size_t absoffset = sym_off + j * sizeof(Elf64_Sym);
-    memcpy(&sym, file_ptr + absoffset, sizeof(sym));
+    memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
 
     if (!sym.st_name)
       continue; // skip entries without name
@@ -182,7 +181,7 @@ int main(int argc, char **argv) {
       case SHT_DYNSYM:
         //dynsym_off = shdr.sh_offset;
         //dynsym_sz = shdr.sh_size;
-        printf("found dynsym table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
+        //printf("found dynsym table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       case SHT_PROGBITS:
         printf("found PROGBITS table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
