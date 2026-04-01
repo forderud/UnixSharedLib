@@ -2,8 +2,9 @@
 {
 global:
      /* Make certain symbols public */
-    MyLibFunction;
     *embed_example*;
+    mylib_array;
+    MyLibFunction;
 local:
     /* Hide all other symbols by default */
     *;

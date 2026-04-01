@@ -9,8 +9,7 @@ echo ""
 echo Building libmylib.so...
 g++ -fPIC -c mylib.cpp -o mylib.o
 # -fvisibility=default
-# -Wl,--version-script=mylib.map
-g++ -shared -o libmylib.so mylib.o
+g++ -shared -Wl,--version-script=mylib.map -o libmylib.so mylib.o
 
 echo Building mainApp...
 g++ main.cpp -L. -lmylib -Wl,-rpath=. embed_example.o -o mainApp
