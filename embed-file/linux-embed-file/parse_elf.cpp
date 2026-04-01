@@ -88,7 +88,21 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-void FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
+size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+  for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
+    Elf64_Sym sym{};
+    memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
+
+    auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
+    auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
+
+    const char* cur_name = file_ptr + str_off + sym.st_name;
+    if (strcmp(cur_name, symbol) == 0) {
+      printf("found symbol %s at index %zd\n", symbol, j);
+      return sym.st_value;
+    }
+  }
+  return 0;
 }
 
 
@@ -114,7 +128,7 @@ void SearchForSymbols(const char *file_ptr, const char* symbol) {
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // print symbols
-    FindSymbols(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+    FindSymbols(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
   }  
 }
 
