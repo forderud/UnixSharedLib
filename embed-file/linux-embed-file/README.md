@@ -8,14 +8,14 @@
 ```
 embed-file/linux-embed-file$ readelf -s libmylib.so 
 ...
-Symbol table '.symtab' contains 99 entries:
+Symbol table '.symtab' contains 82 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
 ...
-    78: 000000000042002c     0 NOTYPE  GLOBAL DEFAULT   23 _binary_embed_ex[...]
+    72: 0000000000020033     0 NOTYPE  GLOBAL DEFAULT   22 _binary_embed_ex[...]
 ...
-    93: 000000000000000c     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_embed_ex[...]
+    77: 0000000000000029     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_embed_ex[...]
 ...
-    95: 0000000000420038     0 NOTYPE  GLOBAL DEFAULT   23 _binary_embed_ex[...]
+    79: 000000000002005c     0 NOTYPE  GLOBAL DEFAULT   22 _binary_embed_ex[...]
 ...
 ```
 
