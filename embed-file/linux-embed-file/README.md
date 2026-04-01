@@ -6,7 +6,7 @@
 
 ## readelf symbol dump (extract of output)
 ```
-embed-file/linux-embed-file$ readelf -s mainApp 
+embed-file/linux-embed-file$ readelf -s libmylib.so 
 ...
 Symbol table '.symtab' contains 99 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
