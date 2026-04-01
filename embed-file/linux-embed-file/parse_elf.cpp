@@ -122,9 +122,6 @@ int main(int argc, char **argv) {
     printf("section header offset: %zd\n", elf_hdr.e_shoff);
     printf("section header num: %d\n", elf_hdr.e_shnum);
     printf("section header string table: %d\n", elf_hdr.e_shstrndx);
-
-    size_t string_offset = elf_hdr.e_shstrndx;
-    printf("string offset at %zd\n", string_offset);
     printf("\n");
   }
 #endif
