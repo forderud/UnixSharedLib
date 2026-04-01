@@ -97,6 +97,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  printf("Parsing ELF symbols in %s...\n", argv[1]);
   FileMap file(argv[1]);
 
   Elf64_Ehdr elf_hdr{};
