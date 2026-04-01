@@ -94,11 +94,11 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
 
     if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
-        printf("found symbol %s START at index %zd\n", symbol_name_prefix, i);
+        //printf("found symbol %s START at index %zd\n", symbol_name_prefix, i);
         st_shndx = sym.st_shndx;
         start_offset = sym.st_value;
       } else if (strcmp(cur_name + sym_len, "_end") == 0) {
-        printf("found symbol %s END at index %zd\n", symbol_name_prefix, i);
+        //printf("found symbol %s END at index %zd\n", symbol_name_prefix, i);
         end_offset = sym.st_value;
       }
     }
