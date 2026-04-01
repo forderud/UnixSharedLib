@@ -81,7 +81,7 @@ private:
 };
 
 struct ElfSectionHeader : Elf64_Shdr {
-    ElfSectionHeader(const void* file_ptr, const Elf64_Ehdr elf_hdr, uint16_t idx) {
+    ElfSectionHeader(const char* file_ptr, const Elf64_Ehdr elf_hdr, uint16_t idx) {
         size_t offset = elf_hdr.e_shoff + idx*elf_hdr.e_shentsize;
         memcpy(this, file_ptr + offset, sizeof(Elf64_Shdr));
     }
@@ -189,9 +189,7 @@ int main(int argc, char **argv) {
         {
           printf("found symtab table at offset %zd, sh_link %u (index %d)\n", shdr.sh_offset, shdr.sh_link, i);
           // get corresponding string table entry
-          size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
-          Elf64_Shdr st_shdr{};
-          memcpy(&st_shdr, file.ptr() + st_offset, sizeof(st_shdr));
+          ElfSectionHeader st_shdr(file.ptr(), elf_hdr, shdr.sh_link);
           // print symbols
           PrintSymbolTable(file.ptr(), st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
