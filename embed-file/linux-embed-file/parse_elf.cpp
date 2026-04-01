@@ -132,9 +132,8 @@ int main(int argc, char **argv) {
     Elf64_Phdr phdr{};
     memcpy(&phdr, file.ptr() + elf_hdr.e_phoff + i*elf_hdr.e_phentsize, sizeof(phdr));
  
-    printf("PROGRAM HEADER %d\n", i);
-    printf("========================\n");
-    printf("p_type = ");
+    printf("PROGRAM HEADER %d:\n", i);
+    printf("  p_type = ");
     switch (phdr.p_type) {
       case PT_NULL:
         puts("PT_NULL");
@@ -170,13 +169,13 @@ int main(int argc, char **argv) {
         printf("UNKNOWN/%d\n", phdr.p_type);
         break;
     }
-    printf("p_offset = %zd\n", phdr.p_offset);
-    printf("p_vaddr = %zd\n", phdr.p_vaddr);
-    printf("p_paddr = %zd\n", phdr.p_paddr);
-    printf("p_filesz = %zd\n", phdr.p_filesz);
-    printf("p_memsz = %zd\n", phdr.p_memsz);
-    printf("p_flags = %d\n", phdr.p_flags);
-    printf("p_align = %lu\n", phdr.p_align);
+    printf("  p_offset = %zd\n", phdr.p_offset);
+    printf("  p_vaddr = %zd\n", phdr.p_vaddr);
+    printf("  p_paddr = %zd\n", phdr.p_paddr);
+    printf("  p_filesz = %zd\n", phdr.p_filesz);
+    printf("  p_memsz = %zd\n", phdr.p_memsz);
+    printf("  p_flags = %d\n", phdr.p_flags);
+    printf("  p_align = %lu\n", phdr.p_align);
     printf("\n");
   }
 #endif
