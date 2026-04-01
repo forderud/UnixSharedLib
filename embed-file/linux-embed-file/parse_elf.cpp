@@ -85,7 +85,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
+std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
@@ -143,7 +143,7 @@ std::string_view FindDataSection(const char *file_ptr, const char* symbol_name_p
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // get symbol data
-    std::string_view data = FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol_name_prefix);
+    std::string_view data = FindInSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol_name_prefix);
     if (!data.empty())
       return data;
   }
