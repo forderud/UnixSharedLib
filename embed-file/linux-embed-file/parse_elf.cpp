@@ -139,7 +139,7 @@ void SearchForSymbols(const char *file_ptr, const char* symbol) {
     if (shdr.sh_type != SHT_SYMTAB)
       continue;
 
-    printf("found SHT_SYMTAB (symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
+    //printf("found SHT_SYMTAB (symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // print symbols
