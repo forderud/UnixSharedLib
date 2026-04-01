@@ -3,6 +3,7 @@
 extern "C" {
     extern char _binary_embed_example_txt_start[]; // start of embedded ASCII file
     extern char _binary_embed_example_txt_end[];
+    extern int MyLibFunction();
 }
 
 int main() {
@@ -10,5 +11,7 @@ int main() {
     printf("File size   : %zd\n", fileSize);
     printf("File content: ");
     printf("%.*s\n", (int)fileSize, _binary_embed_example_txt_start); // specify size since file content may not be null-terminated
+
+    MyLibFunction();
     return 0;
 }

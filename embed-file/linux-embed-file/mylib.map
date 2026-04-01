@@ -2,9 +2,8 @@
 {
 global:
      /* Make certain symbols public */
-    _binary_embed_example_txt_start;
-    _binary_embed_example_txt_end;
-    _binary_embed_example_txt_size;
+    MyLibFunction;
+    *embed_example*;
 local:
     /* Hide all other symbols by default */
     *;
