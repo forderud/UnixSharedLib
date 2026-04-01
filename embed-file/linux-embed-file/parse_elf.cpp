@@ -1,5 +1,7 @@
 // based on https://github.com/eklitzke/parse-elf
 #include <elf.h>
+#include <fcntl.h> // open/close
+#include <sys/stat.h> // fstat
 #include <unistd.h>
 #include <sys/mman.h>
 #include <cassert>
@@ -43,24 +45,24 @@ int main(int argc, char **argv) {
     printf("usage: %s <elf-binary>\n", argv[0]);
     return 1;
   }
-  FILE *pyfile = fopen(argv[1], "r");
-  if (pyfile == nullptr) {
+  int fd = open(argv[1], O_RDONLY);
+  if (fd == -1) {
     return 1;
   }
-  if (fseek(pyfile, 0, SEEK_END)) {
-    fclose(pyfile);
-    return 1;
-  }
-  long pyfile_size = ftell(pyfile);
 
-  void *pybytes = mmap(nullptr, (size_t)pyfile_size, PROT_READ, MAP_PRIVATE,
-                       fileno(pyfile), 0);
+  struct stat sb{};
+  if (fstat(fd, &sb) == -1) { // obtain file size
+    close(fd);
+    return 1;
+  }
+
+  void *pybytes = mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (pybytes == nullptr) {
-    fclose(pyfile);
+    close(fd);
     perror("mmap()");
     return 1;
   }
-  fclose(pyfile);
+  close(fd);
   printf("%p\n", pybytes);
 
   Elf64_Ehdr elf_hdr;
@@ -82,7 +84,7 @@ int main(int argc, char **argv) {
   }
 #endif
 
-  printf("file size: %zd\n", pyfile_size);
+  printf("file size: %zd\n", sb.st_size);
   printf("program header offset: %zd\n", elf_hdr.e_phoff);
   printf("program header num: %d\n", elf_hdr.e_phnum);
   printf("section header offset: %zd\n", elf_hdr.e_shoff);
