@@ -21,4 +21,4 @@ echo Running mainApp:
 
 echo ""
 g++ -g parse_elf.cpp -o parse_elf
-#./parse_elf mainApp
+./parse_elf mainApp
