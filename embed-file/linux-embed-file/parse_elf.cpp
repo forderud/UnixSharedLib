@@ -214,8 +214,8 @@ int main(int argc, char **argv) {
         break;
     }
 
-    printf("  sh_offset %zd\n", shdr.sh_offset);
-    printf("  sh_name %u (index %d)\n", shdr.sh_name, i);
+    printf("  sh_offset 0x%lx\n", shdr.sh_offset);
+    printf("  sh_name %u\n", shdr.sh_name);
   }
 
   printf("\n");
