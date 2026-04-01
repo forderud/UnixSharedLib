@@ -209,6 +209,7 @@ int main(int argc, char **argv) {
         break;
       case SHT_PROGBITS:
         printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
+        printf("  content: %.*s\n", (int)shdr.sh_size, file.ptr() + shdr.sh_offset);
         break;
       default:
         printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
