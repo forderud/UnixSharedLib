@@ -88,9 +88,15 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
+void PrintSectionHeaders(const char *file_ptr, const char* symbol) {
+  // recipie for extracting embedded symbols:
+  // 1: Find SHT_SYMTAB section "st" with the desired symbol
+  // 2: Find corresponding .data section "data" from st_shndx
+  // 3: Content: file.ptr() + st.st_value + data.sh_offset - data.sh_addr
+}
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
+  if (argc < 2) {
     printf("usage: %s <elf-binary>\n", argv[0]);
     return 1;
   }
@@ -111,12 +117,11 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  PrintSectionHeaders(file.ptr());
-
-  // recipie for extracting embedded symbols:
-  // 1: Find SHT_SYMTAB section "st" with the desired symbol
-  // 2: Find corresponding .data section "data" from st_shndx
-  // 3: Content: file.ptr() + st.st_value + data.sh_offset - data.sh_addr
+  if (argc == 2) {
+    PrintSectionHeaders(file.ptr());
+  } else {
+    PrintSectionHeaders(argv[2]);
+  }
 
   printf("\n");
   return 0;
