@@ -133,17 +133,16 @@ std::string_view SearchForSymbol(const char *file_ptr, const char* symbol) {
   // section header string table
   ElfSectionHeader shst(file_ptr, elf_hdr.e_shstrndx);
 
-  // parse Section header (Shdr)
+  // iterate over Section header list (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     ElfSectionHeader shdr(file_ptr, i);
 
     if (shdr.sh_type != SHT_SYMTAB)
       continue;
 
-    //printf("found SHT_SYMTAB (symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
-    // print symbols
+    // get symbol data
     std::string_view data = FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
     if (!data.empty())
       return data;
