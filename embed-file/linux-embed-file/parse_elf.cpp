@@ -198,14 +198,8 @@ int main(int argc, char **argv) {
         break;
       case SHT_STRTAB:
         printf("found SHT_STRTAB (string) table, size %zd (index %d)\n", shdr.sh_size, i);
-        // TODO: have to handle multiple string tables better
-        //if (!dynstr_off) {
-        //  dynstr_off = shdr.sh_offset;
-        //}
         break;
       case SHT_DYNSYM:
-        //dynsym_off = shdr.sh_offset;
-        //dynsym_sz = shdr.sh_size;
         printf("found SHT_DYNSYM table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       case SHT_PROGBITS:
