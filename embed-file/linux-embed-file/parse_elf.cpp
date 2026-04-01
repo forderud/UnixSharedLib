@@ -179,6 +179,9 @@ int main(int argc, char **argv) {
   }
 #endif
 
+  // section header string table
+  ElfSectionHeader shst_shdr(file.ptr(), elf_hdr.e_shstrndx);
+
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     ElfSectionHeader shdr(file.ptr(), i);
@@ -222,7 +225,7 @@ int main(int argc, char **argv) {
     }
 
     printf("  sh_offset 0x%lx\n", shdr.sh_offset);
-    printf("  sh_name %u\n", shdr.sh_name); // TODO: Resolve string names
+    printf("  name: %s\n", file.ptr() + shst_shdr.sh_offset + shdr.sh_name);
   }
 
   printf("\n");
