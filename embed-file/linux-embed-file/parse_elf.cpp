@@ -89,12 +89,12 @@ void PrintSectionHeaders(const char *file_ptr) {
 }
 
 size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+  uint16_t st_shndx = 0;
+  size_t start_offset = 0, end_offset = 0;
+
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
-
-    auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
-    auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
     size_t sym_len = strlen(symbol);
     const char* cur_name = file_ptr + str_off + sym.st_name;
@@ -102,13 +102,19 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     if ((strncmp(cur_name, symbol, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
         printf("found symbol %s START at index %zd\n", symbol, j);
-        //sym.st_value;
+        start_offset = sym.st_value;
+        st_shndx = sym.st_shndx;
       } else if (strcmp(cur_name + sym_len, "_end") == 0) {
         printf("found symbol %s END at index %zd\n", symbol, j);
-        //sym.st_value;
+        end_offset = sym.st_value;
       }
     }
   }
+
+  printf("st_shndx %u\n", st_shndx);
+  printf("start_offset %u\n", start_offset);
+  printf("end_offset %u\n", end_offset);
+
   return 0;
 }
 
