@@ -208,7 +208,12 @@ int main(int argc, char **argv) {
         //printf("found %d table at offset %zd, size %zd (index %d)\n", shdr.sh_type, shdr.sh_offset, shdr.sh_size, i);
         break;
     }
+
+    if (shdr.sh_name) {
+      printf("shdr.sh_name=%u (index %d)\n", shdr.sh_name, i);
+    }
   }
+
   printf("\n");
   return 0;
 }
