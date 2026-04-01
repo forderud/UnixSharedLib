@@ -4,7 +4,7 @@ extern "C" {
     extern char _binary_embed_example_txt_start[]; // start of embedded ASCII file
     extern char _binary_embed_example_txt_end[];
     extern char mylib_array[];
-    extern int MyLibFunction();
+    extern void MyLibFunction();
 }
 
 int main() {
