@@ -111,7 +111,7 @@ std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t 
     }
   }
 
-  if (!st_shndx && !start_offset && !end_offset)
+  if (!start_offset || !end_offset)
     return {};
 
   ElfSectionHeader data(file_ptr, st_shndx);
