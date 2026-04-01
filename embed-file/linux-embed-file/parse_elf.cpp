@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
+void PrintSymbolTable(const char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
   //printf("str_off = %zd\n", str_off);
   //printf("sym_off = %zd\n", sym_off);
   //printf("sym_sz = %zd\n", sym_sz);
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
   }
 
   size_t file_size = 0;
-  char *file_ptr = nullptr;
+  const char *file_ptr = nullptr;
   {
     int fd = open(argv[1], O_RDONLY);
     if (fd == -1) {
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     }
     file_size = sb.st_size;
 
-    file_ptr = (char*)mmap(nullptr, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    file_ptr = (const char*)mmap(nullptr, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (file_ptr == nullptr) {
       close(fd);
       perror("mmap()");
@@ -187,6 +187,6 @@ int main(int argc, char **argv) {
   }
   printf("\n");
 
-  munmap(file_ptr, file_size);
+  munmap((void*)file_ptr, file_size);
   return 0;
 }
