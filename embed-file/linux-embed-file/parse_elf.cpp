@@ -137,12 +137,14 @@ int main(int argc, char **argv) {
       case SHT_PROGBITS:
         {
           printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
+#if 0
           std::vector<char> buffer(shdr.sh_size);
           memcpy(buffer.data(), file.ptr() + shdr.sh_offset, buffer.size());
           for(char& c: buffer) {
               if (c == 0) c = ' '; // convert null termination to spaces to display of the entire buffer
           }
           printf("  content: %.*s\n", (int)buffer.size(), buffer.data());
+#endif
         }
         break;
       default:
