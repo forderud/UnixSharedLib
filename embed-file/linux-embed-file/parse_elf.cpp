@@ -85,7 +85,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
+std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
   uint16_t st_shndx = 0;
   size_t start_offset = (size_t)-1;
   size_t end_offset = (size_t)-1;
@@ -115,8 +115,8 @@ std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t 
   if ((start_offset == (size_t)-1) || (end_offset == (size_t)-1))
     return {}; // start/end symbols not found
 
+  // determine data section address range
   ElfSectionHeader data(file_ptr, st_shndx);
-
   const char* start = file_ptr + start_offset + data.sh_offset - data.sh_addr;
   const char* end = file_ptr + end_offset + data.sh_offset - data.sh_addr;
   return std::string_view(start, end - start);
@@ -144,7 +144,7 @@ std::string_view FindDataSection(const char *file_ptr, const char* symbol_name_p
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // get symbol data
-    std::string_view data = FindInSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol_name_prefix);
+    std::string_view data = FindDataInSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol_name_prefix);
     if (!data.empty())
       return data;
   }
