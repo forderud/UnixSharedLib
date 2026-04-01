@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
   }
 
   // section header string table
-  ElfSectionHeader shst_shdr(file.ptr(), elf_hdr.e_shstrndx);
+  ElfSectionHeader shst(file.ptr(), elf_hdr.e_shstrndx);
 
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
 
     printf("  sh_addr 0x%lx\n", shdr.sh_addr);
     printf("  sh_offset 0x%lx\n", shdr.sh_offset);
-    printf("  name: %s\n", file.ptr() + shst_shdr.sh_offset + shdr.sh_name);
+    printf("  name: %s\n", file.ptr() + shst.sh_offset + shdr.sh_name);
   }
 
   // recipie for extracting embedded symbols:
