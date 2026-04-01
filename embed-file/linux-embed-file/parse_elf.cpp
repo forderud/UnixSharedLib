@@ -111,9 +111,11 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     }
   }
 
-  printf("st_shndx %u\n", st_shndx);
-  printf("start_offset %u\n", start_offset);
-  printf("end_offset %u\n", end_offset);
+  ElfSectionHeader data(file_ptr, st_shndx);
+
+  const char* start = file_ptr + start_offset + data.sh_offset - data.sh_addr;
+  const char* end = file_ptr + end_offset + data.sh_offset - data.sh_addr;
+  printf("content: %.*s\n", (int)(end - start), start);
 
   return 0;
 }
