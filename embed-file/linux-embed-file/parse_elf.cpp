@@ -16,7 +16,7 @@ void PrintSymbolTable(char *cbytes, size_t str_off, size_t sym_off, size_t sym_s
   //printf("sym_sz = %zd\n", sym_sz);
 
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
-    Elf64_Sym sym;
+    Elf64_Sym sym{};
     size_t absoffset = sym_off + j * sizeof(Elf64_Sym);
     memcpy(&sym, cbytes + absoffset, sizeof(sym));
 
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     printf("%p\n", file_ptr);
   }
 
-  Elf64_Ehdr elf_hdr;
+  Elf64_Ehdr elf_hdr{};
   memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
 
   const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
@@ -83,12 +83,6 @@ int main(int argc, char **argv) {
     std::cerr << "Sorry, only ELF-64 is supported.\n";
     return 1;
   }
-#if 0
-  if (elf_hdr.e_ident[EI_OSABI] != ELFOSABI_LINUX) {
-    std::cerr << "Sorry, only ELFOSABI_LINUX is supported.\n";
-    return 1;
-  }
-#endif
 
   printf("file size: %zd\n", file_size);
   printf("program header offset: %zd\n", elf_hdr.e_phoff);
@@ -103,7 +97,7 @@ int main(int argc, char **argv) {
 
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
-    Elf64_Phdr phdr;
+    Elf64_Phdr phdr{};
     memcpy(&phdr, file_ptr + offset, sizeof(phdr));
  
     printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
@@ -157,7 +151,7 @@ int main(int argc, char **argv) {
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
-    Elf64_Shdr shdr;
+    Elf64_Shdr shdr{};
     memcpy(&shdr, file_ptr + offset, sizeof(shdr));
 
     switch (shdr.sh_type) {
@@ -166,7 +160,7 @@ int main(int argc, char **argv) {
           printf("found symtab table at offset %zd, sh_link %u (index %d)\n", shdr.sh_offset, shdr.sh_link, i);
           // get corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
-          Elf64_Shdr st_shdr;
+          Elf64_Shdr st_shdr{};
           memcpy(&st_shdr, file_ptr + st_offset, sizeof(st_shdr));
           // print symbols
           PrintSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
