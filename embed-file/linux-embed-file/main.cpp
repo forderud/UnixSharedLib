@@ -1,8 +1,9 @@
 #include <iostream>
 
-extern char _binary_embed_example_txt_start[]; // start of embedded ASCII file
-extern char _binary_embed_example_txt_end[];
-
+extern "C" {
+    extern char _binary_embed_example_txt_start[]; // start of embedded ASCII file
+    extern char _binary_embed_example_txt_end[];
+}
 
 int main() {
     size_t fileSize = _binary_embed_example_txt_end - _binary_embed_example_txt_start;
