@@ -1,8 +1,7 @@
 #include <iostream>
 
 extern "C" {
-    //char _binary_embed_example_txt_start[32]; // start of embedded ASCII file
-    //char _binary_embed_example_txt_end[1];
+    char mylib_array[] = "MyLib text string.";
 }
 
 int InitializationTask() {
