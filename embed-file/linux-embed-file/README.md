@@ -1,5 +1,9 @@
 ## ELF embed and parsing samples
 
+#### Goals
+* Embed arbitrary binary files in shared libraries
+* Access the embedded files without running the binary
+
 ## readelf symbol dump (extract of output)
 ```
 embed-file/linux-embed-file$ readelf -s mainApp 
