@@ -37,44 +37,25 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
   printf("\n");
 }
 
-
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("usage: %s <elf-binary>\n", argv[0]);
-    return 1;
-  }
-
-  printf("Parsing ELF symbols in %s...\n", argv[1]);
-  FileMap file(argv[1]);
-
+void PrintSectionHeaders(const char *file_ptr) {
   Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file.ptr(), sizeof(elf_hdr));
-
-  const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
-  if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
-    std::cerr << "Target is not an ELF executable\n";
-    return 1;
-  }
-  if (elf_hdr.e_ident[EI_CLASS] != ELFCLASS64) {
-    std::cerr << "Sorry, only ELF-64 is supported.\n";
-    return 1;
-  }
+  memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
 
   // section header string table
-  ElfSectionHeader shst(file.ptr(), elf_hdr.e_shstrndx);
+  ElfSectionHeader shst(file_ptr, elf_hdr.e_shstrndx);
 
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
-    ElfSectionHeader shdr(file.ptr(), i);
+    ElfSectionHeader shdr(file_ptr, i);
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
         {
           printf("found SHT_SYMTAB (symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
           // get corresponding string table entry
-          ElfSectionHeader st_shdr(file.ptr(), shdr.sh_link);
+          ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
           // print symbols
-          PrintSymbolTable(file.ptr(), st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+          PrintSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_STRTAB:
@@ -103,8 +84,34 @@ int main(int argc, char **argv) {
 
     printf("  sh_addr 0x%lx\n", shdr.sh_addr);
     printf("  sh_offset 0x%lx\n", shdr.sh_offset);
-    printf("  name: %s\n", file.ptr() + shst.sh_offset + shdr.sh_name);
+    printf("  name: %s\n", file_ptr + shst.sh_offset + shdr.sh_name);
   }
+}
+
+
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    printf("usage: %s <elf-binary>\n", argv[0]);
+    return 1;
+  }
+
+  printf("Parsing ELF symbols in %s...\n", argv[1]);
+  FileMap file(argv[1]);
+
+  Elf64_Ehdr elf_hdr{};
+  memcpy(&elf_hdr, file.ptr(), sizeof(elf_hdr));
+
+  const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
+  if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
+    std::cerr << "Target is not an ELF executable\n";
+    return 1;
+  }
+  if (elf_hdr.e_ident[EI_CLASS] != ELFCLASS64) {
+    std::cerr << "Sorry, only ELF-64 is supported.\n";
+    return 1;
+  }
+
+  PrintSectionHeaders(file.ptr());
 
   // recipie for extracting embedded symbols:
   // 1: Find SHT_SYMTAB section "st" with the desired symbol
