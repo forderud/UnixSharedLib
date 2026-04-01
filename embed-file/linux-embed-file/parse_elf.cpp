@@ -101,11 +101,11 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     size_t cur_len = strlen(cur_name);
     if ((strncmp(cur_name, symbol, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
-        printf("found symbol %s START at index %zd\n", symbol, j);
+        //printf("found symbol %s START at index %zd\n", symbol, j);
         start_offset = sym.st_value;
         st_shndx = sym.st_shndx;
       } else if (strcmp(cur_name + sym_len, "_end") == 0) {
-        printf("found symbol %s END at index %zd\n", symbol, j);
+        //printf("found symbol %s END at index %zd\n", symbol, j);
         end_offset = sym.st_value;
       }
     }
@@ -115,7 +115,8 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
 
   const char* start = file_ptr + start_offset + data.sh_offset - data.sh_addr;
   const char* end = file_ptr + end_offset + data.sh_offset - data.sh_addr;
-  printf("content: %.*s\n", (int)(end - start), start);
+  printf("%s content (size %u):\n", symbol, end-start);
+  printf("%.*s\n", (int)(end - start), start);
 
   return 0;
 }
