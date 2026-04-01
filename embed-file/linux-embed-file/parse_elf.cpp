@@ -96,10 +96,17 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
     auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
+    size_t sym_len = strlen(symbol);
     const char* cur_name = file_ptr + str_off + sym.st_name;
-    if (strcmp(cur_name, symbol) == 0) {
-      printf("found symbol %s at index %zd\n", symbol, j);
-      return sym.st_value;
+    size_t cur_len = strlen(cur_name);
+    if ((strncmp(cur_name, symbol, sym_len) == 0) && (cur_len > sym_len)) {
+      if (strcmp(cur_name + sym_len, "_start") == 0) {
+        printf("found symbol %s START at index %zd\n", symbol, j);
+        //sym.st_value;
+      } else if (strcmp(cur_name + sym_len, "_end") == 0) {
+        printf("found symbol %s END at index %zd\n", symbol, j);
+        //sym.st_value;
+      }
     }
   }
   return 0;
