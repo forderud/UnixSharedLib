@@ -7,12 +7,9 @@ ld -r -b binary embed_example.txt -z noexecstack -o embed_example.o
 echo ""
 echo Building libmylib.so...
 g++ -fPIC -c mylib.cpp -o mylib.o
-# -fvisibility=default
-# -Wl,--version-script=mylib.map
 g++ -shared -o libmylib.so mylib.o embed_example.o
 
 echo Building mainApp...
-# -no-pie
 g++ main.cpp -L. -lmylib -Wl,-rpath=. -o mainApp
 
 echo ""
