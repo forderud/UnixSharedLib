@@ -80,6 +80,15 @@ private:
     const char* m_ptr = nullptr;
 };
 
+struct ElfSectionHeader : Elf64_Shdr {
+    ElfSectionHeader(const void* file_ptr, const Elf64_Ehdr elf_hdr, uint16_t idx) {
+        size_t offset = elf_hdr.e_shoff + idx*elf_hdr.e_shentsize;
+        memcpy(this, file_ptr + offset, sizeof(Elf64_Shdr));
+    }
+};
+static_assert(sizeof(ElfSectionHeader) == sizeof(Elf64_Shdr), "ElfSectionHeader size mismatch");
+
+
 int main(int argc, char **argv) {
   if (argc != 2) {
     printf("usage: %s <elf-binary>\n", argv[0]);
@@ -173,9 +182,7 @@ int main(int argc, char **argv) {
 
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
-    size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
-    Elf64_Shdr shdr{};
-    memcpy(&shdr, file.ptr() + offset, sizeof(shdr));
+    ElfSectionHeader shdr(file.ptr(), elf_hdr, i);
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
