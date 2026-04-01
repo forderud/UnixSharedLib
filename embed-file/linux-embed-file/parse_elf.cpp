@@ -129,11 +129,10 @@ int main(int argc, char **argv) {
 
 #if 0
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
-    size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr{};
-    memcpy(&phdr, file.ptr() + offset, sizeof(phdr));
+    memcpy(&phdr, file.ptr() + elf_hdr.e_phoff + i*elf_hdr.e_phentsize, sizeof(phdr));
  
-    printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
+    printf("PROGRAM HEADER %d\n", i);
     printf("========================\n");
     printf("p_type = ");
     switch (phdr.p_type) {
