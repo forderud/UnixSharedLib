@@ -4,6 +4,9 @@
 * Embed arbitrary binary files in shared libraries
 * Access the embedded files without running the binary
 
+#### Challenges
+Files embeddded with `ld -r -b binary embed_example.txt -z noexecstack -o embed_example.o` or `objcopy --input-target binary --output elf64-x86-64 --add-section .note.GNU-stack=/dev/null embed_example.txt embed_example.o` aren't exported by the library.
+
 ## readelf symbol dump (extract of output)
 ```
 embed-file/linux-embed-file$ readelf -s mainApp 
