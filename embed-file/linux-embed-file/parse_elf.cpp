@@ -23,8 +23,8 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     if (!sym.st_name)
       continue; // skip entries without name
 
-    auto binding = ELF64_ST_BIND(sym.st_info);
-    auto type = ELF64_ST_TYPE(sym.st_info);
+    auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
+    auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
