@@ -12,8 +12,8 @@ int main() {
     printf("File size   : %zd\n", fileSize);
     printf("File content: ");
     printf("%.*s\n", (int)fileSize, _binary_embed_example_txt_start); // specify size since file content may not be null-terminated
-
-    printf("From MyLib: %s\n", mylib_array);
+    printf("\n");
+    printf("myLib array: %s\n", mylib_array);
     MyLibFunction();
     return 0;
 }
