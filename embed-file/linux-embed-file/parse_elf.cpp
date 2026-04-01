@@ -88,7 +88,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+bool FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
@@ -102,8 +102,8 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     if ((strncmp(cur_name, symbol, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
         //printf("found symbol %s START at index %zd\n", symbol, j);
-        start_offset = sym.st_value;
         st_shndx = sym.st_shndx;
+        start_offset = sym.st_value;
       } else if (strcmp(cur_name + sym_len, "_end") == 0) {
         //printf("found symbol %s END at index %zd\n", symbol, j);
         end_offset = sym.st_value;
@@ -111,14 +111,16 @@ size_t FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t 
     }
   }
 
+  if (!st_shndx && !start_offset && !end_offset)
+    return false;
+
   ElfSectionHeader data(file_ptr, st_shndx);
 
   const char* start = file_ptr + start_offset + data.sh_offset - data.sh_addr;
   const char* end = file_ptr + end_offset + data.sh_offset - data.sh_addr;
   printf("%s content (size %u):\n", symbol, end-start);
   printf("%.*s\n", (int)(end - start), start);
-
-  return 0;
+  return true;
 }
 
 
