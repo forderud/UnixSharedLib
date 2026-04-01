@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
         printf("found PROGBITS table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       default:
-        //printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
+        printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
         break;
     }
 
