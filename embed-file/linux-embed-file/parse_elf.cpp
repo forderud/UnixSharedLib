@@ -96,6 +96,7 @@ int main(int argc, char **argv) {
     printf("\n");
   }
 
+#if 0
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr{};
@@ -148,6 +149,7 @@ int main(int argc, char **argv) {
     printf("p_align = %lu\n", phdr.p_align);
     printf("\n");
   }
+#endif
 
   // parse Section header (Shdr)
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
