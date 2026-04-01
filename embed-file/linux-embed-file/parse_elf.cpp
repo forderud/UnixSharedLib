@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+#if 0
   {
     printf("file size: %zd\n", file.size());
     printf("program header offset: %zd\n", elf_hdr.e_phoff);
@@ -113,6 +114,7 @@ int main(int argc, char **argv) {
     printf("string offset at %zd\n", string_offset);
     printf("\n");
   }
+#endif
 
 #if 0
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
