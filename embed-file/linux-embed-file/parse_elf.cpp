@@ -68,7 +68,14 @@ public:
         munmap((void*)m_ptr, m_size);
     }
     
-public:
+    size_t size() const {
+        return m_size;
+    }
+    const char* ptr() const {
+        return m_ptr;
+    }
+    
+private:
     size_t      m_size = 0;
     const char* m_ptr = nullptr;
 };
@@ -82,7 +89,7 @@ int main(int argc, char **argv) {
   FileMap file(argv[1]);
 
   Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file.m_ptr, sizeof(elf_hdr));
+  memcpy(&elf_hdr, file.ptr(), sizeof(elf_hdr));
 
   const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
@@ -95,7 +102,7 @@ int main(int argc, char **argv) {
   }
 
   {
-    printf("file size: %zd\n", file.m_size);
+    printf("file size: %zd\n", file.size());
     printf("program header offset: %zd\n", elf_hdr.e_phoff);
     printf("program header num: %d\n", elf_hdr.e_phnum);
     printf("section header offset: %zd\n", elf_hdr.e_shoff);
@@ -111,7 +118,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr{};
-    memcpy(&phdr, file.m_ptr + offset, sizeof(phdr));
+    memcpy(&phdr, file.ptr() + offset, sizeof(phdr));
  
     printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
     printf("========================\n");
@@ -166,7 +173,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
     Elf64_Shdr shdr{};
-    memcpy(&shdr, file.m_ptr + offset, sizeof(shdr));
+    memcpy(&shdr, file.ptr() + offset, sizeof(shdr));
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
@@ -175,9 +182,9 @@ int main(int argc, char **argv) {
           // get corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr{};
-          memcpy(&st_shdr, file.m_ptr + st_offset, sizeof(st_shdr));
+          memcpy(&st_shdr, file.ptr() + st_offset, sizeof(st_shdr));
           // print symbols
-          PrintSymbolTable(file.m_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+          PrintSymbolTable(file.ptr(), st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_STRTAB:
