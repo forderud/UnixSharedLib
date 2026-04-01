@@ -5,8 +5,9 @@ extern char _binary_embed_example_txt_end[];
 
 
 int main() {
-    printf("Content of embed_example.txt:\n");
     size_t fileSize = _binary_embed_example_txt_end - _binary_embed_example_txt_start;
-    printf("%.*s\n", fileSize, _binary_embed_example_txt_start); // specify size since file content is not null-terminated
+    printf("File size: %zd\n", fileSize);
+    printf("File content: ");
+    printf("%.*s\n", (int)fileSize, _binary_embed_example_txt_start); // specify size since file content may not be null-terminated
     return 0;
 }
