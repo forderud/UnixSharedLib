@@ -223,6 +223,11 @@ int main(int argc, char **argv) {
     printf("  name: %s\n", file.ptr() + shst_shdr.sh_offset + shdr.sh_name);
   }
 
+  // recipie for extracting embedded symbols:
+  // 1: Find SHT_SYMTAB section "st" with the desired symbol
+  // 2: Find corresponding .data section "data" from st_shndx
+  // 3: Content: file.ptr() + st.st_value + data.sh_offset - data.sh_addr
+
   printf("\n");
   return 0;
 }
