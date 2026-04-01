@@ -88,7 +88,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
@@ -96,16 +96,16 @@ std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
 
-    size_t sym_len = strlen(symbol);
+    size_t sym_len = strlen(symbol_name_prefix);
     const char* cur_name = file_ptr + str_off + sym.st_name;
     size_t cur_len = strlen(cur_name);
-    if ((strncmp(cur_name, symbol, sym_len) == 0) && (cur_len > sym_len)) {
+    if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
-        //printf("found symbol %s START at index %zd\n", symbol, j);
+        //printf("found symbol %s START at index %zd\n", symbol_name_prefix, j);
         st_shndx = sym.st_shndx;
         start_offset = sym.st_value;
       } else if (strcmp(cur_name + sym_len, "_end") == 0) {
-        //printf("found symbol %s END at index %zd\n", symbol, j);
+        //printf("found symbol %s END at index %zd\n", symbol_name_prefix, j);
         end_offset = sym.st_value;
       }
     }
