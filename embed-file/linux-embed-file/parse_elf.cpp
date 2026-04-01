@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
         {
-          printf("found symtab table, sh_link %u (index %d)\n", shdr.sh_link, i);
+          printf("found SHT_SYMTAB (symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
           // get corresponding string table entry
           ElfSectionHeader st_shdr(file.ptr(), shdr.sh_link);
           // print symbols
@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
         }
         break;
       case SHT_STRTAB:
-        printf("found string table (index %d)\n", i);
+        printf("found SHT_STRTAB (string) table (index %d)\n", i);
         // TODO: have to handle multiple string tables better
         //if (!dynstr_off) {
         //  dynstr_off = shdr.sh_offset;
@@ -204,10 +204,10 @@ int main(int argc, char **argv) {
       case SHT_DYNSYM:
         //dynsym_off = shdr.sh_offset;
         //dynsym_sz = shdr.sh_size;
-        //printf("found dynsym table, size %zd (index %d)\n", shdr.sh_size, i);
+        printf("found SHT_DYNSYM table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       case SHT_PROGBITS:
-        printf("found PROGBITS table, size %zd (index %d)\n", shdr.sh_size, i);
+        printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       default:
         printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
