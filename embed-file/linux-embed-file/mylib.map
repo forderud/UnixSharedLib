@@ -2,7 +2,7 @@
 {
 global:
      /* Make certain symbols public */
-    *embed_example*;
+    _binary_embed_example*;
     mylib_array;
     MyLibFunction;
 local:
