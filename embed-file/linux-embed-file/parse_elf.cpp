@@ -225,7 +225,7 @@ int main(int argc, char **argv) {
     }
 
     printf("  sh_offset 0x%lx\n", shdr.sh_offset);
-    printf("  sh_name %u\n", shdr.sh_name);
+    printf("  sh_name %u\n", shdr.sh_name); // TODO: Resolve string names
   }
 
   printf("\n");
