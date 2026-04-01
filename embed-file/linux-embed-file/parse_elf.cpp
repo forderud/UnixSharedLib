@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <vector>
 
 
 void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
@@ -208,8 +209,15 @@ int main(int argc, char **argv) {
         printf("found SHT_DYNSYM table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       case SHT_PROGBITS:
-        printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
-        printf("  content: %.*s\n", (int)shdr.sh_size, file.ptr() + shdr.sh_offset);
+        {
+          printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
+          std::vector<char> buffer(shdr.sh_size);
+          memcpy(buffer.data(), file.ptr() + shdr.sh_offset, buffer.size());
+          for(char& c: buffer) {
+              if (c == 0) c = ' '; // convert null termination to spaces to display of the entire buffer
+          }
+          printf("  content: %.*s\n", (int)buffer.size(), buffer.data());
+        }
         break;
       default:
         printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
