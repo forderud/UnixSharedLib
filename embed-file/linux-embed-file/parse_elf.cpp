@@ -122,7 +122,7 @@ std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off
 }
 
 
-void SearchForSymbol(const char *file_ptr, const char* symbol) {
+std::string_view SearchForSymbol(const char *file_ptr, const char* symbol) {
   // recipie for extracting embedded symbols:
   // 1: Find SHT_SYMTAB section "st" with the desired symbol
   // 2: Find corresponding .data section "data" from st_shndx
@@ -145,9 +145,11 @@ void SearchForSymbol(const char *file_ptr, const char* symbol) {
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // print symbols
     std::string_view data = FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
-    printf("%s content (size %u):\n", symbol, data.size());
-    printf("%.*s\n", (int)data.size(), data.data());
-  }  
+    if (!data.empty())
+      return data;
+  }
+
+  return {};
 }
 
 int main(int argc, char **argv) {
@@ -175,7 +177,9 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     PrintSectionHeaders(file.ptr());
   } else {
-    SearchForSymbol(file.ptr(), argv[2]);
+    std::string_view data = SearchForSymbol(file.ptr(), argv[2]);
+    printf("%s content (size %u):\n", argv[2], data.size());
+    printf("%.*s\n", (int)data.size(), data.data());
   }
 
   printf("\n");
