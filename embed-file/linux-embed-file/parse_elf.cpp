@@ -14,14 +14,14 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
   //printf("sym_off = %zd\n", sym_off);
   //printf("sym_sz = %zd\n", sym_sz);
 
-  for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
+  for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
     Elf64_Sym sym{};
-    memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
+    memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
 
     auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
     auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
-    printf("SYMBOL TABLE ENTRY %zd:\n", j);
+    printf("SYMBOL TABLE ENTRY %zd:\n", i);
     printf("  st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
       printf(" (%s)", file_ptr + str_off + sym.st_name);
@@ -92,9 +92,9 @@ std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
-  for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
+  for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
     Elf64_Sym sym{};
-    memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
+    memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
 
     size_t sym_len = strlen(symbol_name_prefix);
     const char* cur_name = file_ptr + str_off + sym.st_name;
