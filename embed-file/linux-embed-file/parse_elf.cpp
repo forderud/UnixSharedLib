@@ -41,6 +41,37 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
   printf("\n");
 }
 
+/** Memory-map a file into the process address space. */
+class FileMap {
+public:
+    FileMap(const char* filename) {
+        int fd = open(filename, O_RDONLY);
+        if (fd == -1) {
+            throw std::runtime_error("file open failed");
+        }
+
+        struct stat sb{};
+        if (fstat(fd, &sb) == -1) { // obtain file size
+            close(fd);
+            throw std::runtime_error("unable to determine file size");
+        }
+        m_size = sb.st_size;
+
+        m_ptr = (const char*)mmap(nullptr, m_size, PROT_READ, MAP_PRIVATE, fd, 0);
+        if (m_ptr == nullptr) {
+            close(fd);
+            throw std::runtime_error("unable to map file");
+        }
+        close(fd);
+    }
+    ~FileMap() {
+        munmap((void*)m_ptr, m_size);
+    }
+    
+public:
+    size_t      m_size = 0;
+    const char* m_ptr = nullptr;
+};
 
 int main(int argc, char **argv) {
   if (argc != 2) {
@@ -48,32 +79,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  size_t file_size = 0;
-  const char *file_ptr = nullptr;
-  {
-    int fd = open(argv[1], O_RDONLY);
-    if (fd == -1) {
-      return 1;
-    }
-
-    struct stat sb{};
-    if (fstat(fd, &sb) == -1) { // obtain file size
-      close(fd);
-      return 1;
-    }
-    file_size = sb.st_size;
-
-    file_ptr = (const char*)mmap(nullptr, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (file_ptr == nullptr) {
-      close(fd);
-      perror("mmap()");
-      return 1;
-    }
-    close(fd);
-  }
+  FileMap file(argv[1]);
 
   Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
+  memcpy(&elf_hdr, file.m_ptr, sizeof(elf_hdr));
 
   const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
@@ -86,7 +95,7 @@ int main(int argc, char **argv) {
   }
 
   {
-    printf("file size: %zd\n", file_size);
+    printf("file size: %zd\n", file.m_size);
     printf("program header offset: %zd\n", elf_hdr.e_phoff);
     printf("program header num: %d\n", elf_hdr.e_phnum);
     printf("section header offset: %zd\n", elf_hdr.e_shoff);
@@ -102,7 +111,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr{};
-    memcpy(&phdr, file_ptr + offset, sizeof(phdr));
+    memcpy(&phdr, file.m_ptr + offset, sizeof(phdr));
  
     printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
     printf("========================\n");
@@ -157,7 +166,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
     Elf64_Shdr shdr{};
-    memcpy(&shdr, file_ptr + offset, sizeof(shdr));
+    memcpy(&shdr, file.m_ptr + offset, sizeof(shdr));
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
@@ -166,9 +175,9 @@ int main(int argc, char **argv) {
           // get corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr{};
-          memcpy(&st_shdr, file_ptr + st_offset, sizeof(st_shdr));
+          memcpy(&st_shdr, file.m_ptr + st_offset, sizeof(st_shdr));
           // print symbols
-          PrintSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+          PrintSymbolTable(file.m_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_STRTAB:
@@ -192,7 +201,5 @@ int main(int argc, char **argv) {
     }
   }
   printf("\n");
-
-  munmap((void*)file_ptr, file_size);
   return 0;
 }
