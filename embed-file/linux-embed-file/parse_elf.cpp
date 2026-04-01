@@ -218,6 +218,7 @@ int main(int argc, char **argv) {
         break;
     }
 
+    printf("  sh_addr 0x%lx\n", shdr.sh_addr);
     printf("  sh_offset 0x%lx\n", shdr.sh_offset);
     printf("  name: %s\n", file.ptr() + shst_shdr.sh_offset + shdr.sh_name);
   }
