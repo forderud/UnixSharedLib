@@ -10,10 +10,7 @@
 
 
 void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
-  //printf("str_off = %zd\n", str_off);
-  //printf("sym_off = %zd\n", sym_off);
-  //printf("sym_sz = %zd\n", sym_sz);
-
+  // iterate over symbol table entries
   for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
@@ -92,13 +89,16 @@ std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
+  // iterate over symbol table entries
   for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
 
     size_t sym_len = strlen(symbol_name_prefix);
+    
     const char* cur_name = file_ptr + str_off + sym.st_name;
     size_t cur_len = strlen(cur_name);
+
     if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
         //printf("found symbol %s START at index %zd\n", symbol_name_prefix, j);
