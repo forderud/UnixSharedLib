@@ -23,13 +23,16 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     if (!sym.st_name)
       continue; // skip entries without name
 
+    auto binding = ELF64_ST_BIND(sym.st_info);
+    auto type = ELF64_ST_TYPE(sym.st_info);
+
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
       printf(" (%s)", file_ptr + str_off + sym.st_name);
     }
     printf("\n");
-    printf("st_info = %d\n", sym.st_info);
+    printf("st_info = binding %d, type %d\n", binding, type);
     printf("st_other = %d\n", sym.st_other);
     printf("st_shndx = %d\n", sym.st_shndx); // associated section header table index
     printf("st_value = %p\n", (void *)sym.st_value);
