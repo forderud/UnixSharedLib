@@ -185,6 +185,7 @@ int main(int argc, char **argv) {
         printf("found dynsym table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
       default:
+        printf("found %d table at offset %zd, size %zd (index %d)\n", shdr.sh_type, shdr.sh_offset, shdr.sh_size, i);
         break;
     }
   }
