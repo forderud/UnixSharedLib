@@ -46,8 +46,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  char *file_ptr = nullptr;
   size_t file_size = 0;
+  char *file_ptr = nullptr;
   {
     int fd = open(argv[1], O_RDONLY);
     if (fd == -1) {
@@ -59,16 +59,15 @@ int main(int argc, char **argv) {
       close(fd);
       return 1;
     }
-
-    file_ptr = (char*)mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
     file_size = sb.st_size;
+
+    file_ptr = (char*)mmap(nullptr, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (file_ptr == nullptr) {
       close(fd);
       perror("mmap()");
       return 1;
     }
     close(fd);
-    printf("%p\n", file_ptr);
   }
 
   Elf64_Ehdr elf_hdr{};
@@ -84,16 +83,18 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  printf("file size: %zd\n", file_size);
-  printf("program header offset: %zd\n", elf_hdr.e_phoff);
-  printf("program header num: %d\n", elf_hdr.e_phnum);
-  printf("section header offset: %zd\n", elf_hdr.e_shoff);
-  printf("section header num: %d\n", elf_hdr.e_shnum);
-  printf("section header string table: %d\n", elf_hdr.e_shstrndx);
+  {
+    printf("file size: %zd\n", file_size);
+    printf("program header offset: %zd\n", elf_hdr.e_phoff);
+    printf("program header num: %d\n", elf_hdr.e_phnum);
+    printf("section header offset: %zd\n", elf_hdr.e_shoff);
+    printf("section header num: %d\n", elf_hdr.e_shnum);
+    printf("section header string table: %d\n", elf_hdr.e_shstrndx);
 
-  size_t string_offset = elf_hdr.e_shstrndx;
-  printf("string offset at %zd\n", string_offset);
-  printf("\n");
+    size_t string_offset = elf_hdr.e_shstrndx;
+    printf("string offset at %zd\n", string_offset);
+    printf("\n");
+  }
 
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
