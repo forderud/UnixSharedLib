@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  void *pybytes = mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+  char *pybytes = (char*)mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (pybytes == nullptr) {
     close(fd);
     perror("mmap()");
@@ -95,7 +95,6 @@ int main(int argc, char **argv) {
   printf("string offset at %zd\n", string_offset);
   printf("\n");
 
-  char *cbytes = (char *)pybytes;
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr;
@@ -164,7 +163,7 @@ int main(int argc, char **argv) {
           Elf64_Shdr st_shdr;
           memcpy(&st_shdr, pybytes + st_offset, sizeof(st_shdr));
           // print symbols
-          PrintSymbolTable(cbytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+          PrintSymbolTable(pybytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_STRTAB:
