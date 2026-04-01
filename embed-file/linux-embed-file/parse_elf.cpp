@@ -45,28 +45,34 @@ int main(int argc, char **argv) {
     printf("usage: %s <elf-binary>\n", argv[0]);
     return 1;
   }
-  int fd = open(argv[1], O_RDONLY);
-  if (fd == -1) {
-    return 1;
-  }
 
-  struct stat sb{};
-  if (fstat(fd, &sb) == -1) { // obtain file size
-    close(fd);
-    return 1;
-  }
+  char *file_ptr = nullptr;
+  size_t file_size = 0;
+  {
+    int fd = open(argv[1], O_RDONLY);
+    if (fd == -1) {
+      return 1;
+    }
 
-  char *pybytes = (char*)mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-  if (pybytes == nullptr) {
+    struct stat sb{};
+    if (fstat(fd, &sb) == -1) { // obtain file size
+      close(fd);
+      return 1;
+    }
+
+    file_ptr = (char*)mmap(nullptr, (size_t)sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    file_size = sb.st_size;
+    if (file_ptr == nullptr) {
+      close(fd);
+      perror("mmap()");
+      return 1;
+    }
     close(fd);
-    perror("mmap()");
-    return 1;
+    printf("%p\n", file_ptr);
   }
-  close(fd);
-  printf("%p\n", pybytes);
 
   Elf64_Ehdr elf_hdr;
-  memcpy(&elf_hdr, pybytes, sizeof(elf_hdr));
+  memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
 
   const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
@@ -84,7 +90,7 @@ int main(int argc, char **argv) {
   }
 #endif
 
-  printf("file size: %zd\n", sb.st_size);
+  printf("file size: %zd\n", file_size);
   printf("program header offset: %zd\n", elf_hdr.e_phoff);
   printf("program header num: %d\n", elf_hdr.e_phnum);
   printf("section header offset: %zd\n", elf_hdr.e_shoff);
@@ -98,7 +104,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
     size_t offset = elf_hdr.e_phoff + i * elf_hdr.e_phentsize;
     Elf64_Phdr phdr;
-    memcpy(&phdr, pybytes + offset, sizeof(phdr));
+    memcpy(&phdr, file_ptr + offset, sizeof(phdr));
  
     printf("PROGRAM HEADER %d, offset = %zd\n", i, offset);
     printf("========================\n");
@@ -152,7 +158,7 @@ int main(int argc, char **argv) {
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     size_t offset = elf_hdr.e_shoff + i * elf_hdr.e_shentsize;
     Elf64_Shdr shdr;
-    memcpy(&shdr, pybytes + offset, sizeof(shdr));
+    memcpy(&shdr, file_ptr + offset, sizeof(shdr));
 
     switch (shdr.sh_type) {
       case SHT_SYMTAB:
@@ -161,9 +167,9 @@ int main(int argc, char **argv) {
           // get corresponding string table entry
           size_t st_offset = elf_hdr.e_shoff + shdr.sh_link * elf_hdr.e_shentsize;
           Elf64_Shdr st_shdr;
-          memcpy(&st_shdr, pybytes + st_offset, sizeof(st_shdr));
+          memcpy(&st_shdr, file_ptr + st_offset, sizeof(st_shdr));
           // print symbols
-          PrintSymbolTable(pybytes, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
+          PrintSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_STRTAB:
