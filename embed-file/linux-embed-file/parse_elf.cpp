@@ -182,6 +182,8 @@ int main(int argc, char **argv) {
         break;
     }
   }
-  printf("\n");  
+  printf("\n");
+
+  munmap(file_ptr, file_size);
   return 0;
 }
