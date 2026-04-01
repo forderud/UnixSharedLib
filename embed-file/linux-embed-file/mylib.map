@@ -1,0 +1,11 @@
+/* Symbol visibility map. Compile with "-Wl,--version-script=mylib.map" to enable. */
+{
+global:
+     /* Make certain symbols public */
+    _binary_embed_example_txt_start;
+    _binary_embed_example_txt_end;
+    _binary_embed_example_txt_size;
+local:
+    /* Hide all other symbols by default */
+    *;
+};
