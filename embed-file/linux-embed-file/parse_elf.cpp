@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-void PrintSymbolTable(const char *cbytes, size_t str_off, size_t sym_off, size_t sym_sz) {
+void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
   //printf("str_off = %zd\n", str_off);
   //printf("sym_off = %zd\n", sym_off);
   //printf("sym_sz = %zd\n", sym_sz);
@@ -18,7 +18,7 @@ void PrintSymbolTable(const char *cbytes, size_t str_off, size_t sym_off, size_t
   for (size_t j = 0; j * sizeof(Elf64_Sym) < sym_sz; j++) {
     Elf64_Sym sym{};
     size_t absoffset = sym_off + j * sizeof(Elf64_Sym);
-    memcpy(&sym, cbytes + absoffset, sizeof(sym));
+    memcpy(&sym, file_ptr + absoffset, sizeof(sym));
 
     if (!sym.st_name)
       continue; // skip entries without name
@@ -26,7 +26,7 @@ void PrintSymbolTable(const char *cbytes, size_t str_off, size_t sym_off, size_t
     printf("SYMBOL TABLE ENTRY %zd\n", j);
     printf("st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
-      printf(" (%s)", cbytes + str_off + sym.st_name);
+      printf(" (%s)", file_ptr + str_off + sym.st_name);
     }
     printf("\n");
     printf("st_info = %d\n", sym.st_info);
