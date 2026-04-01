@@ -184,8 +184,11 @@ int main(int argc, char **argv) {
         //dynsym_sz = shdr.sh_size;
         printf("found dynsym table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
         break;
+      case SHT_PROGBITS:
+        printf("found PROGBITS table at offset %zd, size %zd (index %d)\n", shdr.sh_offset, shdr.sh_size, i);
+        break;
       default:
-        printf("found %d table at offset %zd, size %zd (index %d)\n", shdr.sh_type, shdr.sh_offset, shdr.sh_size, i);
+        //printf("found %d table at offset %zd, size %zd (index %d)\n", shdr.sh_type, shdr.sh_offset, shdr.sh_size, i);
         break;
     }
   }
