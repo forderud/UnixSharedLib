@@ -88,7 +88,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-bool FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+bool FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
@@ -124,7 +124,7 @@ bool FindSymbols(const char *file_ptr, size_t str_off, size_t sym_off, size_t sy
 }
 
 
-void SearchForSymbols(const char *file_ptr, const char* symbol) {
+void SearchForSymbol(const char *file_ptr, const char* symbol) {
   // recipie for extracting embedded symbols:
   // 1: Find SHT_SYMTAB section "st" with the desired symbol
   // 2: Find corresponding .data section "data" from st_shndx
@@ -146,7 +146,7 @@ void SearchForSymbols(const char *file_ptr, const char* symbol) {
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // print symbols
-    FindSymbols(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
+    FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
   }  
 }
 
@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     PrintSectionHeaders(file.ptr());
   } else {
-    SearchForSymbols(file.ptr(), argv[2]);
+    SearchForSymbol(file.ptr(), argv[2]);
   }
 
   printf("\n");
