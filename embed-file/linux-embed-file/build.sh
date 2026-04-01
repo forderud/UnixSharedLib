@@ -16,10 +16,11 @@ echo Building libmylib.so...
 g++ -fPIC -c mylib.cpp -o mylib.o
 # -fvisibility=default
 # -Wl,--version-script=mylib.map
-g++ -shared -o libmylib.so mylib.o
+g++ -shared -o libmylib.so mylib.o embed_example.o
 
 echo Building mainApp...
-g++ main.cpp -L. -lmylib -Wl,-rpath=. embed_example.o -o mainApp
+# -no-pie
+g++ main.cpp -L. -lmylib -Wl,-rpath=. -o mainApp
 
 echo ""
 echo Running mainApp:
@@ -27,4 +28,4 @@ echo Running mainApp:
 
 echo ""
 g++ -g parse_elf.cpp -o parse_elf
-./parse_elf mainApp _binary_embed_example_txt
+./parse_elf libmylib.so _binary_embed_example_txt
