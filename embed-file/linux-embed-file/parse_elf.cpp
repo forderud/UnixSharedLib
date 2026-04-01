@@ -88,7 +88,7 @@ void PrintSectionHeaders(const char *file_ptr) {
   }
 }
 
-bool FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
+std::string_view FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol) {
   uint16_t st_shndx = 0;
   size_t start_offset = 0, end_offset = 0;
 
@@ -112,15 +112,13 @@ bool FindSymbol(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym
   }
 
   if (!st_shndx && !start_offset && !end_offset)
-    return false;
+    return {};
 
   ElfSectionHeader data(file_ptr, st_shndx);
 
   const char* start = file_ptr + start_offset + data.sh_offset - data.sh_addr;
   const char* end = file_ptr + end_offset + data.sh_offset - data.sh_addr;
-  printf("%s content (size %u):\n", symbol, end-start);
-  printf("%.*s\n", (int)(end - start), start);
-  return true;
+  return std::string_view(start, end - start);
 }
 
 
@@ -146,7 +144,9 @@ void SearchForSymbol(const char *file_ptr, const char* symbol) {
     // get corresponding string table entry
     ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
     // print symbols
-    FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
+    std::string_view data = FindSymbol(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size, symbol);
+    printf("%s content (size %u):\n", symbol, data.size());
+    printf("%.*s\n", (int)data.size(), data.data());
   }  
 }
 
