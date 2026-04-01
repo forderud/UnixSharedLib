@@ -87,7 +87,8 @@ void PrintSectionHeaders(const char *file_ptr) {
 
 std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz, const char* symbol_name_prefix) {
   uint16_t st_shndx = 0;
-  size_t start_offset = 0, end_offset = 0;
+  size_t start_offset = (size_t)-1;
+  size_t end_offset = (size_t)-1;
 
   // iterate over symbol table entries
   for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
@@ -111,8 +112,8 @@ std::string_view FindInSymbolTable(const char *file_ptr, size_t str_off, size_t 
     }
   }
 
-  if (!start_offset || !end_offset)
-    return {};
+  if ((start_offset == (size_t)-1) || (end_offset == (size_t)-1))
+    return {}; // start/end symbols not found
 
   ElfSectionHeader data(file_ptr, st_shndx);
 
