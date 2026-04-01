@@ -4,8 +4,12 @@ rm -f *.o *.so mainApp parse_elf
 # convert embed_example.txt into an object file to binary embedding
 # -z start-stop-visibility=default (default, internal, hidden, or protected)
 #ld -r -b binary embed_example.txt -z start-stop-visibility=default -z noexecstack -o embed_example.o
-#objcopy --input-target binary --output elf64-x86-64 --add-section .note.GNU-stack=/dev/null embed_example.txt embed_example.o
-objcopy --input-target binary --output elf64-littleaarch64 --add-section .note.GNU-stack=/dev/null embed_example.txt embed_example.o
+if [[ $(uname -m) == "aarch64" ]]; then
+    bfdname="elf64-littleaarch64"
+else
+    bfdname="elf64-x86-64"
+fi
+objcopy --input-target binary --output $bfdname --add-section .note.GNU-stack=/dev/null embed_example.txt embed_example.o
 
 echo ""
 echo Building libmylib.so...
