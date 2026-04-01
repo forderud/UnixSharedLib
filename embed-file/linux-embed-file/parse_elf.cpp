@@ -20,9 +20,6 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + j*sizeof(Elf64_Sym), sizeof(sym));
 
-    //if (!sym.st_name)
-    //  continue; // skip entries without name
-
     auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
     auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
@@ -113,71 +110,6 @@ int main(int argc, char **argv) {
     std::cerr << "Sorry, only ELF-64 is supported.\n";
     return 1;
   }
-
-#if 0
-  {
-    printf("file size: %zd\n", file.size());
-    printf("program header offset: %zd\n", elf_hdr.e_phoff);
-    printf("program header num: %d\n", elf_hdr.e_phnum);
-    printf("section header offset: %zd\n", elf_hdr.e_shoff);
-    printf("section header num: %d\n", elf_hdr.e_shnum);
-    printf("section header string table: %d\n", elf_hdr.e_shstrndx);
-    printf("\n");
-  }
-#endif
-
-#if 0
-  for (uint16_t i = 0; i < elf_hdr.e_phnum; i++) {
-    Elf64_Phdr phdr{};
-    memcpy(&phdr, file.ptr() + elf_hdr.e_phoff + i*elf_hdr.e_phentsize, sizeof(phdr));
- 
-    printf("PROGRAM HEADER %d:\n", i);
-    printf("  p_type = ");
-    switch (phdr.p_type) {
-      case PT_NULL:
-        puts("PT_NULL");
-        break;
-      case PT_LOAD:
-        puts("PT_LOAD");
-        break;
-      case PT_DYNAMIC:
-        puts("PT_DYNAMIC");
-        break;
-      case PT_INTERP:
-        puts("PT_INTERP");
-        break;
-      case PT_NOTE:
-        puts("PT_NOTE");
-        break;
-      case PT_SHLIB:
-        puts("PT_SHLIB");
-        break;
-      case PT_PHDR:
-        puts("PT_PHDR");
-        break;
-      case PT_LOPROC:
-        puts("PT_LOPROC");
-        break;
-      case PT_HIPROC:
-        puts("PT_HIPROC");
-        break;
-      case PT_GNU_STACK:
-        puts("PT_GNU_STACK");
-        break;
-      default:
-        printf("UNKNOWN/%d\n", phdr.p_type);
-        break;
-    }
-    printf("  p_offset = %zd\n", phdr.p_offset);
-    printf("  p_vaddr = %zd\n", phdr.p_vaddr);
-    printf("  p_paddr = %zd\n", phdr.p_paddr);
-    printf("  p_filesz = %zd\n", phdr.p_filesz);
-    printf("  p_memsz = %zd\n", phdr.p_memsz);
-    printf("  p_flags = %d\n", phdr.p_flags);
-    printf("  p_align = %lu\n", phdr.p_align);
-    printf("\n");
-  }
-#endif
 
   // section header string table
   ElfSectionHeader shst_shdr(file.ptr(), elf_hdr.e_shstrndx);
