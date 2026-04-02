@@ -48,12 +48,11 @@ private:
 };
 
 void ParseSections(const char* ptr, uint32_t nsects) {
-  if(nsects == 0) {
-    return;
+  for (uint32_t i = 0; i < nsects; ++i) {
+    auto* sect = (const section_64*)ptr;
+    printf("    section: name %s\n", sect->sectname);
+    ptr += sizeof(section_64);
   }
-
-  auto* sect = (const section_64*)ptr;
-  printf("    section: name %s\n", sect->sectname);
 }
 
 int main(int argc, char **argv) {
