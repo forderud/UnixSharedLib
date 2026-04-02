@@ -15,3 +15,7 @@ g++ main.cpp -L. -lmystatic -o mainApp
 echo ""
 echo Running application:
 ./mainApp
+
+echo ""
+g++ -g parse_macho.cpp -o parse_macho
+./parse_macho mainApp
