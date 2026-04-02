@@ -64,20 +64,16 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-#if 0
-  if (elf_hdr.e_ident[EI_CLASS] != ELFCLASS64) {
-    std::cerr << "Sorry, only ELF-64 is supported.\n";
-    return 1;
-  }
+  printf("Mach-O header: cputype=0x%x, cpusubtype=0x%x, filetype=0x%x, ncmds=%u, sizeofcmds=%u\n",
+         hdr.cputype, hdr.cpusubtype, hdr.filetype, hdr.ncmds, hdr.sizeofcmds);
+  printf("\n");
 
-  if (argc == 2) {
-    PrintSectionHeaders(file.ptr());
-  } else {
-    std::string_view data = FindDataSection(file.ptr(), argv[2]);
-    printf("%s content (size %u):\n", argv[2], data.size());
-    printf("%.*s\n", (int)data.size(), data.data());
+  const char* cmd_ptr = file.ptr() + sizeof(hdr);
+  for (uint32_t i = 0; i < hdr.ncmds; ++i) {
+    const auto* cmd = (const load_command*)cmd_ptr;
+    printf("Command %u: cmd=0x%x, cmdsize=%u\n", i, cmd->cmd, cmd->cmdsize);
+    cmd_ptr += cmd->cmdsize;
   }
-#endif
 
   printf("\n");
   return 0;
