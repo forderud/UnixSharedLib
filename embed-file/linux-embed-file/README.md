@@ -24,14 +24,24 @@ objcopy --input-target binary --output $bfdname --add-section .note.GNU-stack=/d
 ```
 embed-file/linux-embed-file$ readelf -s libmylib.so 
 ...
-Symbol table '.symtab' contains 82 entries:
+Symbol table of section table .dynsym (Index 3) with 15 entries
+-----------------------
+Nr             Value               Size                Info (Binding|Type) Other          Shndx          Name           
+...
+9              0x000000000002005C  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0x0016         _binary_embed_example_txt_end
+10             0x0000000000020033  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0x0016         _binary_embed_example_txt_start
+...
+13             0x0000000000000029  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0xFFF1         _binary_embed_example_txt_size
+...
+Symbol table of section table .symtab (Index 26) with 82 entries
+-----------------------
    Num:    Value          Size Type    Bind   Vis      Ndx Name
 ...
-    72: 0000000000020033     0 NOTYPE  GLOBAL DEFAULT   22 _binary_embed_ex[...]
+72             0x0000000000020033  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0x0016         _binary_embed_example_txt_start
 ...
-    77: 0000000000000029     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_embed_ex[...]
+77             0x0000000000000029  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0xFFF1         _binary_embed_example_txt_size
 ...
-    79: 000000000002005c     0 NOTYPE  GLOBAL DEFAULT   22 _binary_embed_ex[...]
+79             0x000000000002005C  0x0000000000000000  GLOBAL | NOTYPE     DEFAULT        0x0016         _binary_embed_example_txt_end
 ...
 ```
 
