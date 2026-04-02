@@ -76,8 +76,8 @@ int main(int argc, char **argv) {
 
     if (cmd->cmd == LC_SEGMENT_64) {
       const auto* seg = (const segment_command_64*)cmd;
-      printf("  Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx\n",
-             seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize);
+      printf("  Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx, nsects=%u\n",
+             seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize, seg->nsects);
     }
 
   }
