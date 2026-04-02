@@ -59,7 +59,9 @@ void PrintSectionHeaders(const char *file_ptr) {
         printf("found SHT_STRTAB (string) table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       case SHT_DYNSYM:
-        printf("found SHT_DYNSYM (dynamic symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
+        {
+          printf("found SHT_DYNSYM (dynamic symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
+        }
         break;
       case SHT_PROGBITS:
         {
