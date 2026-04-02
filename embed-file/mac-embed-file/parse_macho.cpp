@@ -50,8 +50,9 @@ private:
 void ParseSections(const char* ptr, uint32_t nsects) {
   for (uint32_t i = 0; i < nsects; ++i) {
     auto* sect = (const section_64*)ptr;
-    printf("    section: name %s, offset=0x%x, size=0x%llx\n", sect->sectname, sect->offset, sect->size);
     ptr += sizeof(section_64);
+
+    printf("    section: name %s, offset=0x%x, size=0x%llx\n", sect->sectname, sect->offset, sect->size);
   }
 }
 
