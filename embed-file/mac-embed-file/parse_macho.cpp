@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdexcept>
+#include <string.h>
 #include <unistd.h> // open/close
 #include <sys/mman.h> // mmap/munmap
 #include <mach-o/loader.h>
@@ -55,15 +56,15 @@ int main(int argc, char **argv) {
   printf("Parsing Mach-O symbols in %s...\n", argv[1]);
   FileMap file(argv[1]);
 
-#if 0
-  Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file.ptr(), sizeof(elf_hdr));
+  mach_header_64 hdr{};
+  memcpy(&hdr, file.ptr(), sizeof(hdr));
 
-  const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
-  if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
-    std::cerr << "Target is not an ELF executable\n";
+  if (hdr.magic != MH_MAGIC_64) {
+    printf("Target is not a valid Mach-O 64-bit executable\n");
     return 1;
   }
+
+#if 0
   if (elf_hdr.e_ident[EI_CLASS] != ELFCLASS64) {
     std::cerr << "Sorry, only ELF-64 is supported.\n";
     return 1;
