@@ -47,6 +47,15 @@ private:
     const char* m_ptr = nullptr;
 };
 
+void ParseSections(const char* ptr, uint32_t nsects) {
+  if(nsects == 0) {
+    return;
+  }
+
+  auto* sect = (const section_64*)ptr;
+  printf("    section: name %s\n", sect->sectname);
+}
+
 int main(int argc, char **argv) {
   if (argc < 2) {
     printf("usage: %s <macho-binary>\n", argv[0]);
@@ -78,6 +87,7 @@ int main(int argc, char **argv) {
       const auto* seg = (const segment_command_64*)cmd;
       printf("  Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx, nsects=%u\n",
              seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize, seg->nsects);
+      ParseSections((const char*)seg + sizeof(segment_command_64), seg->nsects);
     }
 
   }
