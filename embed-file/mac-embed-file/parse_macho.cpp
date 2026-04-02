@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <mach-o/loader.h>
+#include <mach-o/swap.h>
 
 
 int main(int argc, char **argv) {
