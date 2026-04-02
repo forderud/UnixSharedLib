@@ -4,6 +4,22 @@
 * Embed arbitrary binary files in shared libraries
 * Access the embedded files without running the binary
 
+## File embedding commands
+With `ld`:
+```
+ld -r -b binary embed_example.txt -z noexecstack -o embed_example.o
+```
+
+... or with `objcopy`:
+```
+if [[ $(uname -m) == "aarch64" ]]; then
+    bfdname="elf64-littleaarch64"
+else
+    bfdname="elf64-x86-64"
+fi
+objcopy --input-target binary --output $bfdname --add-section .note.GNU-stack=/dev/null embed_example.txt embed_example.o
+```
+
 ## readelf symbol dump (extract of output)
 ```
 embed-file/linux-embed-file$ readelf -s libmylib.so 
