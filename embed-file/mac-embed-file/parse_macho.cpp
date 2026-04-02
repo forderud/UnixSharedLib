@@ -47,12 +47,13 @@ private:
     const char* m_ptr = nullptr;
 };
 
-void ParseSections(const char* ptr, uint32_t nsects) {
+void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) {
   for (uint32_t i = 0; i < nsects; ++i) {
-    auto* sect = (const section_64*)ptr;
-    ptr += sizeof(section_64);
+    auto* sect = (const section_64*)sect_ptr;
+    sect_ptr += sizeof(section_64);
 
-    printf("    section: name %s, offset=0x%x, size=0x%llx\n", sect->sectname, sect->offset, sect->size);
+    printf("    section: name=%s, offset=0x%x, size=0x%llx\n", sect->sectname, sect->offset, sect->size);
+    printf("    data: %s\n", file_ptr + sect->offset);
   }
 }
 
@@ -87,7 +88,7 @@ int main(int argc, char **argv) {
       const auto* seg = (const segment_command_64*)cmd;
       printf("  Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx, nsects=%u\n",
              seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize, seg->nsects);
-      ParseSections((const char*)seg + sizeof(segment_command_64), seg->nsects);
+      ParseSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects);
     }
 
   }
