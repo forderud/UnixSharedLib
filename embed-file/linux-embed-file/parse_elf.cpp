@@ -18,17 +18,17 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
     auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
-    printf("SYMBOL TABLE ENTRY %zd:\n", i);
-    printf("  st_name = %d", sym.st_name);
+    printf("  Symbol table entry %zd:\n", i);
+    printf("    st_name = %d", sym.st_name);
     if (sym.st_name != 0) {
       printf(" (%s)", file_ptr + str_off + sym.st_name);
     }
     printf("\n");
-    printf("  st_info = binding %d, type %d\n", binding, type);
-    printf("  st_other = %d\n", sym.st_other);
-    printf("  st_shndx = %d\n", sym.st_shndx); // associated section header table index
-    printf("  st_value = %p\n", (void *)sym.st_value);
-    printf("  st_size = %zd\n", sym.st_size);
+    printf("    st_info = binding %d, type %d\n", binding, type);
+    printf("    st_other = %d\n", sym.st_other);
+    printf("    st_shndx = %d\n", sym.st_shndx); // associated section header table index
+    printf("    st_value = %p\n", (void *)sym.st_value);
+    printf("    st_size = %zd\n", sym.st_size);
     printf("\n");
   }
   printf("\n");
