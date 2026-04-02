@@ -61,6 +61,10 @@ void PrintSectionHeaders(const char *file_ptr) {
       case SHT_DYNSYM:
         {
           printf("found SHT_DYNSYM (dynamic symbol) table, sh_link %u (index %d)\n", shdr.sh_link, i);
+          // get corresponding string table entry
+          ElfSectionHeader st_shdr(file_ptr, shdr.sh_link);
+          // print symbols
+          PrintSymbolTable(file_ptr, st_shdr.sh_offset, shdr.sh_offset, shdr.sh_size);
         }
         break;
       case SHT_PROGBITS:
