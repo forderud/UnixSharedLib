@@ -17,5 +17,5 @@ echo Running application:
 ./mainApp
 
 echo ""
-g++ -g parse_macho.cpp -o parse_macho
-./parse_macho mainApp
+g++ -g parse_mach.cpp -o parse_mach
+./parse_mach mainApp
