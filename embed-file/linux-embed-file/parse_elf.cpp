@@ -15,6 +15,9 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     Elf64_Sym sym{};
     memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
 
+    if (!sym.st_name)
+      continue; // skip nameless entries
+
     auto binding = ELF64_ST_BIND(sym.st_info); // STB_LOCAL=0, STB_GLOBAL=1
     auto type = ELF64_ST_TYPE(sym.st_info); // STT_NOTYPE=0
 
