@@ -71,8 +71,15 @@ int main(int argc, char **argv) {
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
     const auto* cmd = (const load_command*)cmd_ptr;
-    printf("Command %u: cmd=0x%x, cmdsize=%u\n", i, cmd->cmd, cmd->cmdsize);
     cmd_ptr += cmd->cmdsize;
+    printf("Command %u: cmd=0x%x, cmdsize=%u\n", i, cmd->cmd, cmd->cmdsize);
+
+    if (cmd->cmd == LC_SEGMENT_64) {
+      const auto* seg = (const segment_command_64*)cmd;
+      printf("  Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx\n",
+             seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize);
+    }
+
   }
 
   printf("\n");
