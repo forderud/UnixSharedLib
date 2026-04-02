@@ -2,7 +2,8 @@ echo Cleaning up...
 rm -f *.o *.so mainApp parse_elf
 
 # convert embed_example.txt into an object file to binary embedding
-ld -r -b binary embed_example.txt -z noexecstack -o embed_example.o
+# -z noexecstack
+ld -r -b binary embed_example.txt -o embed_example.o
 
 echo ""
 echo Building libmylib.so...
