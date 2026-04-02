@@ -45,6 +45,8 @@ Symbol table of section table .symtab (Index 26) with 82 entries
 ...
 ```
 
+The `.dynsym` symbols disappear if linking the binary file directly into an executable.
+
 ## Documentation
 * Linux manual page - [elf(5)](https://man7.org/linux/man-pages/man5/elf.5.html) - documents `Elf64_Ehdr`, `Elf64_Phdr`, `Elf64_Shdr`, `Elf64_Sym`
 * GNU binutils [LD](https://sourceware.org/binutils/docs/ld.html) doc
