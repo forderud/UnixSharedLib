@@ -1,5 +1,5 @@
 echo Cleaning up...
-rm -f *.o *.a
+rm -f *.o *.a *.so
 rm -r *.dSYM
 rm -f mainApp parse_mach
 
@@ -9,6 +9,10 @@ g++ -c mystaticlib.cpp -o lib_sources.o
 ld  lib_sources.o -r -sectcreate __TEXT embed_example embed_example.txt -o mystaticlib.o
 libtool -static mystaticlib.o -o libmystatic.a
 
+echo ""
+echo Building libmylib.so...
+g++ -fPIC -c mylib.cpp -o mylib.o
+g++ -shared -fvisibility=default -o libmylib.so mylib.o libmystatic.a
 
 echo ""
 echo Building application that links in the static library and accesses the embedded file...
