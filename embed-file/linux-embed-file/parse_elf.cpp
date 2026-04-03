@@ -1,6 +1,5 @@
 // based on https://github.com/eklitzke/parse-elf
 #include <unistd.h>
-#include <sys/mman.h>
 #include <cassert>
 #include <cstdio>
 #include <cstring>

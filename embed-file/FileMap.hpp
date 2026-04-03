@@ -1,9 +1,9 @@
 #pragma once
-#include <fcntl.h> // open/close
+#include <fcntl.h>    // open/close
 #include <sys/stat.h> // fstat
+#include <sys/mman.h> // mmap/munmap
 #if defined(__APPLE__)
   #include <unistd.h> // open/close
-  #include <sys/mman.h> // mmap/munmap
 #endif
 
 
