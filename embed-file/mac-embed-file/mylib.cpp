@@ -1,8 +1,11 @@
 #include <iostream>
+#include <dlfcn.h>
 // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
 #include <mach-o/getsect.h> // for getsectiondata
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
 
+
+static int rcs_addr_handle = 0; // in-library variable
 
 void print_embedded_file (const char* section_name) {
 #if 0
