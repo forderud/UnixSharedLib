@@ -1,6 +1,7 @@
 echo Cleaning up...
-rm -f *.o *.a mainApp
+rm -f *.o *.a
 rm -r *.dSYM
+rm -f mainApp parse_mach
 
 echo Building static library that embeds a binary file...
 g++ -c mystaticlib.cpp -o lib_sources.o
