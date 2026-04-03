@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include "ElfUtils.hpp"
+#include "../FileMap.hpp"
 
 
 void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
