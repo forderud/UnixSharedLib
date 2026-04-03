@@ -20,5 +20,4 @@ echo Running application:
 
 echo ""
 g++ -g parse_mach.cpp -o parse_mach
-#./parse_mach libmylib.so
-./parse_mach mainApp
+./parse_mach libmylib.so
