@@ -3,16 +3,12 @@ rm -f *.o *.a *.so
 rm -r *.dSYM
 rm -f mainApp parse_mach
 
-echo Building static library that embeds a binary file...
-g++ -c mystaticlib.cpp -o lib_sources.o
-# NOTE: section names cannot be longer than 16 chars
-ld  lib_sources.o -r -sectcreate __TEXT embed_example embed_example.txt -o mystaticlib.o
-libtool -static mystaticlib.o -o libmystatic.a
-
 echo ""
 echo Building libmylib.so...
 g++ -fPIC -c mylib.cpp -o mylib.o
-g++ -shared -fvisibility=default -o libmylib.so mylib.o libmystatic.a
+# NOTE: section names cannot be longer than 16 chars
+ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib2.o
+g++ -shared -fvisibility=default -o libmylib.so mylib2.o
 
 echo ""
 echo Building application that links in the static library and accesses the embedded file...
