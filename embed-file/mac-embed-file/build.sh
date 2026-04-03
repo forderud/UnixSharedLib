@@ -16,7 +16,7 @@ g++ -shared -fvisibility=default -o libmylib.so mylib.o libmystatic.a
 
 echo ""
 echo Building application that links in the static library and accesses the embedded file...
-g++ main.cpp -L. -lmystatic -lmylib -o mainApp
+g++ main.cpp -L. -lmylib -o mainApp
 
 echo ""
 echo Running application:
