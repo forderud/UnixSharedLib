@@ -8,7 +8,6 @@
 static int rcs_addr_handle = 0; // in-library variable
 
 void print_embedded_file (const char* section_name) {
-#if 0
     // get image header from a global address
     Dl_info img_info = {};
     int img_index = dladdr(&rcs_addr_handle, &img_info);
@@ -21,5 +20,4 @@ void print_embedded_file (const char* section_name) {
 
     printf("Content of %s section (%u bytes):\n", section_name, (unsigned int)embed_example_size);
     printf("%.*s\n", (int)embed_example_size, embed_example_start); // specify size since file content is not null-terminated
-#endif
 }
