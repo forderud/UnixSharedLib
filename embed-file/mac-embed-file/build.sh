@@ -1,5 +1,6 @@
 echo Cleaning up...
 rm -f *.o *.a mainApp
+rm -r *.dSYM
 
 echo Building static library that embeds a binary file...
 g++ -c mystaticlib.cpp -o lib_sources.o
