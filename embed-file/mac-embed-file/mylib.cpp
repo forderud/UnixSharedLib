@@ -8,6 +8,7 @@ const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
 static int rcs_addr_handle = 0; // in-library variable
 
+__attribute__ ((visibility ("default")))
 void print_embedded_file (const char* section_name) {
     // get image header from a global address
     Dl_info img_info = {};

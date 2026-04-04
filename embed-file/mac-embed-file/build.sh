@@ -5,10 +5,10 @@ rm -f mainApp parse_mach
 
 echo ""
 echo Building libmylib.so...
-g++ -fPIC -c mylib.cpp -o mylib.o
+g++ -fPIC -fvisibility=hidden -c mylib.cpp -o mylib.o
 # NOTE: section names cannot be longer than 16 chars
 ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib.o
-g++ -shared -fvisibility=hidden -o libmylib.so mylib.o
+g++ -shared -o libmylib.so mylib.o
 
 echo ""
 echo Building application that links in the shared library and accesses the embedded file...
