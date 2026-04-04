@@ -1,4 +1,4 @@
-#include "MyDynFramework.hpp"
+#include <MyDynFramework/MyDynFramework.hpp>
 
 
 int main() {
