@@ -1,6 +1,7 @@
 #include <iostream>
 
 extern "C" {
+    __attribute__ ((visibility ("default")))
     char mylib_array[] = "MyLib text string.";
 }
 
@@ -12,7 +13,7 @@ int InitializationTask() {
 //__attribute__((used))
 static int g_forceLink = InitializationTask();
 
-extern "C"
+extern "C" __attribute__ ((visibility ("default")))
 void MyLibFunction() {
     printf("Hi from myLib!\n");
 }
