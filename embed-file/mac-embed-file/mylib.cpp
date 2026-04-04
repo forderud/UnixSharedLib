@@ -4,6 +4,7 @@
 #include <mach-o/getsect.h> // for getsectiondata
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
 
+const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
 static int rcs_addr_handle = 0; // in-library variable
 
@@ -20,4 +21,6 @@ void print_embedded_file (const char* section_name) {
 
     printf("Content of %s section (%u bytes):\n", section_name, (unsigned int)embed_example_size);
     printf("%.*s\n", (int)embed_example_size, embed_example_start); // specify size since file content is not null-terminated
+    printf("\n");
+    printf("Content of internal array (%u bytes):\n%s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
 }
