@@ -24,5 +24,5 @@ set_target_properties(MyDynFramework PROPERTIES
 # "Archive" works fine just relying on default search paths as it has different
 # build product output directory.
 target_include_directories(MyDynFramework INTERFACE 
-    "${CMAKE_CURRENT_BINARY_DIR}/MyDynFramework/MyDynFramework.framework/Headers"
+    "${CMAKE_CURRENT_BINARY_DIR}/MyDynFramework.framework/Headers"
 )
