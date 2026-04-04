@@ -1,4 +1,4 @@
-#include "mystaticlib.hpp"
+#include "mylib.hpp"
 
 
 int main() {
