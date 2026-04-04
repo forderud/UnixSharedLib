@@ -3,6 +3,7 @@ add_executable(MyExecutable
 )
 
 target_link_libraries(MyExecutable PRIVATE MyDynFramework)
+#target_link_libraries(MyExecutable PRIVATE "-framework MyDynFramework")
 
 # Link the framework to the app
 #set_target_properties(MyExecutable PROPERTIES
