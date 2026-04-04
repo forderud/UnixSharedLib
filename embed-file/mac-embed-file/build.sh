@@ -19,5 +19,5 @@ echo Running application:
 ./mainApp
 
 echo ""
-g++ -g parse_mach.cpp -o parse_mach
+g++ parse_mach.cpp -o parse_mach
 ./parse_mach libmylib.dylib
