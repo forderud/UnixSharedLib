@@ -2,7 +2,7 @@ add_executable(MyExecutable
     Main.cpp
 )
 
-add_dependencies(MyExecutable MyDynFramework)
+target_link_libraries(MyExecutable PRIVATE MyDynFramework)
 
 # Link the framework to the app
 set_target_properties(MyExecutable PROPERTIES
