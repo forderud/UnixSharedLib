@@ -1,7 +1,8 @@
 echo Cleaning up...
 rm -f *.o *.a *.so *.dylib
-rm -r *.dSYM
-rm -f mainApp parse_mach
+rm -f cmake_install.cmake CMakeCache.txt Makefile
+rm -r CMakeFiles
+rm -r MyDynFramework.framework
 
 cmake .
 cmake --build .
