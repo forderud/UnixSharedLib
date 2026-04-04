@@ -26,3 +26,6 @@ set_target_properties(MyDynFramework PROPERTIES
 target_include_directories(MyDynFramework INTERFACE 
     "${CMAKE_CURRENT_BINARY_DIR}/MyDynFramework.framework/Headers"
 )
+
+# NOTE: section names cannot be longer than 16 chars
+#ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib.o
