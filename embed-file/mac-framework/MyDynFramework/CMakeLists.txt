@@ -27,5 +27,6 @@ target_include_directories(MyDynFramework INTERFACE
     "${CMAKE_CURRENT_BINARY_DIR}/MyDynFramework.framework/Headers"
 )
 
+# Embed binary file as section in library
 # NOTE: section names cannot be longer than 16 chars
-#ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib.o
+target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
