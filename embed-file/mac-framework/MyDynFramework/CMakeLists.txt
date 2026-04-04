@@ -19,3 +19,10 @@ set_target_properties(MyDynFramework PROPERTIES
 set_target_properties(MyDynFramework PROPERTIES
     COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden"
     XCODE_ATTRIBUTE_OTHER_CFLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
+
+# Include framework headers, needed to make "Build" Xcode action work.
+# "Archive" works fine just relying on default search paths as it has different
+# build product output directory.
+target_include_directories(MyDynFramework INTERFACE 
+    "${CMAKE_CURRENT_BINARY_DIR}/MyDynFramework/MyDynFramework.framework/Headers"
+)
