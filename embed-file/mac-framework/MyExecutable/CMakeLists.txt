@@ -3,8 +3,3 @@ add_executable(MyExecutable
 )
 
 target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MyDynFramework>")
-
-# Link the framework to the app
-#set_target_properties(MyExecutable PROPERTIES
-#    XCODE_ATTRIBUTE_OTHER_LDFLAGS "${XCODE_ATTRIBUTE_OTHER_LDFLAGS} -framework MyDynFramework"
-#)
