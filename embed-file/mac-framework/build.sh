@@ -6,3 +6,5 @@ cd build
 
 cmake ..
 cmake --build .
+
+MyExecutable/MyExecutable
