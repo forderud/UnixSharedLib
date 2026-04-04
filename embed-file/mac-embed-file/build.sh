@@ -1,5 +1,5 @@
 echo Cleaning up...
-rm -f *.o *.a *.so
+rm -f *.o *.a *.so *.dylib
 rm -r *.dSYM
 rm -f mainApp parse_mach
 
@@ -8,7 +8,7 @@ echo Building libmylib.so...
 g++ -fPIC -fvisibility=hidden -c mylib.cpp -o mylib.o
 # NOTE: section names cannot be longer than 16 chars
 ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib.o
-g++ -shared -o libmylib.so mylib.o
+g++ -shared -o libmylib.dylib mylib.o
 
 echo ""
 echo Building application that links in the shared library and accesses the embedded file...
@@ -20,4 +20,4 @@ echo Running application:
 
 echo ""
 g++ -g parse_mach.cpp -o parse_mach
-./parse_mach libmylib.so
+./parse_mach libmylib.dylib
