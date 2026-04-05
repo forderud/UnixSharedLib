@@ -8,8 +8,7 @@ const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
 static int rcs_addr_handle = 0; // in-library variable
 
-__attribute__ ((visibility ("default")))
-void print_embedded_file (const char* section_name) {
+std::string_view GetSectionData(const char* section_name) {
     // get image header from a global address
     Dl_info img_info = {};
     int img_index = dladdr(&rcs_addr_handle, &img_info);
@@ -19,9 +18,15 @@ void print_embedded_file (const char* section_name) {
     const char segment_name[] = "__TEXT"; // __TEXT for read-only data and __DATA for writable data
     unsigned long embed_example_size = 0;
     const uint8_t* embed_example_start = getsectiondata(header, segment_name, section_name, &embed_example_size);
+    return std::string_view((const char*)embed_example_start, embed_example_size);
+}
 
-    printf("Content of %s section (%u bytes):\n", section_name, (unsigned int)embed_example_size);
-    printf("%.*s\n", (int)embed_example_size, embed_example_start); // specify size since file content is not null-terminated
+__attribute__ ((visibility ("default")))
+void print_embedded_file (const char* section_name) {
+    auto section = GetSectionData(section_name);
+
+    printf("Content of %s section (%u bytes):\n", section_name, (unsigned int)section.size());
+    printf("%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
     printf("\n");
     printf("Content of internal array (%u bytes):\n%s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
 }
