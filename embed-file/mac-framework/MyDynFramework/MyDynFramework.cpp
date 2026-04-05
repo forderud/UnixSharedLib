@@ -6,9 +6,10 @@
 
 const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
-static int rcs_addr_handle = 0; // in-library variable
 
-std::string_view GetSectionData(const char* section_name) {
+static std::string_view GetSectionData(const char* section_name) {
+    static int rcs_addr_handle = 0; // in-library variable
+
     // get image header from a global address
     Dl_info img_info = {};
     int img_index = dladdr(&rcs_addr_handle, &img_info);
