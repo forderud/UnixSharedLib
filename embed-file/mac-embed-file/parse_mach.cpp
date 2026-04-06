@@ -37,6 +37,11 @@ int main(int argc, char **argv) {
          hdr.cputype, hdr.cpusubtype, hdr.filetype, hdr.ncmds, hdr.sizeofcmds);
   printf("\n");
 
+  if ((hdr.filetype != MH_EXECUTE) && (hdr.filetype != MH_DYLIB)) {
+    printf("Target is not an Mach-O executable or dynamic library.\n");
+    return 1;
+  }
+
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
     const auto* cmd = (const load_command*)cmd_ptr;
