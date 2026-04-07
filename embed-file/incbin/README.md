@@ -15,10 +15,10 @@ In file included from main.cpp:2:
 1 warning generated.
 ```
 
-This is a blocker if still relevant, since it will prevent usage in Apple App store apps. Have submitted [incbin PR #72](https://github.com/graphitemaster/incbin/pull/72) to clarify the current state. May need to use `ld -r -b binary` instead if still relevant.
+Have submitted [incbin PR #72](https://github.com/graphitemaster/incbin/pull/72) to fix this annoyance. May need to use `ld -r -b binary` instead if still relevant.
 
 ## Windows
-Not attractive, since adoption will require adoption of an ad-hoc `incbin.exe` preprocessor tool. It's then better to instead rely on `RCDATA` embeding.
+Not attractive, since adoption will require adoption of an ad-hoc `incbin.exe` preprocessor tool. It's then better to instead rely on `RCDATA` embeding for the time being.
 
 ## WASM
-Unsupported platform ([issue #37](https://github.com/graphitemaster/incbin/issues/37)). Will probably need to use `--embed-file` instead.
+Will be supported with [incbin PR #70](https://github.com/graphitemaster/incbin/pull/70). Can use `--embed-file` meanwhile.
