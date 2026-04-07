@@ -7,4 +7,7 @@ cd build
 cmake ..
 cmake --build .
 
+echo Running MyExecutable...
 MyExecutable/MyExecutable
+
+ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework
