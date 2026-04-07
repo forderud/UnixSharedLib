@@ -1,7 +1,7 @@
 echo Cleaning up...
 rm -f *.o *.a *.so *.dylib
 rm -r *.dSYM
-rm -f mainApp parse_mach
+rm -f mainApp ParseMach
 
 echo ""
 echo Building libmylib.so...
@@ -20,5 +20,5 @@ echo Running application:
 ./mainApp
 
 echo ""
-g++ parse_mach.cpp -o parse_mach
-./parse_mach libmylib.dylib
+g++ ParseMach.cpp -o ParseMach
+./ParseMach libmylib.dylib
