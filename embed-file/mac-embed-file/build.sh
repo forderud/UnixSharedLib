@@ -18,7 +18,3 @@ g++ main.cpp -L. -lmylib -o mainApp
 echo ""
 echo Running application:
 ./mainApp
-
-echo ""
-g++ ParseMach.cpp -o ParseMach
-./ParseMach libmylib.dylib
