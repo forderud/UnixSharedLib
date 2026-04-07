@@ -1,5 +1,5 @@
 echo Cleaning up...
-rm -f *.o *.so mainApp parse_elf
+rm -f *.o *.so mainApp ParseElf
 
 # convert embed_example.txt into an object file to binary embedding
 # -z noexecstack
@@ -18,5 +18,5 @@ echo Running mainApp:
 ./mainApp
 
 echo ""
-g++ -g parse_elf.cpp -o parse_elf
-./parse_elf libmylib.so _binary_embed_example_txt
+g++ -g ParseElf.cpp -o ParseElf
+./ParseElf libmylib.so _binary_embed_example_txt
