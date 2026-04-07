@@ -1,5 +1,8 @@
 ## Mach-O embed and parsing samples
 
+#### Demonstrates the folllowing
+* Embed arbitrary binary files in shared libraries
+* Access the embedded files without running the binary
 
 ## Documentation
 * [OS X ABI Mach-O File Format Reference](https://github.com/aidansteele/osx-abi-macho-file-format-reference)
