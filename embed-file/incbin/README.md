@@ -1,4 +1,4 @@
-Test of using https://github.com/graphitemaster/incbin for binary file embeding
+Test of using https://github.com/graphitemaster/incbin for binary file embeding. This can be a nice short-term approach until [`#embed`](https://en.cppreference.com/w/cpp/preprocessor/embed.html) becomes available in C++26.
 
 ## Linux & Android
 Everything seem to work fine, with no observed problems.
