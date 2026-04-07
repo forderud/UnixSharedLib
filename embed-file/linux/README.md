@@ -48,7 +48,7 @@ Symbol table of section table .symtab (Index 26) with 82 entries
 The `.dynsym` symbols only appear if linking the binary file into a shared library (`.so`). It does _not_ appear if linking directly into an executable.
 
 ## Documentation
-* Linux manual page - [elf(5)](https://man7.org/linux/man-pages/man5/elf.5.html) - documents `Elf64_Ehdr`, `Elf64_Phdr`, `Elf64_Shdr`, `Elf64_Sym`
+* Linux manual page - [elf(5)](https://man7.org/linux/man-pages/man5/elf.5.html) - documents `Elf64_Ehdr`, `Elf64_Shdr`, `Elf64_Sym`
 * GNU binutils [LD](https://sourceware.org/binutils/docs/ld.html) doc
 * Sunshine's [Online ELF Viewer](https://www.sunshine2k.de/coding/javascript/onlineelfviewer/onlineelfviewer.html)
 
