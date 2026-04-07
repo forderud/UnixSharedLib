@@ -11,4 +11,4 @@ echo Running MyExecutable...
 MyExecutable/MyExecutable
 
 echo ""
-ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework
+ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework embed_example

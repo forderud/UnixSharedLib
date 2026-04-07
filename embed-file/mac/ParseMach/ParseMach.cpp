@@ -36,6 +36,36 @@ void DumpSegments(const FileMap& file) {
   }
 }
 
+void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects, const char* segment_name) {
+  for (uint32_t i = 0; i < nsects; ++i) {
+    auto* sect = (const section_64*)sect_ptr;
+    sect_ptr += sizeof(section_64);
+
+    if (strcmp(sect->sectname, segment_name) == 0) {
+      printf("Found segment: %s:\n", segment_name);
+      printf("%s\n", file_ptr + sect->offset);
+      return;
+    }
+  }
+}
+
+void FindSegmentInSegments(const FileMap& file, const char* segment_name) {
+  mach_header_64 hdr{};
+  memcpy(&hdr, file.ptr(), sizeof(hdr));
+
+  const char* cmd_ptr = file.ptr() + sizeof(hdr);
+  for (uint32_t i = 0; i < hdr.ncmds; ++i) {
+    const auto* cmd = (const load_command*)cmd_ptr;
+    cmd_ptr += cmd->cmdsize;
+
+    // only parse 64bit segment commands
+    if (cmd->cmd == LC_SEGMENT_64) {
+      const auto* seg = (const segment_command_64*)cmd;
+      FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
+    }
+  }
+}
+
 int main(int argc, char **argv) {
   if (argc < 2) {
     printf("usage: %s <macho-binary>\n", argv[0]);
@@ -66,7 +96,7 @@ int main(int argc, char **argv) {
     DumpSegments(file);
   } else {
     const char* segment_name = argv[2];
-    printf("TODO: Seaching for segment %s in file...\n", segment_name);
+    FindSegmentInSegments(file, segment_name);
   }
 
   printf("\n");
