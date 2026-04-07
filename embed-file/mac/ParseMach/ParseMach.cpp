@@ -17,8 +17,7 @@ void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) 
 }
 
 void DumpSegments(const FileMap& file) {
-  mach_header_64 hdr{};
-  memcpy(&hdr, file.ptr(), sizeof(hdr));
+  auto& hdr = *(const mach_header_64*)file.ptr();
 
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
@@ -50,8 +49,7 @@ void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t 
 }
 
 void FindSegmentInSegments(const FileMap& file, const char* segment_name) {
-  mach_header_64 hdr{};
-  memcpy(&hdr, file.ptr(), sizeof(hdr));
+  auto& hdr = *(const mach_header_64*)file.ptr();
 
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
@@ -75,9 +73,7 @@ int main(int argc, char **argv) {
   printf("Parsing Mach-O symbols in %s...\n", argv[1]);
   FileMap file(argv[1]);
 
-  mach_header_64 hdr{};
-  memcpy(&hdr, file.ptr(), sizeof(hdr));
-
+  auto& hdr = *(const mach_header_64*)file.ptr();
   if (hdr.magic != MH_MAGIC_64) {
     printf("Target is not a valid Mach-O 64-bit executable\n");
     return 1;
