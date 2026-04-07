@@ -10,4 +10,5 @@ cmake --build .
 echo Running MyExecutable...
 MyExecutable/MyExecutable
 
+echo ""
 ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework
