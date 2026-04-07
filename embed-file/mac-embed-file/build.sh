@@ -5,6 +5,7 @@ rm -f mainApp parse_mach
 
 echo ""
 echo Building libmylib.so...
+# -fPIC set by default with dynamiclib
 g++ -fPIC -fvisibility=hidden -c mylib.cpp -o mylib.o
 # NOTE: section names cannot be longer than 16 chars
 ld  mylib.o -r -sectcreate __TEXT embed_example embed_example.txt -o mylib.o
