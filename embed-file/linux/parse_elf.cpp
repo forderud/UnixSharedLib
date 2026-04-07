@@ -38,9 +38,7 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
 }
 
 void PrintSectionHeaders(const char *file_ptr) {
-  Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
-
+  const auto& elf_hdr = *(const Elf64_Ehdr*)file_ptr;
   // section header string table
   ElfSectionHeader shst(file_ptr, elf_hdr.e_shstrndx);
 
@@ -129,8 +127,7 @@ std::string_view FindDataSection(const char *file_ptr, const char* symbol_name_p
   // 1: Find SHT_SYMTAB section "st" with the desired symbol
   // 2: Find corresponding .data section "data" from st_shndx
   // 3: Content: file.ptr() + st.st_value + data.sh_offset - data.sh_addr
-  Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file_ptr, sizeof(elf_hdr));
+  const auto& elf_hdr = *(const Elf64_Ehdr*)file_ptr;
 
   // section header string table
   ElfSectionHeader shst(file_ptr, elf_hdr.e_shstrndx);
@@ -162,8 +159,7 @@ int main(int argc, char **argv) {
   printf("Parsing ELF symbols in %s...\n", argv[1]);
   FileMap file(argv[1]);
 
-  Elf64_Ehdr elf_hdr{};
-  memcpy(&elf_hdr, file.ptr(), sizeof(elf_hdr));
+  const auto& elf_hdr = *(const Elf64_Ehdr*)file.ptr();
 
   const unsigned char expected_magic[] = {ELFMAG0, ELFMAG1, ELFMAG2, ELFMAG3};
   if (memcmp(elf_hdr.e_ident, expected_magic, sizeof(expected_magic)) != 0) {
