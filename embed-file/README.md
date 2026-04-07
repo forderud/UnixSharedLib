@@ -1,7 +1,7 @@
 Sample code for embedding arbitrary binary or text files into binaries on various platforms.
 
 ### Platform support
-| Platform | Support status |
+| Platform | Approach |
 |----------|----------------|
 | Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. |
 | Linux/Android | Add a named `.symtab` symbol to the `.so` binary (see sample in `linux` subdirectory). |
