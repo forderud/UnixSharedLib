@@ -1,7 +1,7 @@
 echo Cleaning up...
 rm -f *.o *.a *.so *.dylib
 rm -r *.dSYM
-rm -f mainApp ParseMach
+rm -f mainApp
 
 echo ""
 echo Building libmylib.so...
