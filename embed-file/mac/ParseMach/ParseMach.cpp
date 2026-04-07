@@ -48,6 +48,7 @@ int main(int argc, char **argv) {
     cmd_ptr += cmd->cmdsize;
     //printf("Load command %u: cmd=0x%x, cmdsize=%u\n", i, cmd->cmd, cmd->cmdsize);
 
+    // only parse 64bit segments
     if (cmd->cmd == LC_SEGMENT_64) {
       const auto* seg = (const segment_command_64*)cmd;
       printf("Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx, nsects=%u\n",
