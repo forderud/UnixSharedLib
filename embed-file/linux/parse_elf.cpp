@@ -12,8 +12,7 @@
 void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
   // iterate over symbol table entries
   for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
-    Elf64_Sym sym{};
-    memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
+    ElfSymbol sym(file_ptr, sym_off, i);
 
     if (!sym.st_name)
       continue; // skip nameless entries
@@ -91,8 +90,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
 
   // iterate over symbol table entries
   for (size_t i = 0; i*sizeof(Elf64_Sym) < sym_sz; i++) {
-    Elf64_Sym sym{};
-    memcpy(&sym, file_ptr + sym_off + i*sizeof(sym), sizeof(sym));
+    ElfSymbol sym(file_ptr, sym_off, i);
 
     size_t sym_len = strlen(symbol_name_prefix);
     
