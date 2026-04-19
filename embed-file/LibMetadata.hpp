@@ -26,7 +26,7 @@ struct __attribute__((packed)) LibMetadata {
 #if defined(__APPLE__)
 __attribute__ ((section("__TEXT,LibMetadata")))
 #endif
-/*const*/ LibMetadata LibMetadata = {
+extern const LibMetadata LibMetadata = {
     "MySharedLib",
     "A sample ELF/Mach-O shared library.",
     {1, 2, 3, 4},
