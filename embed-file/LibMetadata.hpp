@@ -6,8 +6,8 @@ struct __attribute__((packed)) LibMetadata {
     char    name[16];
     char    description[64];
     uint8_t version[4];
-    bool    diagnostic;
-    bool    trusted;
+    uint8_t diagnostic : 1;
+    uint8_t trusted : 1;
 
     void Print() const {
         printf("Library Name: %s\n", name);
