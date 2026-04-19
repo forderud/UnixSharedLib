@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define EXPORT_LIB_METADATA
+#define EMBED_SAMPLE_LIB_METADATA
 #include "../LibMetadata.hpp"
 
 

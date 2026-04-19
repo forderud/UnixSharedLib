@@ -4,7 +4,7 @@
 #include <mach-o/getsect.h> // for getsectiondata
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
 
-#define EXPORT_LIB_METADATA
+#define EMBED_SAMPLE_LIB_METADATA
 #include "../../LibMetadata.hpp"
 
 

@@ -2,6 +2,7 @@
 #include <cstdint>
 
 
+/** Shared library metadata */
 struct __attribute__((packed)) LibMetadataT {
     char    name[16];
     char    description[64];
@@ -19,7 +20,7 @@ struct __attribute__((packed)) LibMetadataT {
 };
 
 
-#ifdef EXPORT_LIB_METADATA
+#ifdef EMBED_SAMPLE_LIB_METADATA
 
 // embed sample metadata in shared library
 //__attribute__ ((visibility("default"))) 
