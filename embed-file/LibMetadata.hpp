@@ -17,3 +17,20 @@ struct LibMetadata {
         printf("Trusted: %s\n", trusted ? "Yes" : "No");
     }
 };
+
+
+#ifdef EXPORT_LIB_METADATA
+
+//__attribute__ ((visibility("default"))) 
+#if defined(__APPLE__)
+__attribute__ ((section("__TEXT,LibMetadata")))
+#endif
+/*const*/ LibMetadata LibMetadata = {
+    "MySharedLib",
+    "A sample ELF/Mach-O shared library.",
+    {1, 2, 3, 4},
+    true,
+    true
+};
+
+#endif // EXPORT_LIB_METADATA

@@ -3,18 +3,10 @@
 // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
 #include <mach-o/getsect.h> // for getsectiondata
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
+
+#define EXPORT_LIB_METADATA
 #include "../../LibMetadata.hpp"
 
-
-//__attribute__ ((visibility("default"))) 
-__attribute__ ((section("__TEXT,LibMetadata")))
-/*const*/ LibMetadata g_LibMetadata = {
-    "ABCABCABCABCABC",
-    "A sample Mach-O dynamic library.",
-    {1, 2, 3, 4},
-    true,
-    true
-};
 
 static const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
