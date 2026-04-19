@@ -7,6 +7,7 @@
 #include <vector>
 #include "ElfUtils.hpp"
 #include "../FileMap.hpp"
+#include "../LibMetadata.hpp"
 
 
 void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size_t sym_sz) {
@@ -96,6 +97,12 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
     
     const char* cur_name = file_ptr + str_off + sym.st_name;
     size_t cur_len = strlen(cur_name);
+
+    if (strcmp(cur_name, "LibMetadata") == 0) {
+      ElfSectionHeader data(file_ptr, sym.st_shndx);
+      auto* md = (LibMetadata*)(file_ptr + sym.st_value + data.sh_offset - data.sh_addr);
+      md->Print();
+    }
 
     if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
       if (strcmp(cur_name + sym_len, "_start") == 0) {
