@@ -154,7 +154,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+#if 0
   printf("Parsing ELF symbols in %s...\n", argv[1]);
+#endif
   FileMap file(argv[1]);
 
   const auto& elf_hdr = *(const Elf64_Ehdr*)file.ptr();
@@ -173,8 +175,12 @@ int main(int argc, char **argv) {
     PrintSectionHeaders(file.ptr());
   } else {
     std::string_view data = FindDataSection(file.ptr(), argv[2]);
-    printf("%s content (size %u):\n", argv[2], data.size());
-    printf("%.*s\n", (int)data.size(), data.data());
+    if (data.size() > 0) {
+      printf("%s content (size %u):\n", argv[2], data.size());
+      printf("%.*s\n", (int)data.size(), data.data());
+    } else {
+      printf("ERROR: Unable to find symbol %s\n", argv[2]);
+    }
   }
 
   printf("\n");
