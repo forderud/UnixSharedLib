@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+
 
 struct LibMetadata {
     char    name[16];
