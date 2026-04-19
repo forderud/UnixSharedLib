@@ -4,6 +4,7 @@
 #include <mach-o/loader.h>
 #include <mach-o/swap.h>
 #include "../../FileMap.hpp"
+#include "../../LibMetadata.hpp"
 
 
 void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) {
@@ -42,7 +43,12 @@ void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t 
 
     if (strcmp(sect->sectname, segment_name) == 0) {
       printf("Found segment: %s:\n", segment_name);
-      printf("%s\n", file_ptr + sect->offset);
+      if (strcmp(segment_name, "LibMetadata") == 0) {
+        auto* md = (const LibMetadata*)(file_ptr + sect->offset);
+        md->Print();
+      } else {
+        printf("%s\n", file_ptr + sect->offset);
+      }
       return;
     }
   }
@@ -70,7 +76,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+#if 0
   printf("Parsing Mach-O symbols in %s...\n", argv[1]);
+#endif
   FileMap file(argv[1]);
 
   auto& hdr = *(const mach_header_64*)file.ptr();
@@ -79,9 +87,11 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+#if 0
   printf("Mach-O header: cputype=0x%x, cpusubtype=0x%x, filetype=0x%x, ncmds=%u, sizeofcmds=%u\n",
          hdr.cputype, hdr.cpusubtype, hdr.filetype, hdr.ncmds, hdr.sizeofcmds);
   printf("\n");
+#endif
 
   if ((hdr.filetype != MH_EXECUTE) && (hdr.filetype != MH_DYLIB)) {
     printf("Target is not an Mach-O executable or dynamic library.\n");

@@ -12,3 +12,4 @@ MyExecutable/MyExecutable
 
 echo ""
 ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework embed_example
+ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework LibMetadata
