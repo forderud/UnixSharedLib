@@ -7,10 +7,10 @@
 
 
 __attribute__ ((visibility ("default")))
-LibMetadata g_LibMetadata = {
-    "MyDynFramework",
+/*const*/ LibMetadata g_LibMetadata = {
+    "ABCABCABCABCABC",
     "A sample Mach-O dynamic library.",
-    {1, 0, 0, 0},
+    {1, 2, 3, 4},
     true,
     true
 };
