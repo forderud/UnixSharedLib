@@ -5,6 +5,16 @@
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
 #include "../../LibMetadata.hpp"
 
+
+__attribute__ ((visibility ("default")))
+LibMetadata g_LibMetadata = {
+    "MyDynFramework",
+    "A sample Mach-O dynamic library.",
+    {1, 0, 0, 0},
+    true,
+    true
+};
+
 const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
 
