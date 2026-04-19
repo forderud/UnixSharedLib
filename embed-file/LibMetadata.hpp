@@ -2,7 +2,7 @@
 #include <cstdint>
 
 
-struct LibMetadata {
+struct __attribute__((packed)) LibMetadata {
     char    name[16];
     char    description[64];
     uint8_t version[4];
