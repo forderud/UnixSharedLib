@@ -1,4 +1,15 @@
 #include <iostream>
+#include "../LibMetadata.hpp"
+
+
+__attribute__ ((visibility("default"))) 
+/*const*/ LibMetadata LibMetadata = {
+    "ABCABCABCABCABC",
+    "A sample ELF shared library.",
+    {1, 2, 3, 4},
+    true,
+    true
+};
 
 extern "C" {
     __attribute__ ((visibility ("default")))
