@@ -2,7 +2,7 @@
 #include "../LibMetadata.hpp"
 
 
-__attribute__ ((visibility("default"))) 
+//__attribute__ ((visibility("default"))) 
 /*const*/ LibMetadata LibMetadata = {
     "ABCABCABCABCABC",
     "A sample ELF shared library.",
