@@ -98,10 +98,11 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
     const char* cur_name = file_ptr + str_off + sym.st_name;
     size_t cur_len = strlen(cur_name);
 
-    if (strcmp(cur_name, "LibMetadata") == 0) {
+    if ((strcmp(cur_name, "LibMetadata") == 0) && (strcmp(symbol_name_prefix, "LibMetadata") == 0)){
       ElfSectionHeader data(file_ptr, sym.st_shndx);
-      auto* md = (LibMetadata*)(file_ptr + sym.st_value + data.sh_offset - data.sh_addr);
-      md->Print();
+      const char* start = file_ptr + sym.st_value + data.sh_offset - data.sh_addr;
+      const char* end = start + sizeof(LibMetadata);
+      return std::string_view(start, end - start);
     }
 
     if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
@@ -183,8 +184,13 @@ int main(int argc, char **argv) {
   } else {
     std::string_view data = FindDataSection(file.ptr(), argv[2]);
     if (data.size() > 0) {
-      printf("%s content (size %u):\n", argv[2], data.size());
-      printf("%.*s\n", (int)data.size(), data.data());
+      if (strcmp(argv[2], "LibMetadata") == 0) {
+        const LibMetadata* metadata = (const LibMetadata*)data.data();
+        metadata->Print();
+      } else {
+        printf("%s content (size %u):\n", argv[2], data.size());
+        printf("%.*s\n", (int)data.size(), data.data());
+      }
     } else {
       printf("ERROR: Unable to find symbol %s\n", argv[2]);
     }

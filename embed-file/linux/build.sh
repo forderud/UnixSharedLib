@@ -20,3 +20,4 @@ echo Running mainApp:
 echo ""
 g++ -g ParseElf.cpp -o ParseElf
 ./ParseElf libmylib.so _binary_embed_example_txt
+./ParseElf libmylib.so LibMetadata
