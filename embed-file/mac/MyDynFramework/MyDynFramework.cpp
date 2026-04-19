@@ -6,7 +6,8 @@
 #include "../../LibMetadata.hpp"
 
 
-__attribute__ ((visibility ("default")))
+__attribute__ ((visibility("default"))) 
+__attribute__ ((section("__TEXT,LibMetadata")))
 /*const*/ LibMetadata g_LibMetadata = {
     "ABCABCABCABCABC",
     "A sample Mach-O dynamic library.",
