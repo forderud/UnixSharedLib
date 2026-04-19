@@ -3,6 +3,7 @@
 // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
 #include <mach-o/getsect.h> // for getsectiondata
 #include <mach-o/ldsyms.h>  // for _mh_execute_header
+#include "../../LibMetadata.hpp"
 
 const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
 
