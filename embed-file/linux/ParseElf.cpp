@@ -101,7 +101,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
     if ((strcmp(cur_name, "LibMetadata") == 0) && (strcmp(symbol_name_prefix, "LibMetadata") == 0)){
       ElfSectionHeader data(file_ptr, sym.st_shndx);
       const char* start = file_ptr + sym.st_value + data.sh_offset - data.sh_addr;
-      const char* end = start + sizeof(LibMetadata);
+      const char* end = start + sizeof(LibMetadataT);
       return std::string_view(start, end - start);
     }
 
@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
     std::string_view data = FindDataSection(file.ptr(), argv[2]);
     if (data.size() > 0) {
       if (strcmp(argv[2], "LibMetadata") == 0) {
-        const LibMetadata* metadata = (const LibMetadata*)data.data();
+        auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
       } else {
         printf("%s content (size %u):\n", argv[2], data.size());

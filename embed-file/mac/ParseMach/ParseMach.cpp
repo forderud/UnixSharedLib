@@ -44,8 +44,8 @@ void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t 
     if (strcmp(sect->sectname, segment_name) == 0) {
       printf("Found segment: %s:\n", segment_name);
       if (strcmp(segment_name, "LibMetadata") == 0) {
-        auto* md = (const LibMetadata*)(file_ptr + sect->offset);
-        md->Print();
+        auto* metadata = (const LibMetadataT*)(file_ptr + sect->offset);
+        metadata->Print();
       } else {
         printf("%s\n", file_ptr + sect->offset);
       }

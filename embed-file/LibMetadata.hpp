@@ -2,7 +2,7 @@
 #include <cstdint>
 
 
-struct __attribute__((packed)) LibMetadata {
+struct __attribute__((packed)) LibMetadataT {
     char    name[16];
     char    description[64];
     uint8_t version[4];
@@ -26,7 +26,7 @@ struct __attribute__((packed)) LibMetadata {
 #if defined(__APPLE__)
 __attribute__ ((section("__TEXT,LibMetadata")))
 #endif
-extern const LibMetadata LibMetadata = {
+extern const LibMetadataT LibMetadata = {
     "MySharedLib",
     "A sample ELF/Mach-O shared library.",
     {1, 2, 3, 4},
