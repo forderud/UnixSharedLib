@@ -2,6 +2,8 @@
 #include <cstdint>
 
 
+#define LibMetadata_SYMBOL_NAME "LibMetadata"
+
 /** Shared library metadata */
 struct __attribute__((packed)) LibMetadataT {
     char    name[16];

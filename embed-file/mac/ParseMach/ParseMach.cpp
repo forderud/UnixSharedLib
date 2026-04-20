@@ -43,7 +43,7 @@ void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t 
 
     if (strcmp(sect->sectname, segment_name) == 0) {
       printf("Found segment: %s:\n", segment_name);
-      if (strcmp(segment_name, "LibMetadata") == 0) {
+      if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
         auto* metadata = (const LibMetadataT*)(file_ptr + sect->offset);
         metadata->Print();
       } else {
