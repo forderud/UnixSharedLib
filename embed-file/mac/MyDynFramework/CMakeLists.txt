@@ -23,3 +23,8 @@ set_target_properties(MyDynFramework PROPERTIES
 # Embed binary file as section in library
 # NOTE: section names cannot be longer than 16 chars
 target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
+
+# Enable dead code elimination
+set_target_properties(MyDynFramework PROPERTIES
+    LINK_FLAGS "-dead_strip"
+)
