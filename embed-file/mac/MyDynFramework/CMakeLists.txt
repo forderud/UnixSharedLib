@@ -25,6 +25,9 @@ set_target_properties(MyDynFramework PROPERTIES
 target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
 
 # Enable dead code elimination
-set_target_properties(MyDynFramework PROPERTIES
-    LINK_FLAGS "-dead_strip"
-)
+if (APPLE)
+  set_target_properties(MyDynFramework PROPERTIES LINK_FLAGS "-dead_strip")
+else()
+  target_compile_options(MyDynFramework PRIVATE -ffunction-sections -fdata-sections)
+  target_link_options(MyDynFramework PRIVATE -Wl,--gc-sections)
+endif()
