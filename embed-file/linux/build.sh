@@ -7,7 +7,7 @@ ld -r -b binary embed_example.txt -o embed_example.o
 
 echo ""
 echo Building libmylib.so...
-g++ -fPIC -fvisibility=hidden -c mylib.cpp -o mylib.o
+g++ -fPIC -fvisibility=hidden -Wl,--gc-sections -c mylib.cpp -o mylib.o
 g++ -shared -o libmylib.so mylib.o embed_example.o
 
 echo Building mainApp...
