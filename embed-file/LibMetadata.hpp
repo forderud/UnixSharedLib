@@ -25,7 +25,7 @@ struct __attribute__((packed)) LibMetadataT {
 #ifdef EMBED_SAMPLE_LIB_METADATA
 
 // embed sample metadata in shared library
-__attribute__ ((visibility("default"))) 
+__attribute__ ((visibility("default")))
 #if defined(__APPLE__)
 __attribute__ ((section("__TEXT,LibMetadata")))
 #endif
