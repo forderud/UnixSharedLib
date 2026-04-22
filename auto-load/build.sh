@@ -11,7 +11,8 @@ echo Building mainApp...
 # Might also need to use the following parameters:
 # * Linux: -Wl,--no-as-needed
 # * Mac  : -Wl,-needed_library,/path/to/libmylib.dylib
-g++ main.cpp -L. -lmylib -Wl,-rpath=. -o mainApp
+OPTIMIZE="-O2 -flto -fwhole-program"
+g++ main.cpp $OPTIMIZE $REMOVE_UNREF -L. -lmylib -Wl,-rpath=. -o mainApp
 
 echo ""
 echo Running mainApp:
