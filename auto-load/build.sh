@@ -6,11 +6,13 @@ if [ "$(uname)" = "Darwin" ]; then
     echo "Running on macOS (Darwin)."
     REMOVE_UNREF=""
     OPTIMIZE="-O2 -flto"
+    FORCE_LINK="-Wl,-needed_library,libmylib.so"
     RPATH=""
 else
     echo "Running on Linux."
     REMOVE_UNREF="-ffunction-sections -fdata-sections -Wl,--gc-sections"
     OPTIMIZE="-O2 -flto -fwhole-program"
+    FORCE_LINK="-Wl,--no-as-needed"
     RPATH="-Wl,-rpath=."
 fi
 
@@ -20,10 +22,7 @@ g++ -fPIC -fvisibility=hidden $REMOVE_UNREF -c mylib.cpp -o mylib.o
 g++ -shared -o libmylib.so mylib.o
 
 echo Building mainApp...
-# Might also need to use the following parameters:
-# * Linux: -Wl,--no-as-needed
-# * Mac  : -Wl,-needed_library,/path/to/libmylib.dylib
-g++ main.cpp $OPTIMIZE $REMOVE_UNREF -L. -lmylib $RPATH -o mainApp
+g++ main.cpp $OPTIMIZE $REMOVE_UNREF $FORCE_LINK -L. -lmylib $RPATH -o mainApp
 
 echo ""
 echo Running mainApp:
