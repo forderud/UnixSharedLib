@@ -1,0 +1,11 @@
+echo Cleaning up...
+rm -r build
+
+mkdir build
+cd build
+
+cmake ..
+cmake --build .
+
+echo Running MyExecutable...
+MyExecutable/MyExecutable
