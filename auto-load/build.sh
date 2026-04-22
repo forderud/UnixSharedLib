@@ -8,6 +8,9 @@ g++ -fPIC -fvisibility=hidden $REMOVE_UNREF -c mylib.cpp -o mylib.o
 g++ -shared -o libmylib.so mylib.o
 
 echo Building mainApp...
+# Might also need to use the following parameters:
+# * Linux: -Wl,--no-as-needed
+# * Mac  : -Wl,-needed_library,/path/to/libmylib.dylib
 g++ main.cpp -L. -lmylib -Wl,-rpath=. -o mainApp
 
 echo ""
