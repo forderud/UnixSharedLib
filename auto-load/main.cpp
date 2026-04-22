@@ -5,6 +5,8 @@ extern "C" {
 }
 
 int main() {
-    MyLibFunction();
+    // don't call library
+    //MyLibFunction();
+
     return 0;
 }
