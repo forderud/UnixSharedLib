@@ -11,7 +11,7 @@ if (APPLE)
   target_link_options(MySharedLib PRIVATE "-dead_strip")
 else()
   target_compile_options(MySharedLib PRIVATE -ffunction-sections -fdata-sections)
-  target_link_options(MySharedLib PRIVATE -Wl,--gc-sections)
+  target_link_options(MySharedLib PRIVATE "LINKER:--gc-sections")
 endif()
 
 # force client-side lib. loading
