@@ -3,3 +3,4 @@ add_executable(MyExecutable
 )
 
 target_link_libraries(MyExecutable PRIVATE MySharedLib)
+target_link_libraries(MyExecutable PRIVATE MyStaticLib)
