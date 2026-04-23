@@ -6,27 +6,22 @@ add_library(MyStaticLibInner STATIC
 set_target_properties(MyStaticLibInner PROPERTIES
     COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
 
-# fore clients to link in entire static lib
-#target_link_options(MyStaticLib INTERFACE "-force_load") # on APPLE
-#target_link_options(MyStaticLib INTERFACE "LINKER:--whole-archive") # -Wl,--no-whole-archive
-#target_link_options(MyStaticLib INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,libMyStaticLib.a>")
-
-# wrapper static library to force whole-archive linking of MyStaticLibInner
+# wrap static library to force clients to link in entire static lib
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MyStaticLib INTERFACE)
 set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 
+# TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake 
+#target_link_options(MyStaticLib INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,MyStaticLibInner>")
 if (APPLE)
     target_link_libraries(MyStaticLib INTERFACE
       -Wl,-force_load
-      #$<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
-      MyStaticLibInner
+      MyStaticLibInner # TODO: Replace with $<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
     )
 else()
     target_link_libraries(MyStaticLib INTERFACE
       -Wl,--whole-archive
-      #$<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
-      MyStaticLibInner
+      MyStaticLibInner # TODO: Replace with $<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
       -Wl,--no-whole-archive
     )
 endif()
