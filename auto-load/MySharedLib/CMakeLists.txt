@@ -14,7 +14,7 @@ else()
   target_link_options(MySharedLibInner PRIVATE "LINKER:--gc-sections")
 endif()
 
-# wrap static library to force clients to link in entire static lib
+# wrap shared library to force clients to force-link to it, despite it being unreferenced
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MySharedLib INTERFACE)
 set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
