@@ -1,23 +1,28 @@
-add_library(MySharedLib SHARED
+add_library(MySharedLibInner SHARED
             MySharedLib.cpp
 )
 
 # Symbol visibility setup
-set_target_properties(MySharedLib PROPERTIES
+set_target_properties(MySharedLibInner PROPERTIES
     COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
 
 # Enable dead code elimination
 if (APPLE)
-  target_link_options(MySharedLib PRIVATE "-dead_strip")
+  target_link_options(MySharedLibInner PRIVATE "-dead_strip")
 else()
-  target_compile_options(MySharedLib PRIVATE -ffunction-sections -fdata-sections)
-  target_link_options(MySharedLib PRIVATE "LINKER:--gc-sections")
+  target_compile_options(MySharedLibInner PRIVATE -ffunction-sections -fdata-sections)
+  target_link_options(MySharedLibInner PRIVATE "LINKER:--gc-sections")
 endif()
 
+# wrap static library to force clients to link in entire static lib
+# Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
+add_library(MySharedLib INTERFACE)
+set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
+
 # force client-side lib. loading
+#TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
 if(APPLE)
-    target_link_options(MySharedLib INTERFACE "LINKER:-needed_library") # libMySharedLib.dylib
-    #TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
+    target_link_libraries(MySharedLib INTERFACE "-Wl,-needed_library" MySharedLibInner) # libMySharedLib.dylib
 else()
-    target_link_options(MySharedLib INTERFACE "LINKER:--no-as-needed") # -Wl,--as-needed
+    target_link_libraries(MySharedLib INTERFACE "-Wl,--no-as-needed" MySharedLibInner "-Wl,--as-needed")
 endif()
