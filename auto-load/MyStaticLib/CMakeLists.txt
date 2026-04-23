@@ -6,7 +6,12 @@ add_library(MyStaticLib STATIC
 set_target_properties(MyStaticLib PROPERTIES
     COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
 
-# fore clients to link in entire static lib
-#target_link_options(MyStaticLib INTERFACE "-force_load") # on APPLE
-#target_link_options(MyStaticLib INTERFACE "LINKER:--whole-archive") # -Wl,--no-whole-archive
-#target_link_options(MyStaticLib INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,libMyStaticLib.a>")
+# Force clients that link MyStaticLib to pull in the WHOLE archive,
+# without each client having to wrap the target with $<LINK_LIBRARY:WHOLE_ARCHIVE,...>.
+# When a consumer does `target_link_libraries(foo PRIVATE MyStaticLib)`, CMake
+# replaces the `MyStaticLib` reference with the generator expression below.
+# Requires CMake >= 3.24.
+set_property(TARGET MyStaticLib
+    PROPERTY INTERFACE_LINK_LIBRARIES_DIRECT
+        "$<LINK_LIBRARY:WHOLE_ARCHIVE,MyStaticLib>"
+)
