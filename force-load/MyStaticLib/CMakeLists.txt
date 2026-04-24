@@ -15,13 +15,13 @@ set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 #target_link_options(MyStaticLib INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,MyStaticLibInner>")
 if (APPLE)
     target_link_libraries(MyStaticLib INTERFACE
-      -Wl,-force_load
-      MyStaticLibInner # TODO: Replace with $<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
+      "-Wl,-force_load"
+      MyStaticLibInner
     )
 else()
     target_link_libraries(MyStaticLib INTERFACE
-      -Wl,--whole-archive
-      MyStaticLibInner # TODO: Replace with $<TARGET_PROPERTY:MyStaticLibInner,INTERFACE_LINK_LIBRARIES>
-      -Wl,--no-whole-archive
+      "-Wl,--whole-archive"
+      MyStaticLibInner
+      "-Wl,--no-whole-archive"
     )
 endif()

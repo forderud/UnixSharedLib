@@ -22,7 +22,14 @@ set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
 # force client-side lib. loading
 #TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
 if(APPLE)
-    target_link_libraries(MySharedLib INTERFACE "-Wl,-needed_library" MySharedLibInner) # libMySharedLib.dylib
+    target_link_libraries(MySharedLib INTERFACE
+        "-Wl,-needed_library"
+        MySharedLibInner # libMySharedLib.dylib
+    )
 else()
-    target_link_libraries(MySharedLib INTERFACE "-Wl,--no-as-needed" MySharedLibInner "-Wl,--as-needed")
+    target_link_libraries(MySharedLib INTERFACE
+        "-Wl,--no-as-needed"
+        MySharedLibInner
+        "-Wl,--as-needed"
+    )
 endif()
