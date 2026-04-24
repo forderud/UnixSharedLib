@@ -16,7 +16,7 @@ endif()
 # hidden visibility by default
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
-add_subdirectory(MyDynFramework)
+add_subdirectory(MySharedLib)
 
 add_subdirectory(MyExecutable)
 
