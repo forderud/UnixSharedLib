@@ -14,12 +14,6 @@ set_target_properties(MyDynFramework PROPERTIES
   XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
 )
 
-# Symbol visibility setup, COMPILE_FLAGS only affect C++ so for Objective C we
-# have to use XCODE_ATTRIBUTE_OTHER_CFLAGS.
-set_target_properties(MyDynFramework PROPERTIES
-    COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden"
-    XCODE_ATTRIBUTE_OTHER_CFLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
-
 # Embed binary file as section in library
 # NOTE: section names cannot be longer than 16 chars
 target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
