@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.28)
 project(TestProject)
 
 # eliminate dead code
-add_compile_options(-ffunction-sections -fdata-sections)
+add_compile_options("-ffunction-sections" "-fdata-sections")
 if (APPLE)
     add_link_options("LINKER:-dead_strip")
     add_link_options("LINKER:-dead_strip_dylibs")
