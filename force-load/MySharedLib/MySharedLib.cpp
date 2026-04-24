@@ -8,8 +8,13 @@ static void init_function () {
 
 // never called
 __attribute__((used))
-static void used_function () {
+void used_function () {
     printf("  MySharedLib used_function called.\n");
+}
+
+// never called
+void hidden_function () {
+    printf("  MySharedLib hidden_function called.\n");
 }
 
 __attribute__((visibility("default")))
