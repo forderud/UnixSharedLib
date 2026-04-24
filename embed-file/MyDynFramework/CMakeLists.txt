@@ -28,7 +28,9 @@ else()
   set(OBJ_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/embed_example.o")
   add_custom_command(
     OUTPUT ${OBJ_OUTPUT}
-    COMMAND ld -r -b binary -o ${OBJ_OUTPUT} embed_example.txt
+    # convert embed_example.txt into an object file to binary embedding
+    # -z noexecstack
+    COMMAND ld -r -b binary embed_example.txt -o ${OBJ_OUTPUT}
     DEPENDS embed_example.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
