@@ -15,6 +15,6 @@ if [ "$(uname)" = "Darwin" ]; then
   ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework embed_example
   ParseMach/ParseMach MyDynFramework/MyDynFramework.framework/MyDynFramework LibMetadata
 else
-  ParseELF/ParseELF MyDynFramework/libMyDynFramework.so embed_example
+  ParseELF/ParseELF MyDynFramework/libMyDynFramework.so _binary_embed_example_txt
   ParseELF/ParseELF MyDynFramework/libMyDynFramework.so LibMetadata
 fi
