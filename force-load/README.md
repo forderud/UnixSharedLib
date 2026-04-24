@@ -23,8 +23,8 @@
 Since CMake 3.24, [`$<LINK_LIBRARY:WHOLE_ARCHIVE,...>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a portable way to do the same.
 
 #### For shared libs:
-* Linux: `-Wl,--no-as-needed SharedLibName -Wl,--as-needed` ([ld linker doc](https://man7.org/linux/man-pages/man1/ld.1.html)
-* Mac: `-Wl,-needed_library SharedLibName`
+* Linux: `-Wl,--no-as-needed -lSharedLibName -Wl,--as-needed` ([ld linker doc](https://man7.org/linux/man-pages/man1/ld.1.html)
+* Mac: `-Wl,-needed_library,SharedLibName`
 
 Since CMake 3.24, [`$<LINK_LIBRARY:NEEDED_LIBRARY,...>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a convenient way to do the same for Apple platforms.
 
