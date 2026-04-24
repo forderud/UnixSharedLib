@@ -27,9 +27,9 @@ if (APPLE)
 else()
   # run linker to embed file
   set(OBJ_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/embed_example.o")
+  # convert embed_example.txt into an object file
   add_custom_command(
     OUTPUT ${OBJ_OUTPUT}
-    # convert embed_example.txt into an object file to binary embedding
     COMMAND ld -r -b binary -z noexecstack embed_example.txt -o ${OBJ_OUTPUT}
     DEPENDS embed_example.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
