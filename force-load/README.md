@@ -1,9 +1,13 @@
 ## Automatic loading of static and shared libraries
 
 #### Demonstrates the folllowing
-* How to link to a dylib/shared library so that it`s automatically loaded at startup without first being called.
-* How to link to an entire static library, including symbols that are not accessed.
-* How to automatically run a function at startup when a shared library is loaded.
+* How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
+  - [ ] For Apple
+  - [ ] For Linux
+* How to link to an entire static library, including symbols that are _not_ accessed.
+  - [ ] For Apple
+  - [ ] For Linux
+* [x] How to automatically run a function at startup _before_ calling `main()`, or when the shared-lib is loaded.
 
 ## Relevant C/C++ attributes
 * `__attribute__((constructor))`: Run function at startup _before_ calling `main()`, or when the shared-lib is loaded.
