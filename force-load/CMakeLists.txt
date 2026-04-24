@@ -5,9 +5,9 @@ project(TestProject)
 # strip away unreferenced symbols
 add_compile_options(-ffunction-sections -fdata-sections)
 if (APPLE)
-    add_link_options("-Wl,-dead_strip")
+    add_link_options("LINKER:-dead_strip")
 else()
-    add_link_options("-Wl,--gc-sections")
+    add_link_options("LINKER:--gc-sections")
 endif()
 
 add_subdirectory(MySharedLib)
