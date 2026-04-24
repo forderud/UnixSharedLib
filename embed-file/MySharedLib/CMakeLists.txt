@@ -4,6 +4,7 @@ add_library(MySharedLib SHARED
 )
 
 if (APPLE)
+  # package shared lib as a framework
   set_target_properties(MySharedLib PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION A
