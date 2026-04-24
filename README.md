@@ -1,3 +1,12 @@
+
+Project listing:
+
+| Module         | Description                                                   |
+|----------------|---------------------------------------------------------------|
+| embed-file     | Sample code for embedding arbitrary files into binaries       |
+| force-load     | Sample code for forced loading of static and shared libraries |
+
+
 ### C/C++ libraries bundled with Linux distros
 
 | Distro                        | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
