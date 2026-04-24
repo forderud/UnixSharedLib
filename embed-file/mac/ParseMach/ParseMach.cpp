@@ -3,8 +3,8 @@
 #include <string.h>
 #include <mach-o/loader.h>
 #include <mach-o/swap.h>
-#include "../../FileMap.hpp"
-#include "../../LibMetadata.hpp"
+#include "../FileMap.hpp"
+#include "../LibMetadata.hpp"
 
 
 void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) {

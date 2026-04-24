@@ -12,7 +12,7 @@
 #endif
 
 #define EMBED_SAMPLE_LIB_METADATA
-#include "../../LibMetadata.hpp"
+#include "../LibMetadata.hpp"
 
 
 static const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
