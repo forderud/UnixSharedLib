@@ -6,10 +6,10 @@ project(TestProject)
 add_compile_options(-O3)
 
 # eliminate dead code
-add_compile_options(-ffunction-sections -fdata-sections)
 if (APPLE)
     add_link_options("LINKER:-dead_strip")
 else()
+    add_compile_options("-ffunction-sections" "-fdata-sections")
     add_link_options("LINKER:--gc-sections")
 endif()
 
