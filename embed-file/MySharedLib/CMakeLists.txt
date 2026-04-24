@@ -1,6 +1,6 @@
 add_library(MySharedLib SHARED
-            MySharedLib.cpp
-            MySharedLib.hpp
+  MySharedLib.cpp
+  MySharedLib.hpp
 )
 
 if (APPLE)
