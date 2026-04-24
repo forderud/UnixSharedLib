@@ -1,5 +1,5 @@
 add_library(MySharedLibInner SHARED
-            MySharedLib.cpp
+    MySharedLib.cpp
 )
 
 # wrap shared library to force clients to force-link to it, despite it being unreferenced

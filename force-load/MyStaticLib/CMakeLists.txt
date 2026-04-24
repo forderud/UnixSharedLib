@@ -1,5 +1,5 @@
 add_library(MyStaticLibInner STATIC
-            MyStaticLib.cpp
+    MyStaticLib.cpp
 )
 
 # wrap static library to force clients to link in entire static lib
