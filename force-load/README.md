@@ -7,10 +7,10 @@
 * How to link to an entire static library, including symbols that are _not_ accessed.
   - [x] For Linux
   - [x] For Mac
-* [x] How to automatically run a function at startup _before_ calling `main()`, or when the shared-lib is loaded.
+* [x] How to automatically run a function at startup _before_ `main()` is called, or when the shared-lib is loaded.
 
 ## Related compiler attributes
-* [`__attribute__((constructor))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-constructor): Run function at startup _before_ calling `main()`, or when the shared-lib is loaded.
+* [`__attribute__((constructor))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-constructor): Run function at startup _before_ `main()` is called, or when the shared-lib is loaded.
 * [`__attribute__((used))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-used): Prevent linker from removing unreferenced function or global variable, despite it being unreferenced.
 * [`__attribute__((visibility("default")))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-visibility): Export function or global variable to make it accessible from outside the library.
 
