@@ -14,6 +14,9 @@ if (APPLE)
     PUBLIC_HEADER   ${CMAKE_CURRENT_LIST_DIR}/MyDynFramework.hpp
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
   )
+else()
+    # enable "#include <MyDynFramework/MyDynFramework.hpp>" in client projects
+    target_include_directories(MyDynFramework INTERFACE ..)
 endif()
 
 # Embed binary file as section in library
