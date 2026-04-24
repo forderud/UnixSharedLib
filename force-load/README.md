@@ -1,4 +1,4 @@
-## Automatic loading of static and shared libraries
+## Forced loading of static and shared libraries
 
 #### Demonstrates the folllowing
 * How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
