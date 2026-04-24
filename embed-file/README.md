@@ -6,8 +6,8 @@ Sample code for embedding arbitrary binary or text files into binaries on variou
 | Platform | Approach |
 |----------|----------------|
 | Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. |
-| Linux/Android | Add a named `.symtab` symbol to the `.so` binary (sample in `linux` subdirectory). |
-| macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` binary  (sample in `mac` subdirectory).|
+| Linux/Android | Add a named `.symtab` symbol to the `.so` binary. |
+| macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` binary.|
 
 #### Demonstrates the folllowing
 * Embed arbitrary binary files in shared libraries
