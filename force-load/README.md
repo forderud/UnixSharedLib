@@ -13,8 +13,10 @@
 ## Relevant linker flags
 
 #### For static libs:
-* Linux: `-Wl,--whole-archive StaticLibName -Wl,--no-whole-archive`
-* Mac: `-Wl,-force_load StaticLibName`
+* Linux: `-Wl,--whole-archive -lStaticLibName -Wl,--no-whole-archive`
+* Mac: `-Wl,-force_load,libStaticLibName.a`
+
+Since CMake 3.24, `$<LINK_LIBRARY:WHOLE_ARCHIVE,...>` provides a portable way to do the same.
 
 #### For shared libs:
 * Linux: `-Wl,--no-as-needed SharedLibName -Wl,--as-needed`
