@@ -27,7 +27,3 @@ Since CMake 3.24, [`$<LINK_LIBRARY:WHOLE_ARCHIVE,...>`](https://cmake.org/cmake/
 * Mac: `-Wl,-needed_library libSharedLibName.dylib`
 
 Since CMake 3.24, [`$<LINK_LIBRARY:NEEDED_LIBRARY,...>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a convenient way to do the same for Apple platforms.
-
-## Useful CMake features
-* [`WHOLE_ARCHIVE`](https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE.html) available in CMake >=3.24
-* [`NEEDED_LIBRARY`](https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_LINK_LIBRARY_USING_FEATURE.html) available in CMake >=3.24
