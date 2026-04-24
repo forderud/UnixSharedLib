@@ -4,6 +4,8 @@ project(TestProject)
 
 # enable optimizations
 add_compile_options(-O3)
+# enable LTO optimizations
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 
 add_subdirectory(MySharedLib)
 add_subdirectory(MyStaticLib)
