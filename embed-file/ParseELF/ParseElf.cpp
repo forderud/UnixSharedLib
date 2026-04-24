@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
       } else {
-        printf("%s content (size %u):\n", argv[2], data.size());
+        printf("%s content (size %u):\n", argv[2], (unsigned int)data.size());
         printf("%.*s\n", (int)data.size(), data.data());
       }
     } else {
