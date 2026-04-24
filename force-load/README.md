@@ -3,7 +3,7 @@
 #### Demonstrates the folllowing
 * How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
   - [x] For Linux
-  - [ ] For Mac (always loaded, regardless of `-Wl,-needed_library`)
+  - [x] For Mac
 * How to link to an entire static library, including symbols that are _not_ accessed.
   - [x] For Linux
   - [x] For Mac
