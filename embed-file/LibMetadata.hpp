@@ -1,7 +1,6 @@
 #pragma once
 #include <cstdint>
 
-
 #define LibMetadata_SYMBOL_NAME "LibMetadata"
 
 /** Shared library metadata */
