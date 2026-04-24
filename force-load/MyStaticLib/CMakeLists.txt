@@ -2,10 +2,6 @@ add_library(MyStaticLibInner STATIC
             MyStaticLib.cpp
 )
 
-# Symbol visibility setup
-set_target_properties(MyStaticLibInner PROPERTIES
-    COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
-
 # wrap static library to force clients to link in entire static lib
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MyStaticLib INTERFACE)
