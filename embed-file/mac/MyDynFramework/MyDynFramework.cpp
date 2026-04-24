@@ -4,6 +4,11 @@
   // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
   #include <mach-o/getsect.h> // for getsectiondata
   #include <mach-o/ldsyms.h>  // for _mh_execute_header
+#else
+  extern "C" {
+    extern char _binary_embed_example_txt_start[]; // start of embedded ASCII file
+    extern char _binary_embed_example_txt_end[];
+  }
 #endif
 
 #define EMBED_SAMPLE_LIB_METADATA
@@ -28,6 +33,8 @@ static std::string_view GetSectionData(const char* section_name) {
     const uint8_t* embed_example_start = getsectiondata(header, segment_name, section_name, &embed_example_size);
     return std::string_view((const char*)embed_example_start, embed_example_size);
 #else
+    size_t fileSize = _binary_embed_example_txt_end - _binary_embed_example_txt_start;
+    return std::string_view(_binary_embed_example_txt_start, fileSize);
 #endif
 }
 
