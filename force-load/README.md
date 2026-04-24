@@ -9,12 +9,12 @@
   - [x] For Linux
 * [x] How to automatically run a function at startup _before_ calling `main()`, or when the shared-lib is loaded.
 
-## Relevant C/C++ attributes
+## Related C/C++ attributes
 * [`__attribute__((constructor))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-constructor): Run function at startup _before_ calling `main()`, or when the shared-lib is loaded.
 * [`__attribute__((used))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-used): Prevent linker from removing unreferenced function or global variable, despite it being unreferenced.
 * [`__attribute__((visibility("default")))`](https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html#index-visibility): Export function or global variable to make it accessible from outside the library.
 
-## Relevant linker flags
+## Related linker flags
 
 #### For static libs:
 * Linux: `-Wl,--whole-archive -lStaticLibName -Wl,--no-whole-archive` ([ld linker doc](https://man7.org/linux/man-pages/man1/ld.1.html)
