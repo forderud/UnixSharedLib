@@ -31,5 +31,5 @@ Since CMake 3.24, [`$<LINK_LIBRARY:NEEDED_LIBRARY,...>`](https://cmake.org/cmake
 ## Dependency checking
 
 Command for listing shared-lib dependencies:
-* Mac: Use `otool -L <binary-file>`
-* Linux: TBD
+* Mac: `otool -L <binary-file>`
+* Linux: `ldd <binary-file>`
