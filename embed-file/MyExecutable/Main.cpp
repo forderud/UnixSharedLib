@@ -1,4 +1,4 @@
-#include <MyDynFramework/MyDynFramework.hpp>
+#include <MySharedLib/MySharedLib.hpp>
 
 
 int main() {
