@@ -2,11 +2,11 @@
 
 #### Demonstrates the folllowing
 * How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
-  - [ ] For Apple (always loaded, regarldess of `-Wl,-needed_library`)
   - [ ] For Linux (always loaded, regarldess of `-Wl,--no-as-needed`)
+  - [ ] For Mac (always loaded, regarldess of `-Wl,-needed_library`)
 * How to link to an entire static library, including symbols that are _not_ accessed.
-  - [x] For Apple
   - [x] For Linux
+  - [x] For Mac
 * [x] How to automatically run a function at startup _before_ calling `main()`, or when the shared-lib is loaded.
 
 ## Related compiler attributes
