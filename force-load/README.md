@@ -2,7 +2,7 @@
 
 #### Demonstrates the folllowing
 * How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
-  - [ ] For Linux (always loaded, regardless of `-Wl,--no-as-needed`)
+  - [x] For Linux
   - [ ] For Mac (always loaded, regardless of `-Wl,-needed_library`)
 * How to link to an entire static library, including symbols that are _not_ accessed.
   - [x] For Linux
