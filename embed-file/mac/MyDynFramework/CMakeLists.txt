@@ -15,5 +15,17 @@ set_target_properties(MyDynFramework PROPERTIES
 )
 
 # Embed binary file as section in library
-# NOTE: section names cannot be longer than 16 chars
-target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
+if (APPLE)
+  # NOTE: section names cannot be longer than 16 chars
+  target_link_options(MyDynFramework PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
+else()
+  # run linker to embed file
+  add_custom_command(
+    OUTPUT embed_example.o
+    COMMAND ld -r -b binary -o embed_example.o embed_example.txt
+    DEPENDS embed_example.txt
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  )
+  
+  target_link_libraries(MyDynFramework PRIVATE embed_example.o)
+endif()
