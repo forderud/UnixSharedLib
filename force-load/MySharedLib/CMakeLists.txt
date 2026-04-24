@@ -6,14 +6,6 @@ add_library(MySharedLibInner SHARED
 set_target_properties(MySharedLibInner PROPERTIES
     COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
 
-# Enable dead code elimination
-if (APPLE)
-  target_link_options(MySharedLibInner PRIVATE "-dead_strip")
-else()
-  target_compile_options(MySharedLibInner PRIVATE -ffunction-sections -fdata-sections)
-  target_link_options(MySharedLibInner PRIVATE "LINKER:--gc-sections")
-endif()
-
 # wrap shared library to force clients to force-link to it, despite it being unreferenced
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MySharedLib INTERFACE)

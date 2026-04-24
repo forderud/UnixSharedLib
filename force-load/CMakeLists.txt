@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(TestProject)
 
-# strip away unreferenced symbols
+# eliminate dead code
 add_compile_options(-ffunction-sections -fdata-sections)
 if (APPLE)
     add_link_options("LINKER:-dead_strip")
