@@ -1,4 +1,4 @@
-## ELF & Mach-O embed and parsing samples
+## ELF & Mach-O file embed and parsing samples
 
 Sample code for embedding arbitrary binary or text files into binaries on various platforms.
 
