@@ -3,7 +3,7 @@ add_executable(MyExecutable
 )
 
 if (APPLE)
-    target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MyDynFramework>")
+    target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
 else()
-    target_link_libraries(MyExecutable PRIVATE MyDynFramework)
+    target_link_libraries(MyExecutable PRIVATE MySharedLib)
 endif()

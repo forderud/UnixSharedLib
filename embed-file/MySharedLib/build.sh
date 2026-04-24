@@ -2,7 +2,7 @@ echo Cleaning up...
 rm -f *.o *.so *.dylib
 
 echo ""
-echo Building MyDynFramework.dylib...
+echo Building MySharedLib.dylib...
 
 # -fPIC set by default with dynamiclib
 g++ -fvisibility=hidden -c MySharedLib.cpp -o MySharedLib.o
@@ -16,4 +16,4 @@ else
   ld -r -b binary embed_example.txt -o embed_example.o
 fi
 
-g++ -dynamiclib -o MyDynFramework.dylib MySharedLib.o
+g++ -dynamiclib -o MySharedLib.dylib MySharedLib.o
