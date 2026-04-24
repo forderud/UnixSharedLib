@@ -17,5 +17,11 @@ endif()
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
 add_subdirectory(MyDynFramework)
+
 add_subdirectory(MyExecutable)
-add_subdirectory(ParseMach)
+
+if (APPLE)
+    add_subdirectory(ParseMach)
+else()
+    add_subdirectory(ParseELF)
+endif()
