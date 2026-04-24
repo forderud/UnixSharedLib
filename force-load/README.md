@@ -6,7 +6,7 @@
 * How to automatically run a function at startup when a shared library is loaded.
 
 ## Relevant C/C++ attributes
-* `__attribute__((constructor))`: Run function at startup _before_ calling `main()`, or when loading a shared-lib.
+* `__attribute__((constructor))`: Run function at startup _before_ calling `main()`, or when the shared-lib is loaded.
 * `__attribute__((used))`: Prevent linker from removing unreferenced function or global variable, despite it being unreferenced.
 * `__attribute__((visibility("default")))`: Export function or global variable to make it accessible from outside the library.
 
