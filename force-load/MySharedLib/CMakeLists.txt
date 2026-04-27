@@ -33,26 +33,26 @@ else()
 endif()
 
 install(
-  TARGETS MySharedLib MySharedLibInner
-  EXPORT MySharedLibTargets
-  FILE_SET HEADERS
+    TARGETS MySharedLib MySharedLibInner
+    EXPORT MySharedLibTargets
+    FILE_SET HEADERS
 )
 
 install(
-  EXPORT MySharedLibTargets
-  DESTINATION cmake
-  NAMESPACE MySharedLib::
+    EXPORT MySharedLibTargets
+    DESTINATION cmake
+    NAMESPACE MySharedLib::
 )
 
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
-  VERSION 1.0.0
-  COMPATIBILITY SameMinorVersion
+    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
+    VERSION 1.0.0
+    COMPATIBILITY SameMinorVersion
 )
 
 install(
-  FILES
-    MySharedLibConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
-  DESTINATION cmake
+    FILES
+        MySharedLibConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
+    DESTINATION cmake
 )

@@ -33,26 +33,26 @@ else()
 endif()
 
 install(
-  TARGETS MyStaticLib MyStaticLibInner
-  EXPORT MyStaticLibTargets
-  FILE_SET HEADERS
+    TARGETS MyStaticLib MyStaticLibInner
+    EXPORT MyStaticLibTargets
+    FILE_SET HEADERS
 )
 
 install(
-  EXPORT MyStaticLibTargets
-  DESTINATION cmake
-  NAMESPACE MyStaticLib::
+    EXPORT MyStaticLibTargets
+    DESTINATION cmake
+    NAMESPACE MyStaticLib::
 )
 
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
-  VERSION 1.0.0
-  COMPATIBILITY SameMinorVersion
+    ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
+    VERSION 1.0.0
+    COMPATIBILITY SameMinorVersion
 )
 
 install(
-  FILES
-    MyStaticLibConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
-  DESTINATION cmake
+    FILES
+        MyStaticLibConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
+    DESTINATION cmake
 )
