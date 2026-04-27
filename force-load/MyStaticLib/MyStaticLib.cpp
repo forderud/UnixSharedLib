@@ -2,7 +2,7 @@
 
 // automatically called at startup
 __attribute__((constructor))
-static void init_function () {
+void init_mystaticlib () {
     printf("  MyStaticLib loaded.\n");
 }
 
