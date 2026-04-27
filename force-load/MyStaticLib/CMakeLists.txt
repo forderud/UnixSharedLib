@@ -9,7 +9,7 @@ set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 
 # TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake 
 #target_link_options(MyStaticLib INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,MyStaticLibInner>")
-if (APPLE)
+if(APPLE)
     target_link_libraries(MyStaticLib INTERFACE
       "-Wl,-force_load"
       MyStaticLibInner
