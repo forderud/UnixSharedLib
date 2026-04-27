@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.28)
 project(TestProject)
 
 add_executable(IndependentTest
-    Main.cpp
+    ../MyExecutable/Main.cpp # reuse sources
 )
 
 find_package(MySharedLib REQUIRED)
