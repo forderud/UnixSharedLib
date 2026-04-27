@@ -29,3 +29,15 @@ else()
         "-Wl,--no-whole-archive"
     )
 endif()
+
+install(
+  TARGETS MyStaticLib MyStaticLibInner
+  EXPORT MyStaticLibTargets
+  FILE_SET HEADERS
+)
+
+install(
+  EXPORT MyStaticLibTargets
+  DESTINATION cmake/MyStaticLib
+  NAMESPACE MyStaticLib::
+)

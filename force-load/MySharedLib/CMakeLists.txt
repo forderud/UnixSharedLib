@@ -29,3 +29,15 @@ else()
         "-Wl,--as-needed"
     )
 endif()
+
+install(
+  TARGETS MySharedLib MySharedLibInner
+  EXPORT MySharedLibTargets
+  FILE_SET HEADERS
+)
+
+install(
+  EXPORT MySharedLibTargets
+  DESTINATION cmake/MySharedLib
+  NAMESPACE MySharedLib::
+)
