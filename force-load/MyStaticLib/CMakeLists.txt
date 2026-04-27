@@ -45,7 +45,7 @@ install(
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibVersion.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
   VERSION 1.0.0
   COMPATIBILITY SameMinorVersion
 )
@@ -53,6 +53,6 @@ write_basic_package_version_file(
 install(
   FILES
     MyStaticLibConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibVersion.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
   DESTINATION cmake
 )

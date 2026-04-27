@@ -45,7 +45,7 @@ install(
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibVersion.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
   VERSION 1.0.0
   COMPATIBILITY SameMinorVersion
 )
@@ -53,6 +53,6 @@ write_basic_package_version_file(
 install(
   FILES
     MySharedLibConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibVersion.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
   DESTINATION cmake
 )
