@@ -1,4 +1,5 @@
 add_library(MySharedLibInner SHARED
+    MySharedLib.hpp
     MySharedLib.cpp
 )
 

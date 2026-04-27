@@ -1,4 +1,5 @@
 add_library(MyStaticLibInner STATIC
+    MyStaticLib.hpp
     MyStaticLib.cpp
 )
 
