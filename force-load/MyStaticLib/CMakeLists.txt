@@ -17,6 +17,8 @@ target_sources(MyStaticLibInner
 add_library(MyStaticLib INTERFACE)
 set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 
+add_library(MyStaticLib::MyStaticLib ALIAS MyStaticLib)
+
 #TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake >=3.24
 # Unable to use target_link_options(MyStaticLib [BEFORE] INTERFACE LINKER:<flags>) since the flags aren't applied immediately before/after the library.
 if(APPLE)
