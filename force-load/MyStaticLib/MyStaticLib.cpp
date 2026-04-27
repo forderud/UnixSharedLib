@@ -2,22 +2,23 @@
 
 // automatically called at startup
 __attribute__((constructor))
-void init_mystaticlib () {
+void mystaticlib_init () {
     printf("  MyStaticLib loaded.\n");
 }
 
 // never called
 __attribute__((used))
-void used_function () {
-    printf("  MyStaticLib used_function called.\n");
+void mystaticlib_used () {
+    printf("  mystaticlib_used called.\n");
 }
 
 // never called
-void hidden_function () {
-    printf("  MyStaticLib hidden_function called.\n");
+void mystaticlib_hidden () {
+    printf("  mystaticlib_hidden called.\n");
 }
 
+// exported function
 __attribute__((visibility("default")))
-void mystaticlib_function() {
-    printf("  mystaticlib_function called.\n");
+void mystaticlib_public () {
+    printf("  mystaticlib_public called.\n");
 }

@@ -2,22 +2,23 @@
 
 // automatically called during library loading
 __attribute__((constructor))
-void init_mysharedlib () {
+void mysharedlib_init () {
     printf("  MySharedLib loaded.\n");
 }
 
 // never called
 __attribute__((used))
-void used_function () {
-    printf("  MySharedLib used_function called.\n");
+void mysharedlib_used () {
+    printf("  mysharedlib_used called.\n");
 }
 
 // never called
-void hidden_function () {
-    printf("  MySharedLib hidden_function called.\n");
+void mysharedlib_hidden () {
+    printf("  mysharedlib_hidden called.\n");
 }
 
+// exported function
 __attribute__((visibility("default")))
-void mysharedlib_function() {
-    printf("  mysharedlib_function called.\n");
+void mysharedlib_public () {
+    printf("  mysharedlib_public called.\n");
 }

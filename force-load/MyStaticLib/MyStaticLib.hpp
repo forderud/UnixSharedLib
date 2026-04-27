@@ -1,3 +1,5 @@
 #pragma once
 
-void init_mystaticlib ();
+void mystaticlib_init();
+
+void mystaticlib_public();

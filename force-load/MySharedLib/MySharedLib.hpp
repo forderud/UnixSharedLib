@@ -1,3 +1,5 @@
 #pragma once
 
-void init_mysharedlib ();
+void mysharedlib_init();
+
+void mysharedlib_public();
