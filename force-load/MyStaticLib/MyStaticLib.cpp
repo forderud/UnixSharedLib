@@ -2,6 +2,7 @@
 
 // automatically called at startup
 __attribute__((constructor))
+__attribute__((visibility("default")))
 void mystaticlib_init () {
     printf("  MyStaticLib loaded.\n");
 }
