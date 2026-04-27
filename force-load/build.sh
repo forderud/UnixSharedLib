@@ -2,14 +2,13 @@ echo Cleaning up...
 rm -r build install
 
 mkdir build
-cd build
 
 echo Building projects...
-cmake ..
-cmake --build .
+cmake -S . -B build
+cmake --build build
 
 echo Installing projects...
-cmake --install . --prefix ../install
+cmake --install build --prefix install
 
 echo Running MyExecutable...
-MyExecutable/MyExecutable
+build/MyExecutable/MyExecutable
