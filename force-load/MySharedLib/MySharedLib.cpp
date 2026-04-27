@@ -2,6 +2,7 @@
 
 // automatically called during library loading
 __attribute__((constructor))
+__attribute__((visibility("default")))
 void mysharedlib_init () {
     printf("  MySharedLib loaded.\n");
 }
