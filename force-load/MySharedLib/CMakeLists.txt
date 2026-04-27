@@ -5,7 +5,7 @@ target_sources(MySharedLibInner
     MySharedLib.cpp
 
   PUBLIC
-    FILE_SET HEADERS # introduced in 3.23
+    FILE_SET HEADERS # introduced in CMake 3.23
     FILES
       MySharedLib.hpp
 )
