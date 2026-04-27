@@ -1,14 +1,15 @@
 #include <cstdio>
-
-extern void mystaticlib_function();
-extern void mysharedlib_function();
+#include <MySharedLib.hpp>
+#include <MyStaticLib.hpp>
 
 
 int main() {
     printf("Program startup.\n");
 
-    //mystaticlib_function();
-    //mysharedlib_function();
-    
+    //mysharedlib_init();
+    //mysharedlib_public();
+    //mystaticlib_init();
+    //mystaticlib_public();
+
     return 0;
 }
