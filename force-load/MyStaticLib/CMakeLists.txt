@@ -38,7 +38,7 @@ install(
 
 install(
   EXPORT MyStaticLibTargets
-  DESTINATION cmake/MyStaticLib
+  DESTINATION cmake
   NAMESPACE MyStaticLib::
 )
 
@@ -54,5 +54,5 @@ install(
   FILES
     MyStaticLibConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibVersion.cmake
-  DESTINATION cmake/MyStaticLib
+  DESTINATION cmake
 )

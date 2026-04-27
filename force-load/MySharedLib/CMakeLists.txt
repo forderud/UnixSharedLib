@@ -38,7 +38,7 @@ install(
 
 install(
   EXPORT MySharedLibTargets
-  DESTINATION cmake/MySharedLib
+  DESTINATION cmake
   NAMESPACE MySharedLib::
 )
 
@@ -54,5 +54,5 @@ install(
   FILES
     MySharedLibConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibVersion.cmake
-  DESTINATION cmake/MySharedLib
+  DESTINATION cmake
 )
