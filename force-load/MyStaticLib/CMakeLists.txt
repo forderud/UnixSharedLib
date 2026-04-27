@@ -41,3 +41,18 @@ install(
   DESTINATION cmake/MyStaticLib
   NAMESPACE MyStaticLib::
 )
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibVersion.cmake
+  VERSION 1.0.0
+  COMPATIBILITY SameMinorVersion
+)
+
+install(
+  FILES
+    MyStaticLibConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibVersion.cmake
+  DESTINATION cmake/MyStaticLib
+)

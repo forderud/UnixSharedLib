@@ -41,3 +41,18 @@ install(
   DESTINATION cmake/MySharedLib
   NAMESPACE MySharedLib::
 )
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibVersion.cmake
+  VERSION 1.0.0
+  COMPATIBILITY SameMinorVersion
+)
+
+install(
+  FILES
+    MySharedLibConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibVersion.cmake
+  DESTINATION cmake/MySharedLib
+)
