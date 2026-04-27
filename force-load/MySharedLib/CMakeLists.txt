@@ -9,11 +9,7 @@ set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
 
 # Unable to use target_link_options(MySharedLib [BEFORE] INTERFACE LINKER:<flags>) since the flags aren't applied immediately before/after the library.
 if(APPLE)
-    #TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
-    target_link_libraries(MySharedLib INTERFACE
-        "-Wl,-needed_library"
-        MySharedLibInner # libMySharedLib.dylib
-    )
+    target_link_libraries(MySharedLib INTERFACE "$<LINK_LIBRARY:NEEDED_LIBRARY,MySharedLibInner>")
 else()
     target_link_libraries(MySharedLib INTERFACE
         "-Wl,--no-as-needed"
