@@ -16,7 +16,6 @@ target_sources(MyStaticLibInner
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MyStaticLib INTERFACE)
 set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
-
 add_library(MyStaticLib::MyStaticLib ALIAS MyStaticLib)
 
 #TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake >=3.24

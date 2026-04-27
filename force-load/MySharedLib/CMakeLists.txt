@@ -16,7 +16,6 @@ target_sources(MySharedLibInner
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MySharedLib INTERFACE)
 set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
-
 add_library(MySharedLib::MySharedLib ALIAS MySharedLib)
 
 # Unable to use target_link_options(MySharedLib [BEFORE] INTERFACE LINKER:<flags>) since the flags aren't applied immediately before/after the library.
