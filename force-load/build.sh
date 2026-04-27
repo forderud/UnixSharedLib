@@ -1,5 +1,5 @@
 echo Cleaning up...
-rm -r build install
+rm -r build install test
 
 echo Building projects...
 cmake -S . -B build
@@ -10,3 +10,10 @@ cmake --install build --prefix install
 
 echo Running MyExecutable...
 build/MyExecutable/MyExecutable
+
+echo Building independent test...
+cmake -DCMAKE_PREFIX_PATH="$PWD/install" -S IndependentTest -B test
+cmake --build test
+
+echo Running independent test...
+test/IndependentTest
