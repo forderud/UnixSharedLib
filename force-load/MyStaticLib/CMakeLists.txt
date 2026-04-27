@@ -7,16 +7,16 @@ add_library(MyStaticLibInner STATIC
 add_library(MyStaticLib INTERFACE)
 set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 
-# TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake >=3.24
+#TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake >=3.24
 if(APPLE)
     target_link_libraries(MyStaticLib INTERFACE
-      "-Wl,-force_load"
-      MyStaticLibInner
+        "-Wl,-force_load"
+        MyStaticLibInner
     )
 else()
     target_link_libraries(MyStaticLib INTERFACE
-      "-Wl,--whole-archive"
-      MyStaticLibInner
-      "-Wl,--no-whole-archive"
+        "-Wl,--whole-archive"
+        MyStaticLibInner
+        "-Wl,--no-whole-archive"
     )
 endif()
