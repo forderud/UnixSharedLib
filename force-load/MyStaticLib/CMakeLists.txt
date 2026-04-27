@@ -1,3 +1,5 @@
+include(CMakePackageConfigHelpers)
+
 add_library(MyStaticLibInner STATIC)
 
 target_sources(MyStaticLibInner
@@ -41,8 +43,6 @@ install(
   DESTINATION cmake
   NAMESPACE MyStaticLib::
 )
-
-include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
   ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
