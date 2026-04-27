@@ -5,7 +5,7 @@ target_sources(MyStaticLibInner
     MyStaticLib.cpp
 
   PUBLIC
-    FILE_SET HEADERS
+    FILE_SET HEADERS # introduced in 3.23
     FILES
       MyStaticLib.hpp
 )
