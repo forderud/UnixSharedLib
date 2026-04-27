@@ -7,8 +7,8 @@ add_library(MySharedLibInner SHARED
 add_library(MySharedLib INTERFACE)
 set_target_properties(MySharedLib PROPERTIES LINKER_LANGUAGE CXX)
 
-#TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
 if(APPLE)
+    #TODO: Switch to NEEDED_LIBRARY when upgrading to CMake >=3.24
     target_link_libraries(MySharedLib INTERFACE
         "-Wl,-needed_library"
         MySharedLibInner # libMySharedLib.dylib
