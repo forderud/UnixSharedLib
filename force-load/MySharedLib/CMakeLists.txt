@@ -1,6 +1,13 @@
-add_library(MySharedLibInner SHARED
-    MySharedLib.hpp
+add_library(MySharedLibInner SHARED)
+
+target_sources(MySharedLibInner
+  PRIVATE
     MySharedLib.cpp
+
+  PUBLIC
+    FILE_SET HEADERS
+    FILES
+      MySharedLib.hpp
 )
 
 # wrap shared library to force clients to force-link to it, despite it being unreferenced

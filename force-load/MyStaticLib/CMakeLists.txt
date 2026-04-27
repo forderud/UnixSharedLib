@@ -1,6 +1,13 @@
-add_library(MyStaticLibInner STATIC
-    MyStaticLib.hpp
+add_library(MyStaticLibInner STATIC)
+
+target_sources(MyStaticLibInner
+  PRIVATE
     MyStaticLib.cpp
+
+  PUBLIC
+    FILE_SET HEADERS
+    FILES
+      MyStaticLib.hpp
 )
 
 # wrap static library to force clients to link in entire static lib
