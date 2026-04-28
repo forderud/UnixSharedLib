@@ -33,12 +33,12 @@ else()
     )
 endif()
 
+# install rules
 install(
     TARGETS MySharedLib MySharedLibInner
     EXPORT MySharedLibTargets
     FILE_SET HEADERS
 )
-
 install(
     EXPORT MySharedLibTargets
     DESTINATION cmake
@@ -50,7 +50,6 @@ write_basic_package_version_file(
     VERSION 1.0.0
     COMPATIBILITY SameMinorVersion
 )
-
 install(
     FILES
         MySharedLibConfig.cmake

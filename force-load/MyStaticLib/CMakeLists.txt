@@ -33,12 +33,12 @@ else()
     )
 endif()
 
+# install rules
 install(
     TARGETS MyStaticLib MyStaticLibInner
     EXPORT MyStaticLibTargets
     FILE_SET HEADERS
 )
-
 install(
     EXPORT MyStaticLibTargets
     DESTINATION cmake
@@ -50,7 +50,6 @@ write_basic_package_version_file(
     VERSION 1.0.0
     COMPATIBILITY SameMinorVersion
 )
-
 install(
     FILES
         MyStaticLibConfig.cmake
