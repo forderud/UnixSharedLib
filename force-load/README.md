@@ -18,7 +18,7 @@
 
 #### For static libs:
 * **Linux**: `-Wl,--whole-archive -lStaticLibName -Wl,--no-whole-archive`. Alternatively, `-Wl,--require-defined=<symbol>` to force-include a selected symbol ([ld linker doc](https://man7.org/linux/man-pages/man1/ld.1.html))
-* **Mac**: `-Wl,-force_load libStaticLibName.a`
+* **Mac**: `-Wl,-force_load libStaticLibName.a`. Alternatively, `-Wl,-u,_<symbol>` to force-include a selected symbol.
 
 Since CMake 3.24, [`$<LINK_LIBRARY:WHOLE_ARCHIVE,StaticLibName>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a portable way to do the same.
 
