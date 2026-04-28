@@ -2,14 +2,17 @@ include(CMakePackageConfigHelpers)
 
 add_library(MySharedLibInner SHARED)
 
+#TODO: Adopt FILE_SET HEADERS in CMake 3.23
 target_sources(MySharedLibInner
   PRIVATE
     MySharedLib.cpp
+)
 
-  PUBLIC
-    FILE_SET HEADERS # introduced in CMake 3.23
-    FILES
-      MySharedLib.hpp
+set_target_properties(MySharedLibInner PROPERTIES PUBLIC_HEADER MySharedLib.hpp)
+
+target_include_directories(MySharedLibInner PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
 )
 
 # wrap shared library to force clients to force-link to it, despite it being unreferenced
@@ -37,7 +40,6 @@ endif()
 install(
     TARGETS MySharedLib MySharedLibInner
     EXPORT MySharedLibTargets
-    FILE_SET HEADERS
 )
 install(
     EXPORT MySharedLibTargets

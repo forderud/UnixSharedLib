@@ -2,14 +2,17 @@ include(CMakePackageConfigHelpers)
 
 add_library(MyStaticLibInner STATIC)
 
+#TODO: Adopt FILE_SET HEADERS in CMake 3.23
 target_sources(MyStaticLibInner
   PRIVATE
     MyStaticLib.cpp
+)
 
-  PUBLIC
-    FILE_SET HEADERS # introduced in CMake 3.23
-    FILES
-      MyStaticLib.hpp
+set_target_properties(MyStaticLibInner PROPERTIES PUBLIC_HEADER MyStaticLib.hpp)
+
+target_include_directories(MyStaticLibInner PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
 )
 
 # wrap static library to force clients to link in entire static lib
@@ -37,7 +40,6 @@ endif()
 install(
     TARGETS MyStaticLib MyStaticLibInner
     EXPORT MyStaticLibTargets
-    FILE_SET HEADERS
 )
 install(
     EXPORT MyStaticLibTargets
