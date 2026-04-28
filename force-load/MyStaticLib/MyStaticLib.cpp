@@ -1,6 +1,7 @@
 #include <cstdio>
 
 // automatically called at startup
+extern "C" // avoid name mangling
 __attribute__((constructor))
 __attribute__((visibility("default")))
 void mystaticlib_init () {
@@ -19,6 +20,7 @@ void mystaticlib_hidden () {
 }
 
 // exported function
+extern "C" // avoid name mangling
 __attribute__((visibility("default")))
 void mystaticlib_public () {
     printf("  mystaticlib_public called.\n");

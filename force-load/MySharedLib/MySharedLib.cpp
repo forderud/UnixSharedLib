@@ -1,6 +1,7 @@
 #include <cstdio>
 
 // automatically called during library loading
+extern "C" // avoid name mangling
 __attribute__((constructor))
 __attribute__((visibility("default")))
 void mysharedlib_init () {
@@ -19,6 +20,7 @@ void mysharedlib_hidden () {
 }
 
 // exported function
+extern "C" // avoid name mangling
 __attribute__((visibility("default")))
 void mysharedlib_public () {
     printf("  mysharedlib_public called.\n");
