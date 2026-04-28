@@ -24,16 +24,16 @@ add_library(MyStaticLib::MyStaticLib ALIAS MyStaticLib)
 #TODO: Switch to target_link_options(MyStaticLib INTERFACE LINKER:<flags>)
 if(APPLE)
     target_link_libraries(MyStaticLib INTERFACE
-        "-Wl,-u,_mystaticlib_init" # C symbols are prefixed with "_" on macOS
+        "-Wl,-u,_g_MyStaticLibForceLink" # C symbols are prefixed with "_" on macOS
         MyStaticLibInner
     )
 elseif(EMSCRIPTEN)
     target_link_libraries(MyStaticLib INTERFACE
-        "-Wl,--undefined=mystaticlib_init"
+        "-Wl,--undefined=g_MyStaticLibForceLink"
         MyStaticLibInner)
 else()
     target_link_libraries(MyStaticLib INTERFACE
-        "-Wl,--require-defined=mystaticlib_init"
+        "-Wl,--require-defined=g_MyStaticLibForceLink"
         MyStaticLibInner
     )
 endif()

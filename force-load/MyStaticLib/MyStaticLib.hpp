@@ -1,7 +1,7 @@
 #pragma once
 
 extern "C" {
-void mystaticlib_init();
+size_t mystaticlib_init();
 
 void mystaticlib_public();
 }
