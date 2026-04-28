@@ -15,24 +15,26 @@ target_include_directories(MyStaticLibInner PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
-# wrap static library to force clients to link in entire static lib
+# wrap static library to force clients to link in static lib, despite being unreferenced
 # Based on https://stackoverflow.com/questions/53071878/using-whole-archive-linker-option-with-cmake-and-libraries-with-other-library
 add_library(MyStaticLib INTERFACE)
 set_target_properties(MyStaticLib PROPERTIES LINKER_LANGUAGE CXX)
 add_library(MyStaticLib::MyStaticLib ALIAS MyStaticLib)
 
-#TODO: Switch to WHOLE_ARCHIVE when upgrading to CMake >=3.24
-# Unable to use target_link_options(MyStaticLib [BEFORE] INTERFACE LINKER:<flags>) since the flags aren't applied immediately before/after the library.
+#TODO: Switch to target_link_options(MyStaticLib INTERFACE LINKER:<flags>)
 if(APPLE)
     target_link_libraries(MyStaticLib INTERFACE
-        "-Wl,-force_load"
+        "-Wl,-u,_mystaticlib_init" # C symbols are prefixed with "_" on macOS
         MyStaticLibInner
     )
+elseif(EMSCRIPTEN)
+    target_link_libraries(MyStaticLib INTERFACE
+        "-Wl,--undefined=mystaticlib_init"
+        MyStaticLibInner)
 else()
     target_link_libraries(MyStaticLib INTERFACE
-        "-Wl,--whole-archive"
+        "-Wl,--require-defined=mystaticlib_init"
         MyStaticLibInner
-        "-Wl,--no-whole-archive"
     )
 endif()
 
