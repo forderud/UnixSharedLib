@@ -20,7 +20,7 @@ docker run --rm %MOUNT_SOURCE% %MOUNT_BUILD% %DOCKER_IMAGE% || exit /b 1
 set MOUNT_SOURCE=
 
 echo Opening web browser and starting web server...
-start http://localhost:8080/build/
+start http://localhost:8080/build/MyExecutable/MyExecutable.html
 
 :: Serve the webpage from the same docker container,
 :: so that file paths match build-time paths.

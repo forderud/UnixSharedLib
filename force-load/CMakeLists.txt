@@ -11,6 +11,10 @@ else()
     add_link_options("LINKER:--gc-sections")
 endif()
 
+if(EMSCRIPTEN)
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif()
+
 # hidden visibility by default
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
