@@ -21,5 +21,8 @@ add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 if(NOT EMSCRIPTEN)
     add_subdirectory(MySharedLib)
 endif()
+
 add_subdirectory(MyStaticLib)
+add_subdirectory(StaticLibWrap)
+
 add_subdirectory(MyExecutable)
