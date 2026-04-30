@@ -6,7 +6,7 @@ add_executable(IndependentTest
     ../MyExecutable/Main.cpp # reuse sources
 )
 
-if(NOT (EMSCRIPTEN OR IOS))
+if(NOT EMSCRIPTEN)
     find_package(MySharedLib REQUIRED)
     target_link_libraries(IndependentTest PRIVATE MySharedLib::MySharedLib)
 endif()
