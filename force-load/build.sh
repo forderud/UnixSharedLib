@@ -15,10 +15,10 @@ BUILD_PARAMS=""
 
 echo Building projects...
 cmake -S . -B build $PLATFORM
-cmake --build build $BUILD_PARAMS
+cmake --build build --config Debug $BUILD_PARAMS
 
 echo Installing projects...
-cmake --install build --prefix install
+cmake --install build --config Debug --prefix install
 
 echo Running MyExecutable...
 build/MyExecutable/MyExecutable
