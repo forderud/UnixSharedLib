@@ -15,7 +15,7 @@ target_include_directories(StaticLibWrap PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries(StaticLibWrap PRIVATE MyStaticLib::MyStaticLib)
+target_link_libraries(StaticLibWrap PRIVATE MyStaticLib)
 
 
 # install rules
