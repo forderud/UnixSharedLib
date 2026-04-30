@@ -10,9 +10,12 @@ XCODE_DEVELOPMENT_TEAM="<TODO>"
 PLATFORM=""
 #PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_DEVELOPMENT_TEAM"
 
+BUILD_PARAMS=""
+#BUILD_PARAMS="-- -allowProvisioningUpdates"
+
 echo Building projects...
 cmake -S . -B build $PLATFORM
-cmake --build build
+cmake --build build $BUILD_PARAMS
 
 echo Installing projects...
 cmake --install build --prefix install
