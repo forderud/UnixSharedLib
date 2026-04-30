@@ -7,3 +7,10 @@ if(NOT (EMSCRIPTEN OR IOS))
 endif()
 
 target_link_libraries(MyExecutable PRIVATE MyStaticLib::MyStaticLib)
+
+if (IOS)
+    set_target_properties(MyExecutable PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_GUI_IDENTIFIER MyExecutable
+    )
+endif()

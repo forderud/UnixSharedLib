@@ -6,10 +6,17 @@ add_executable(IndependentTest
     ../MyExecutable/Main.cpp # reuse sources
 )
 
-if(NOT EMSCRIPTEN)
+if(NOT (EMSCRIPTEN OR IOS))
     find_package(MySharedLib REQUIRED)
     target_link_libraries(IndependentTest PRIVATE MySharedLib::MySharedLib)
 endif()
 
 find_package(MyStaticLib REQUIRED)
 target_link_libraries(IndependentTest PRIVATE MyStaticLib::MyStaticLib)
+
+if (IOS)
+    set_target_properties(IndependentTest PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_GUI_IDENTIFIER IndependentTest
+    )
+endif()
