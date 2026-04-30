@@ -1,19 +1,15 @@
 #include <cstdio>
-#ifndef __EMSCRIPTEN__
-    #include <MySharedLib.hpp>
-#endif
-#include <MyStaticLib.hpp>
+//#include <MyStaticLib.hpp>
+#include <StaticLibWrap.hpp>
 
 
 int main() {
     printf("Program startup.\n");
 
-#ifndef __EMSCRIPTEN__
-    //mysharedlib_init();
-    //mysharedlib_public();
-#endif
     //mystaticlib_init();
     //mystaticlib_public();
+
+    staticlibwrap_public();
 
     return 0;
 }
