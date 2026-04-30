@@ -24,3 +24,10 @@ cmake --install build $CONFIG --prefix install
 
 echo Running MyExecutable...
 build/MyExecutable/MyExecutable
+
+echo Building independent test...
+cmake -DCMAKE_PREFIX_PATH="../install" -S IndependentTest -B test $PLATFORM
+cmake --build test $CONFIG
+
+echo Running independent test...
+test/IndependentTest
