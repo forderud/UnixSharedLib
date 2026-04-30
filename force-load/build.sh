@@ -5,10 +5,10 @@ rm -rf build install test
 
 
 # Open "Keychain Access". Select "login" keychain, filter by "Certificates" and look for a "Apple. Development: <your name>"  certificate. The 10-character development team code is found in the "Organizational Unit" attribute.
-#XCODE_DEVELOPMENT_TEAM="<TODO"
+#XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
 
 PLATFORM=""
-#PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_DEVELOPMENT_TEAM"
+#PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM"
 
 BUILD_PARAMS=""
 #BUILD_PARAMS="-- -allowProvisioningUpdates"
