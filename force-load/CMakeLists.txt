@@ -23,6 +23,5 @@ if(NOT EMSCRIPTEN)
 endif()
 
 add_subdirectory(MyStaticLib)
-add_subdirectory(StaticLibWrap)
 
 add_subdirectory(MyExecutable)
