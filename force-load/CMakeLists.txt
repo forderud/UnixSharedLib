@@ -18,7 +18,7 @@ endif()
 # hidden visibility by default
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
-if(NOT EMSCRIPTEN)
+if(NOT (EMSCRIPTEN OR IOS))
     add_subdirectory(MySharedLib)
 endif()
 add_subdirectory(MyStaticLib)
