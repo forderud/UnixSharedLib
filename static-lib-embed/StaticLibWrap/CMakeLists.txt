@@ -31,7 +31,7 @@ if(APPLE)
     # Apple's libtool can merge multiple static archives into one.
     find_program(APPLE_LIBTOOL libtool REQUIRED)
     add_custom_command(TARGET StaticLibWrap POST_BUILD
-        COMMAND ${APPLE_LIBTOOL} -static -no_warning_for_no_symbols
+        COMMAND ${APPLE_LIBTOOL} -static
             -o $<TARGET_FILE:StaticLibWrap>
             $<TARGET_FILE:StaticLibWrap>
             $<TARGET_FILE:MyStaticLib>
