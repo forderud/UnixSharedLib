@@ -10,7 +10,7 @@ CONFIG=""
 #XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
 
 PLATFORM=""
-#PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM"
+#PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
 
 BUILD_PARAMS=""
 #BUILD_PARAMS="-- -allowProvisioningUpdates"
@@ -27,7 +27,7 @@ build/MyExecutable/MyExecutable
 
 echo Building independent test...
 cmake -DCMAKE_PREFIX_PATH="../install" -S IndependentTest -B test $PLATFORM
-cmake --build test $CONFIG
+cmake --build test $CONFIG $BUILD_PARAMS
 
 echo Running independent test...
 test/IndependentTest
