@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.22)
 
 project(TestProject)
 
+if (IOS)
+    set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
+endif()
+
 add_executable(IndependentTest
     ../MyExecutable/Main.cpp # reuse sources
 )
