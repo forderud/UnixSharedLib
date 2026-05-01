@@ -1,11 +1,11 @@
 
-Project listing:
+Sample code project listing:
 
-| Module         | Description                                                          |
-|----------------|----------------------------------------------------------------------|
-| embed-file     | Sample for embedding arbitrary files into binaries                   |
-| force-load     | Sample for forced loading of static and shared libraries             |
-|static-lib-embed| Sample for merging multiple static libraries into one static library |
+| Module         | Description                                             |
+|----------------|---------------------------------------------------------|
+| embed-file     | Embedding arbitrary files into binaries                 |
+| force-load     | Forced loading of static and shared libraries           |
+|static-lib-embed| Merge multiple static libraries into one static library |
 
 ### C/C++ libraries bundled with Linux distros
 
