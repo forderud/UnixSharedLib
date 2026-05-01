@@ -9,7 +9,7 @@ int main() {
     //mystaticlib_init();
     //mystaticlib_public();
 
-    staticlibwrap_public();
+    staticlibembed_public();
 
     return 0;
 }

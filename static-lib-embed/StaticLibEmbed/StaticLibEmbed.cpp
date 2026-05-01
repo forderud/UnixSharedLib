@@ -4,8 +4,8 @@
 // exported function
 extern "C" // avoid name mangling
 __attribute__((visibility("default")))
-void staticlibwrap_public () {
-    printf("  staticlibwrap_public called.\n");
+void staticlibembed_public () {
+    printf("  staticlibembed_public called.\n");
 
     // call embedded static library function
     mystaticlib_public();

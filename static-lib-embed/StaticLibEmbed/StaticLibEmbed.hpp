@@ -1,5 +1,5 @@
 #pragma once
 
 extern "C" {
-void staticlibwrap_public();
+void staticlibembed_public();
 }
