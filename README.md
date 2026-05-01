@@ -7,6 +7,8 @@ Sample code project listing:
 | force-load     | Forced loading of static and shared libraries           |
 |static-lib-embed| Merge multiple static libraries into one static library |
 
+## Linux resources
+
 ### C/C++ libraries bundled with Linux distros
 
 | Distro                        | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
@@ -35,6 +37,6 @@ Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikiped
 * DistroWatch: https://distrowatch.com/table.php?distribution=redhat (glibc 2.28 since RHEL 8.10 and glibc 2.17 since RHEL 7.9)
 * [Red Hat Enterprise Linux Life Cycle](https://access.redhat.com/support/policy/updates/errata) (RHEL 8 is supported from 2019-2029)
 
-### Other links
+## Other links
 * CMake [cmake-toolchains](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html) with cross-compile documentation.
 * GCC demangler: https://www.demangler.com/
