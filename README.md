@@ -36,4 +36,5 @@ Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikiped
 * [Red Hat Enterprise Linux Life Cycle](https://access.redhat.com/support/policy/updates/errata) (RHEL 8 is supported from 2019-2029)
 
 ### Other links
+* CMake [cmake-toolchains](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html) with cross-compile documentation.
 * GCC demangler: https://www.demangler.com/
