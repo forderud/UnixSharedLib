@@ -7,5 +7,6 @@ __attribute__((visibility("default")))
 void staticlibwrap_public () {
     printf("  staticlibwrap_public called.\n");
 
+    // call embedded static library function
     mystaticlib_public();
 }
