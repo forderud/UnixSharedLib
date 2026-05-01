@@ -39,13 +39,13 @@ if(APPLE)
 else()
     # GNU ar MRI script: open StaticLibWrap, add all members of MyStaticLib, save.
     add_custom_command(TARGET StaticLibWrap POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "CREATE $<TARGET_FILE:StaticLibWrap>"  > merge.mri
-        COMMAND ${CMAKE_COMMAND} -E echo "ADDLIB $<TARGET_FILE:StaticLibWrap>" >> merge.mri
-        COMMAND ${CMAKE_COMMAND} -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"   >> merge.mri
-        COMMAND ${CMAKE_COMMAND} -E echo "SAVE"                                >> merge.mri
-        COMMAND ${CMAKE_COMMAND} -E echo "END"                                 >> merge.mri
-        COMMAND ${CMAKE_AR} -M < merge.mri
-        COMMAND ${CMAKE_RANLIB} $<TARGET_FILE:StaticLibWrap>
+        COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibWrap>"  > merge.mri
+        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibWrap>" >> merge.mri
+        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"   >> merge.mri
+        COMMAND cmake -E echo "SAVE"                                >> merge.mri
+        COMMAND cmake -E echo "END"                                 >> merge.mri
+        COMMAND ar -M < merge.mri
+        COMMAND ranlib $<TARGET_FILE:StaticLibWrap>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Embedding MyStaticLib into StaticLibWrap"
         VERBATIM
