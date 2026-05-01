@@ -29,13 +29,12 @@ add_dependencies(StaticLibWrap MyStaticLib)
 # Embed MyStaticLib into StaticLibWrap so the resulting archive is self-contained.
 if(APPLE)
     # Apple's libtool can merge multiple static archives into one.
-    find_program(APPLE_LIBTOOL libtool REQUIRED)
     add_custom_command(TARGET StaticLibWrap POST_BUILD
-        COMMAND ${APPLE_LIBTOOL} -static
+        COMMAND libtool -static
             -o $<TARGET_FILE:StaticLibWrap>
             $<TARGET_FILE:StaticLibWrap>
             $<TARGET_FILE:MyStaticLib>
-        COMMENT "Embedding MyStaticLib into StaticLibWrap via libtool -static"
+        COMMENT "Embedding MyStaticLib into StaticLibWrap"
     )
 else()
     # GNU ar MRI script: open StaticLibWrap, add all members of MyStaticLib, save.
@@ -48,7 +47,7 @@ else()
         COMMAND ${CMAKE_AR} -M < merge.mri
         COMMAND ${CMAKE_RANLIB} $<TARGET_FILE:StaticLibWrap>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Embedding MyStaticLib into StaticLibWrap via ar -M"
+        COMMENT "Embedding MyStaticLib into StaticLibWrap"
         VERBATIM
     )
 endif()
