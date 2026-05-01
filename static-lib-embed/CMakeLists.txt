@@ -19,6 +19,6 @@ endif()
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
 add_subdirectory(MyStaticLib)
-add_subdirectory(StaticLibWrap)
+add_subdirectory(StaticLibEmbed)
 
 add_subdirectory(MyExecutable)
