@@ -14,3 +14,28 @@ target_include_directories(MyStaticLib PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
+
+if(FALSE)
+    # install rules
+    install(
+        TARGETS MyStaticLib
+        EXPORT MyStaticLibTargets
+    )
+    install(
+        EXPORT MyStaticLibTargets
+        DESTINATION cmake
+        NAMESPACE MyStaticLib::
+    )
+    
+    write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
+        VERSION 1.0.0
+        COMPATIBILITY SameMinorVersion
+    )
+    install(
+        FILES
+            MyStaticLibConfig.cmake
+            ${CMAKE_CURRENT_BINARY_DIR}/MyStaticLibConfigVersion.cmake
+        DESTINATION cmake
+    )
+endif()
