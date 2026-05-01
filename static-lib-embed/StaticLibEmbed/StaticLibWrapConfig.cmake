@@ -1,1 +1,1 @@
-include(${CMAKE_CURRENT_LIST_DIR}/StaticLibWrapTargets.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/StaticLibEmbedTargets.cmake)

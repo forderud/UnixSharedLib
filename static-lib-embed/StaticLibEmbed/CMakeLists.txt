@@ -1,76 +1,76 @@
 include(CMakePackageConfigHelpers)
 
-add_library(StaticLibWrap STATIC)
+add_library(StaticLibEmbed STATIC)
 
 #TODO: Adopt FILE_SET HEADERS in CMake 3.23
-target_sources(StaticLibWrap
+target_sources(StaticLibEmbed
   PRIVATE
     StaticLibEmbed.cpp
 )
 
-set_target_properties(StaticLibWrap PROPERTIES PUBLIC_HEADER StaticLibEmbed.hpp)
+set_target_properties(StaticLibEmbed PROPERTIES PUBLIC_HEADER StaticLibEmbed.hpp)
 
-target_include_directories(StaticLibWrap PUBLIC
+target_include_directories(StaticLibEmbed PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
-# Use MyStaticLib headers/compile options for building StaticLibWrap, but do
+# Use MyStaticLib headers/compile options for building StaticLibEmbed, but do
 # NOT propagate the link dependency: MyStaticLib will be physically embedded
-# into the StaticLibWrap archive below, so downstream consumers don't need it.
-target_include_directories(StaticLibWrap PRIVATE
+# into the StaticLibEmbed archive below, so downstream consumers don't need it.
+target_include_directories(StaticLibEmbed PRIVATE
     $<TARGET_PROPERTY:MyStaticLib,INTERFACE_INCLUDE_DIRECTORIES>
 )
-target_compile_definitions(StaticLibWrap PRIVATE
+target_compile_definitions(StaticLibEmbed PRIVATE
     $<TARGET_PROPERTY:MyStaticLib,INTERFACE_COMPILE_DEFINITIONS>
 )
-add_dependencies(StaticLibWrap MyStaticLib)
+add_dependencies(StaticLibEmbed MyStaticLib)
 
-# Embed MyStaticLib into StaticLibWrap so the resulting archive is self-contained.
+# Embed MyStaticLib into StaticLibEmbed so the resulting archive is self-contained.
 if(APPLE)
     # Apple's libtool can merge multiple static archives into one.
-    add_custom_command(TARGET StaticLibWrap POST_BUILD
+    add_custom_command(TARGET StaticLibEmbed POST_BUILD
         COMMAND libtool -static
-            -o $<TARGET_FILE:StaticLibWrap>
-            $<TARGET_FILE:StaticLibWrap>
+            -o $<TARGET_FILE:StaticLibEmbed>
+            $<TARGET_FILE:StaticLibEmbed>
             $<TARGET_FILE:MyStaticLib>
-        COMMENT "Embedding MyStaticLib into StaticLibWrap"
+        COMMENT "Embedding MyStaticLib into StaticLibEmbed"
     )
 else()
-    # GNU ar MRI script: open StaticLibWrap, add MyStaticLib, save.
-    add_custom_command(TARGET StaticLibWrap POST_BUILD
-        COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibWrap>"  > merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibWrap>" >> merge.mri
+    # GNU ar MRI script: open StaticLibEmbed, add MyStaticLib, save.
+    add_custom_command(TARGET StaticLibEmbed POST_BUILD
+        COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibEmbed>"  > merge.mri
+        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibEmbed>" >> merge.mri
         COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"   >> merge.mri
         COMMAND cmake -E echo "SAVE"                                >> merge.mri
         COMMAND cmake -E echo "END"                                 >> merge.mri
         COMMAND ar -M < merge.mri
-        COMMAND ranlib $<TARGET_FILE:StaticLibWrap>
+        COMMAND ranlib $<TARGET_FILE:StaticLibEmbed>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Embedding MyStaticLib into StaticLibWrap"
+        COMMENT "Embedding MyStaticLib into StaticLibEmbed"
         VERBATIM
     )
 endif()
 
 # install rules
 install(
-    TARGETS StaticLibWrap
-    EXPORT StaticLibWrapTargets
+    TARGETS StaticLibEmbed
+    EXPORT StaticLibEmbedTargets
 )
 install(
-    EXPORT StaticLibWrapTargets
+    EXPORT StaticLibEmbedTargets
     DESTINATION cmake
-    NAMESPACE StaticLibWrap::
+    NAMESPACE StaticLibEmbed::
 )
 
 write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/StaticLibWrapConfigVersion.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/StaticLibEmbedConfigVersion.cmake
     VERSION 1.0.0
     COMPATIBILITY SameMinorVersion
 )
 install(
     FILES
-        StaticLibWrapConfig.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/StaticLibWrapConfigVersion.cmake
+        StaticLibEmbedConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/StaticLibEmbedConfigVersion.cmake
     DESTINATION cmake
 )

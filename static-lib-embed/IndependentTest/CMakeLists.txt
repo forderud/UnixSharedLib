@@ -6,8 +6,8 @@ add_executable(IndependentTest
     ../MyExecutable/Main.cpp # reuse sources
 )
 
-find_package(StaticLibWrap REQUIRED)
-target_link_libraries(IndependentTest PRIVATE StaticLibWrap::StaticLibWrap)
+find_package(StaticLibEmbed REQUIRED)
+target_link_libraries(IndependentTest PRIVATE StaticLibEmbed::StaticLibEmbed)
 
 if (IOS)
     set_target_properties(IndependentTest PROPERTIES

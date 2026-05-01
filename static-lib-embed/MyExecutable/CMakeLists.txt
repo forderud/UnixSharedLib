@@ -2,7 +2,7 @@ add_executable(MyExecutable
     Main.cpp
 )
 
-target_link_libraries(MyExecutable PRIVATE StaticLibWrap)
+target_link_libraries(MyExecutable PRIVATE StaticLibEmbed)
 
 if (IOS)
     set_target_properties(MyExecutable PROPERTIES
