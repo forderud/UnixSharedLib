@@ -36,7 +36,6 @@ if(APPLE)
             $<TARGET_FILE:StaticLibWrap>
             $<TARGET_FILE:MyStaticLib>
         COMMENT "Embedding MyStaticLib into StaticLibWrap via libtool -static"
-        VERBATIM
     )
 else()
     # GNU ar MRI script: open StaticLibWrap, add all members of MyStaticLib, save.
