@@ -1,6 +1,6 @@
 ## ELF embed and parsing samples
 
-#### Demonstrates the folllowing
+#### Demonstrates the following
 * Embed arbitrary binary files in shared libraries
 * Access the embedded files without running the binary
 
