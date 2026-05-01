@@ -5,10 +5,10 @@ add_library(StaticLibWrap STATIC)
 #TODO: Adopt FILE_SET HEADERS in CMake 3.23
 target_sources(StaticLibWrap
   PRIVATE
-    StaticLibWrap.cpp
+    StaticLibEmbed.cpp
 )
 
-set_target_properties(StaticLibWrap PROPERTIES PUBLIC_HEADER StaticLibWrap.hpp)
+set_target_properties(StaticLibWrap PROPERTIES PUBLIC_HEADER StaticLibEmbed.hpp)
 
 target_include_directories(StaticLibWrap PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

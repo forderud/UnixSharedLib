@@ -1,6 +1,6 @@
 #include <cstdio>
 //#include <MyStaticLib.hpp>
-#include <StaticLibWrap.hpp>
+#include <StaticLibEmbed.hpp>
 
 
 int main() {
