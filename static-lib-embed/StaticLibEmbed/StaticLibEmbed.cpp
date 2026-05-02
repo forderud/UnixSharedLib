@@ -1,5 +1,7 @@
 #include <cstdio>
 #include <MyStaticLib.hpp>
+#include "StaticLibEmbed.hpp"
+
 
 // exported function
 extern "C" // avoid name mangling

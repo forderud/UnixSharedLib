@@ -1,4 +1,6 @@
 #include <cstdio>
+#include "InnerStaticLib.hpp"
+
 
 // exported function
 extern "C" // avoid name mangling
