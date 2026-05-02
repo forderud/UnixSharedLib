@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <InnerStaticLib.hpp>
 #include "MyStaticLib.hpp"
 
 
@@ -26,4 +27,7 @@ extern "C" // avoid name mangling
 __attribute__((visibility("default")))
 void mystaticlib_public () {
     printf("  mystaticlib_public called.\n");
+
+    // call inner library
+    innerstaticlib_public();
 }

@@ -10,6 +10,8 @@ target_sources(MyStaticLib
 
 set_target_properties(MyStaticLib PROPERTIES PUBLIC_HEADER MyStaticLib.hpp)
 
+target_link_libraries(MyStaticLib PRIVATE InnerStaticLib)
+
 target_include_directories(MyStaticLib PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>

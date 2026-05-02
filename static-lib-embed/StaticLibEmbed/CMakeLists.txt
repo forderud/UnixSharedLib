@@ -34,6 +34,7 @@ if(APPLE)
             -o $<TARGET_FILE:StaticLibEmbed>
             $<TARGET_FILE:StaticLibEmbed>
             $<TARGET_FILE:MyStaticLib>
+            $<TARGET_FILE:InnerStaticLib>
         COMMENT "Embedding MyStaticLib into StaticLibEmbed"
     )
 else()
@@ -41,9 +42,10 @@ else()
     add_custom_command(TARGET StaticLibEmbed POST_BUILD
         COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibEmbed>"  > merge.mri
         COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibEmbed>" >> merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"   >> merge.mri
-        COMMAND cmake -E echo "SAVE"                                >> merge.mri
-        COMMAND cmake -E echo "END"                                 >> merge.mri
+        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"    >> merge.mri
+        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:InnerStaticLib>" >> merge.mri
+        COMMAND cmake -E echo "SAVE"                                 >> merge.mri
+        COMMAND cmake -E echo "END"                                  >> merge.mri
         COMMAND ar -M < merge.mri
         COMMAND ranlib $<TARGET_FILE:StaticLibEmbed>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
