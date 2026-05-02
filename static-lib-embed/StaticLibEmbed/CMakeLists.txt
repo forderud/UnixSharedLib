@@ -24,32 +24,81 @@ target_include_directories(StaticLibEmbed PRIVATE
 target_compile_definitions(StaticLibEmbed PRIVATE
     $<TARGET_PROPERTY:MyStaticLib,INTERFACE_COMPILE_DEFINITIONS>
 )
-add_dependencies(StaticLibEmbed MyStaticLib)
+# Recursively collect all STATIC_LIBRARY targets reachable from `target`
+# (including the target itself).
+function(_collect_static_deps target out_var)
+    set(_visited "")
+    set(_stack "${target}")
+    while(_stack)
+        list(POP_FRONT _stack _cur)
+        if(_cur IN_LIST _visited)
+            continue()
+        endif()
+        list(APPEND _visited "${_cur}")
+        if(NOT TARGET ${_cur})
+            continue()
+        endif()
+        get_target_property(_type ${_cur} TYPE)
+        if(NOT _type STREQUAL "STATIC_LIBRARY")
+            continue()
+        endif()
+        foreach(_prop LINK_LIBRARIES INTERFACE_LINK_LIBRARIES)
+            get_target_property(_libs ${_cur} ${_prop})
+            if(_libs)
+                list(APPEND _stack ${_libs})
+            endif()
+        endforeach()
+    endwhile()
+    # Drop non-target entries (e.g. raw -lfoo or generator expressions we can't resolve).
+    set(_result "")
+    foreach(_t IN LISTS _visited)
+        if(TARGET ${_t})
+            get_target_property(_type ${_t} TYPE)
+            if(_type STREQUAL "STATIC_LIBRARY")
+                list(APPEND _result "${_t}")
+            endif()
+        endif()
+    endforeach()
+    set(${out_var} "${_result}" PARENT_SCOPE)
+endfunction()
 
-# Embed MyStaticLib into StaticLibEmbed so the resulting archive is self-contained.
+_collect_static_deps(MyStaticLib EMBED_DEPS)
+add_dependencies(StaticLibEmbed ${EMBED_DEPS})
+
+# Build a list of $<TARGET_FILE:...> generator expressions for the merge step.
+set(EMBED_FILES "")
+foreach(_dep IN LISTS EMBED_DEPS)
+    list(APPEND EMBED_FILES "$<TARGET_FILE:${_dep}>")
+endforeach()
+
+# Embed MyStaticLib (and its transitive static deps) into StaticLibEmbed
+# so the resulting archive is self-contained.
 if(APPLE)
     # Apple's libtool can merge multiple static archives into one.
     add_custom_command(TARGET StaticLibEmbed POST_BUILD
         COMMAND libtool -static
             -o $<TARGET_FILE:StaticLibEmbed>
             $<TARGET_FILE:StaticLibEmbed>
-            $<TARGET_FILE:MyStaticLib>
-            $<TARGET_FILE:InnerStaticLib>
-        COMMENT "Embedding MyStaticLib into StaticLibEmbed"
+            ${EMBED_FILES}
+        COMMAND_EXPAND_LISTS
+        COMMENT "Embedding MyStaticLib (and transitive static deps) into StaticLibEmbed"
     )
 else()
-    # GNU ar MRI script: open StaticLibEmbed, add MyStaticLib, save.
+    # GNU ar MRI script: open StaticLibEmbed, add deps, save.
+    set(_mri_addlibs "")
+    foreach(_f IN LISTS EMBED_FILES)
+        list(APPEND _mri_addlibs COMMAND cmake -E echo "ADDLIB ${_f}" >> merge.mri)
+    endforeach()
     add_custom_command(TARGET StaticLibEmbed POST_BUILD
         COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibEmbed>"  > merge.mri
         COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibEmbed>" >> merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"    >> merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:InnerStaticLib>" >> merge.mri
+        ${_mri_addlibs}
         COMMAND cmake -E echo "SAVE"                                 >> merge.mri
         COMMAND cmake -E echo "END"                                  >> merge.mri
         COMMAND ar -M < merge.mri
         COMMAND ranlib $<TARGET_FILE:StaticLibEmbed>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Embedding MyStaticLib into StaticLibEmbed"
+        COMMENT "Embedding MyStaticLib (and transitive static deps) into StaticLibEmbed"
         VERBATIM
     )
 endif()
