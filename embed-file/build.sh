@@ -31,7 +31,11 @@ cd build
 
 if [ "$ARG" = "" ]; then
     echo Running MyExecutable...
-    MyExecutable/MyExecutable
+    if [ "$(uname)" = "Darwin" ]; then
+      MyExecutable/MyExecutable.app/Contents/MacOS/MyExecutable
+    else
+      MyExecutable/MyExecutable
+    fi
 
     echo ""
     if [ "$(uname)" = "Darwin" ]; then
