@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     DumpSegments(file);
   } else {
     const char* segment_name = argv[2];
-    FindSegmentInSegments(file, segment_name);
+    FindSegmentInFile(file, segment_name);
   }
 
   printf("\n");

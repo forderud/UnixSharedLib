@@ -39,7 +39,7 @@ int main() {
             path += "/";
             path += entry.path().stem(); // filename without extension
             FileMap file(path.c_str());
-            FindSegmentInSegments(file, "LibMetadata");
+            FindSegmentInFile(file, "LibMetadata");
         }
     }
     printf("\n");

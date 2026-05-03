@@ -55,7 +55,7 @@ void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t 
   }
 }
 
-void FindSegmentInSegments(const FileMap& file, const char* segment_name) {
+void FindSegmentInFile(const FileMap& file, const char* segment_name) {
   auto& hdr = *(const mach_header_64*)file.ptr();
 
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
