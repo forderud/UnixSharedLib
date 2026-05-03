@@ -36,7 +36,8 @@ int main() {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
             printf("- %s\n", entry.path().filename().c_str());
             std::string path = entry.path().string();
-            path += "/MySharedLib"; // TODO: Avoid hardcoding dylib name
+            path += "/";
+            path += entry.path().stem(); // filename without extension
             FileMap file(path.c_str());
             FindSegmentInSegments(file, "LibMetadata");
         }
