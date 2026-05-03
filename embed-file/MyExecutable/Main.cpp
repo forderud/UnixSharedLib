@@ -7,15 +7,15 @@
 
 
 #ifdef __APPLE__
-static std::string get_bundle_resource_path() {
+static std::string get_bundle_frameworks_path() {
     CFBundleRef mainBundle = CFBundleGetMainBundle();
-    CFURLRef resourceURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+    CFURLRef url = CFBundleCopyPrivateFrameworksURL(mainBundle);
     char path[1024] {};
-    if (CFURLGetFileSystemRepresentation(resourceURL, true, (UInt8 *)path, 1024)) {
-        CFRelease(resourceURL);
+    if (CFURLGetFileSystemRepresentation(url, true, (UInt8 *)path, 1024)) {
+        CFRelease(url);
         return std::string(path);
     }
-    CFRelease(resourceURL);
+    CFRelease(url);
     return "";
 }
 #endif
@@ -26,10 +26,10 @@ int main() {
     print_embedded_file("embed_example");
 
 #ifdef __APPLE__
-    std::string path = get_bundle_resource_path();
-    printf("Listing bundle resources in %s:\n", path.c_str());
+    std::string path = get_bundle_frameworks_path();
+    printf("Listing bundle frameworks in %s:\n", path.c_str());
     if (path.empty() || !std::filesystem::is_directory(path)) {
-        std::cout << "(no Resources directory)\n";
+        std::cout << "(no Frameworks directory)\n";
     } else {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
             std::cout << entry.path().filename() << std::endl;
