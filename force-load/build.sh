@@ -12,6 +12,11 @@ if [ "$ARG" = "iOS" ]; then
     CONFIG="--config Debug"
     PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
     BUILD_PARAMS="-- -allowProvisioningUpdates"
+elif [ "$ARG" = "Android" ]; then
+    echo WIP: Building for Android
+    CONFIG="--config Debug"
+    PLATFORM="-DCMAKE_SYSTEM_NAME=Android"
+    BUILD_PARAMS=""
 else
     echo Building for native platform
     CONFIG=""
