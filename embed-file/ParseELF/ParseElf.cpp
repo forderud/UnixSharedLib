@@ -37,7 +37,7 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
   printf("\n");
 }
 
-void PrintSectionHeaders(const char *file_ptr) {
+void PrintSectionHeadersInFile(const char *file_ptr) {
   const auto& elf_hdr = *(const Elf64_Ehdr*)file_ptr;
   // section header string table
   ElfSectionHeader shst(file_ptr, elf_hdr.e_shstrndx);
@@ -180,7 +180,7 @@ int main(int argc, char **argv) {
   }
 
   if (argc == 2) {
-    PrintSectionHeaders(file.ptr());
+    PrintSectionHeadersInFile(file.ptr());
   } else {
     std::string_view data = FindDataSectionInFile(file.ptr(), argv[2]);
     if (data.size() > 0) {
