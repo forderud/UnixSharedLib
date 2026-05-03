@@ -128,7 +128,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
 }
 
 
-std::string_view FindDataSection(const char *file_ptr, const char* symbol_name_prefix) {
+std::string_view FindDataSectionInFile(const char *file_ptr, const char* symbol_name_prefix) {
   // recipie for extracting embedded symbols:
   // 1: Find SHT_SYMTAB section "st" with the desired symbol
   // 2: Find corresponding .data section "data" from st_shndx
@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     PrintSectionHeaders(file.ptr());
   } else {
-    std::string_view data = FindDataSection(file.ptr(), argv[2]);
+    std::string_view data = FindDataSectionInFile(file.ptr(), argv[2]);
     if (data.size() > 0) {
       if (strcmp(argv[2], LibMetadata_SYMBOL_NAME) == 0) {
         auto* metadata = (const LibMetadataT*)data.data();
