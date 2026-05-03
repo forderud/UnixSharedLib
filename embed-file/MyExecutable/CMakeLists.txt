@@ -10,10 +10,15 @@ if (APPLE)
 endif()
 
 if (APPLE)
-    target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
-
     find_library(CORE_FOUNDATION CoreFoundation)
     target_link_libraries(MyExecutable PRIVATE ${CORE_FOUNDATION})
+
+    target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
+
+    set_target_properties(MyExecutable PROPERTIES
+        XCODE_EMBED_FRAMEWORKS MySharedLib
+        XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
+    )
 else()
     target_link_libraries(MyExecutable PRIVATE MySharedLib)
 endif()
