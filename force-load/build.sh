@@ -1,6 +1,6 @@
 set -e   # stop on first failure
 
-ARG=$1 # "" or "iOS"
+ARG=$1 # "", "iOS" or "Android"
 
 echo Cleaning up...
 rm -rf build install test
