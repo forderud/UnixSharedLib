@@ -28,11 +28,13 @@ int main() {
 #ifdef __APPLE__
     std::string path = get_bundle_resource_path();
     printf("Listing bundle resources in %s:\n", path.c_str());
-    #if 0
-    for (const auto & entry : std::filesystem::directory_iterator(path)) {
-        std::cout << entry.path().filename() << std::endl;
+    if (path.empty() || !std::filesystem::is_directory(path)) {
+        std::cout << "(no Resources directory)\n";
+    } else {
+        for (const auto entry : std::filesystem::directory_iterator(path)) {
+            std::cout << entry.path().filename() << std::endl;
+        }
     }
-    #endif
 #endif
 
     return 0;
