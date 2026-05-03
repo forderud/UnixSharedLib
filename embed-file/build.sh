@@ -1,7 +1,7 @@
 set -e   # stop on first failure
 
 echo Cleaning up...
-rm -r build
+rm -rf build
 
 cmake -S . -B build
 cmake --build build
