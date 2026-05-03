@@ -40,14 +40,14 @@ if(APPLE)
 else()
     # GNU ar MRI script: open StaticLibEmbed, add MyStaticLib, save.
     add_custom_command(TARGET StaticLibEmbed POST_BUILD
-        COMMAND cmake -E echo "CREATE $<TARGET_FILE:StaticLibEmbed>"  > merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:StaticLibEmbed>" >> merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"    >> merge.mri
-        COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:InnerStaticLib>" >> merge.mri
-        COMMAND cmake -E echo "SAVE"                                 >> merge.mri
-        COMMAND cmake -E echo "END"                                  >> merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "CREATE $<TARGET_FILE:StaticLibEmbed>"  > merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "ADDLIB $<TARGET_FILE:StaticLibEmbed>" >> merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "ADDLIB $<TARGET_FILE:MyStaticLib>"    >> merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "ADDLIB $<TARGET_FILE:InnerStaticLib>" >> merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "SAVE"                                 >> merge.mri
+        COMMAND ${CMAKE_COMMAND} -E echo "END"                                  >> merge.mri
         COMMAND ${CMAKE_AR} -M < merge.mri
-        COMMAND ranlib $<TARGET_FILE:StaticLibEmbed>
+        COMMAND ${CMAKE_RANLIB} $<TARGET_FILE:StaticLibEmbed>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Embedding MyStaticLib into StaticLibEmbed"
         VERBATIM
