@@ -68,7 +68,7 @@ int main() {
             path += "/";
             path += entry.path().stem(); // filename without extension
             FileMap file(path.c_str());
-            FindSegmentInFile(file, "LibMetadata");
+            FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
         }
     }
     printf("\n");
