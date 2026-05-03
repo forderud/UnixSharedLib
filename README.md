@@ -14,8 +14,8 @@ Sample code project listing:
 
 | Distro                                                               | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
 |----------------------------------------------------------------------|-----------------|--------------|-------|---------------|
-| RedHat 8.8 - 8.10                                                    |    '19 -     '29| 4.18         | 2.28  | 8             |
 | [Ubuntu 18.04 (Bionic Beaver)](https://releases.ubuntu.com/18.04/)   |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
+| RedHat 8.8 - 8.10                                                    |    '19 -     '29| 4.18         | 2.28  | 8             |
 | [Ubuntu 22.04 (Jammy Jellyfish)](https://releases.ubuntu.com/22.04/) |Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  | 11            |
 | [Ubuntu 24.04 (Noble Numbat)](https://releases.ubuntu.com/24.04/)    |Apr '24 - Apr '34| 6.8          | 2.39  | 13            |
 | Fedora 43                                                            |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
