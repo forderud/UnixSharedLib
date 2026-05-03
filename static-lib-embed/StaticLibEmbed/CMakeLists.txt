@@ -46,7 +46,7 @@ else()
         COMMAND cmake -E echo "ADDLIB $<TARGET_FILE:InnerStaticLib>" >> merge.mri
         COMMAND cmake -E echo "SAVE"                                 >> merge.mri
         COMMAND cmake -E echo "END"                                  >> merge.mri
-        COMMAND ar -M < merge.mri
+        COMMAND ${CMAKE_AR} -M < merge.mri
         COMMAND ranlib $<TARGET_FILE:StaticLibEmbed>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Embedding MyStaticLib into StaticLibEmbed"
