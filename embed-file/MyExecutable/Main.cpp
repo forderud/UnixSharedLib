@@ -10,7 +10,7 @@
 static std::string get_bundle_resource_path() {
     CFBundleRef mainBundle = CFBundleGetMainBundle();
     CFURLRef resourceURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
-    char path[1024];
+    char path[1024] {};
     if (CFURLGetFileSystemRepresentation(resourceURL, true, (UInt8 *)path, 1024)) {
         CFRelease(resourceURL);
         return std::string(path);
