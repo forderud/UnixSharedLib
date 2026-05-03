@@ -15,7 +15,7 @@ if [ "$ARG" = "iOS" ]; then
 elif [ "$ARG" = "Android" ]; then
     echo WIP: Building for Android
     CONFIG="--config Debug"
-    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"
+    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"
     BUILD_PARAMS=""
 else
     echo Building for native platform
