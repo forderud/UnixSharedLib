@@ -30,7 +30,7 @@ else()
   # convert embed_example.txt into an object file
   add_custom_command(
     OUTPUT ${OBJ_OUTPUT}
-    COMMAND ld -r -b binary -z noexecstack embed_example.txt -o ${OBJ_OUTPUT}
+    COMMAND ${CMAKE_LINKER} -r -b binary -z noexecstack embed_example.txt -o ${OBJ_OUTPUT}
     DEPENDS embed_example.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
