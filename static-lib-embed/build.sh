@@ -1,6 +1,6 @@
 set -e   # stop on first failure
 
-ARG=$1 # "" or "iOS"
+ARG=$1 # "", "iOS", "Android"
 
 echo Cleaning up...
 rm -rf build install test
@@ -12,6 +12,11 @@ if [ "$ARG" = "iOS" ]; then
     CONFIG="--config Debug"
     PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
     BUILD_PARAMS="-- -allowProvisioningUpdates"
+elif [ "$ARG" = "Android" ]; then
+    echo Building for Android
+    CONFIG="--config Debug"
+    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"
+    BUILD_PARAMS=""
 else
     echo Building for native platform
     CONFIG=""
