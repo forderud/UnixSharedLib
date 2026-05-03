@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
   }
 
   if (argc == 2) {
-    DumpSegments(file);
+    DumpSegmentsInFile(file);
   } else {
     const char* segment_name = argv[2];
     FindSegmentInFile(file, segment_name);

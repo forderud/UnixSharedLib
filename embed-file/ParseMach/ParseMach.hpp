@@ -18,7 +18,7 @@ void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) 
   }
 }
 
-void DumpSegments(const FileMap& file) {
+void DumpSegmentsInFile(const FileMap& file) {
   auto& hdr = *(const mach_header_64*)file.ptr();
 
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
