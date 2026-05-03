@@ -28,7 +28,7 @@ int main() {
 #ifdef __APPLE__
     std::string path = get_bundle_frameworks_path();
     printf("Listing bundle frameworks in %s:\n", path.c_str());
-    if (path.empty() || !std::filesystem::is_directory(path)) {
+    if (!std::filesystem::is_directory(path)) {
         std::cout << "(no Frameworks directory)\n";
     } else {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
