@@ -1,6 +1,8 @@
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include "../ParseMach/ParseMach.hpp"
+#else
+    #include "../ParseELF/ParseElf.hpp"
 #endif
 #include <iostream>
 #include <filesystem>
@@ -43,6 +45,8 @@ int main() {
         }
     }
     printf("\n");
+#else
+    // TODO: Parse shared libs in app bundle
 #endif
 
     return 0;
