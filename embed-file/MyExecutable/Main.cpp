@@ -1,5 +1,6 @@
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
+    #include "../ParseMach/ParseMach.hpp"
 #endif
 #include <iostream>
 #include <filesystem>
@@ -34,6 +35,10 @@ int main() {
     } else {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
             printf("- %s\n", entry.path().filename().c_str());
+            std::string path = entry.path().string();
+            path += "/MySharedLib"; // TODO: Avoid hardcoding dylib name
+            FileMap file(path.c_str());
+            FindSegmentInSegments(file, "LibMetadata");
         }
     }
     printf("\n");
