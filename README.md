@@ -3,7 +3,7 @@ Sample code project listing:
 
 | Module         | Description                                             |
 |----------------|---------------------------------------------------------|
-| embed-file     | Embedding arbitrary files into binaries                 |
+| embed-file     | Embedding arbitrary files into shared libraries and executables |
 | force-load     | Forced loading of static and shared libraries           |
 |static-lib-embed| Merge multiple static libraries into one static library |
 
