@@ -29,14 +29,16 @@ cmake --build build $CONFIG $BUILD_PARAMS
 
 cd build
 
-echo Running MyExecutable...
-MyExecutable/MyExecutable
+if [ "$ARG" = "" ]; then
+    echo Running MyExecutable...
+    MyExecutable/MyExecutable
 
-echo ""
-if [ "$(uname)" = "Darwin" ]; then
-  ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib embed_example
-  ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib LibMetadata
-else
-  ParseELF/ParseELF MySharedLib/libMySharedLib.so _binary_embed_example_txt
-  ParseELF/ParseELF MySharedLib/libMySharedLib.so LibMetadata
+    echo ""
+    if [ "$(uname)" = "Darwin" ]; then
+        ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib embed_example
+        ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib LibMetadata
+    else
+        ParseELF/ParseELF MySharedLib/libMySharedLib.so _binary_embed_example_txt
+        ParseELF/ParseELF MySharedLib/libMySharedLib.so LibMetadata
+    fi
 fi
