@@ -1,4 +1,6 @@
 #include <cstdio>
+#include "MySharedLib.hpp"
+
 
 // automatically called during library loading
 extern "C" // avoid name mangling

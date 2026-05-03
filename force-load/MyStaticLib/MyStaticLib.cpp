@@ -1,4 +1,6 @@
 #include <cstdio>
+#include "MyStaticLib.hpp"
+
 
 // automatically called at startup
 extern "C" // avoid name mangling
