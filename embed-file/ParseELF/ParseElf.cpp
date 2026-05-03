@@ -5,7 +5,7 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
-#include "ElfUtils.hpp"
+#include "ParseElf.hpp"
 #include "../FileMap.hpp"
 #include "../LibMetadata.hpp"
 
