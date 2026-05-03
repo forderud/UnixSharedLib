@@ -11,8 +11,7 @@ Build error g++ implicitly links to a too old libstdc++ version:
 collect2: error: ld returned 1 exit status
 ```
 
-Solutions:
-| GCC version | Description |
+| Solution | Description |
 |-------------|-------------|
 | GCC >= 13   | Use [`-nostdlib++`](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#index-nostdlib_002b_002b). |
 | GCC < 13    | Pass [`-nodefaultlibs`](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#index-nodefaultlibs) and link to required C standard libraries. Example: `-nodefaultlibs -lgcc_eh -lc `pwd`/libstdc++.so.6` to suppress automatic libstdc++ linking and instead link to the user-provided `libstdc++.so.6`. |
