@@ -14,8 +14,8 @@ if [ "$ARG" = "iOS" ]; then
     BUILD_PARAMS="-- -allowProvisioningUpdates"
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
-    CONFIG="--config Debug"
-    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
+    CONFIG=""
+    PLATFORM="-DCMAKE_BUILD_TYPE=Debug -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
     BUILD_PARAMS=""
 else
     echo Building for native platform
