@@ -6,7 +6,7 @@ echo Cleaning up...
 rm -rf build install test
 
 if [ "$ARG" == "iOS" ]; then
-    echo Building for iOS platform
+    echo Building for iOS
     # Open "Keychain Access". Select "login" keychain, filter by "Certificates" and look for a "Apple. Development: <your name>"  certificate. The 10-character development team code is found in the "Organizational Unit" attribute.
     #XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
     CONFIG="--config Debug"
