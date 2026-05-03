@@ -1,7 +1,10 @@
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include "../ParseMach/ParseMach.hpp"
-#else
+#endif
+#ifdef __ANDROID__
+    #include <android/asset_manager.h>
+    #include <android/asset_manager_jni.h>
     #include "../ParseELF/ParseElf.hpp"
 #endif
 #include <iostream>
@@ -45,7 +48,9 @@ int main() {
         }
     }
     printf("\n");
-#else
+#endif
+
+#ifdef __ANDROID__
     // TODO: Parse shared libs in app bundle
 #endif
 
