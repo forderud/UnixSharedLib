@@ -15,7 +15,7 @@ if [ "$ARG" = "iOS" ]; then
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
     CONFIG="--config Debug"
-    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"
+    PLATFORM="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$HOME/Library/Android/sdk/ndk/30.0.14904198 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
     BUILD_PARAMS=""
 else
     echo Building for native platform
@@ -36,9 +36,9 @@ if [ "$ARG" = "" ]; then
     build/MyExecutable/MyExecutable
 fi
 
-    echo Building independent test...
-    cmake -DCMAKE_PREFIX_PATH="../install" -S IndependentTest -B test $PLATFORM
-    cmake --build test $CONFIG
+echo Building independent test...
+cmake -DCMAKE_PREFIX_PATH="../install" -S IndependentTest -B test $PLATFORM
+cmake --build test $CONFIG $BUILD_PARAMS
 
 if [ "$ARG" = "" ]; then
     echo Running independent test...
