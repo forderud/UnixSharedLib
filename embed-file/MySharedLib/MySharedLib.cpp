@@ -10,6 +10,7 @@
     extern char _binary_embed_example_txt_end[];
   }
 #endif
+#include "MySharedLib.hpp"
 
 #define EMBED_SAMPLE_LIB_METADATA
 #include "../LibMetadata.hpp"
