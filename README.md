@@ -12,14 +12,14 @@ Sample code project listing:
 
 ### C/C++ libraries bundled with Linux distros
 
-| Distro                        | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
-|-------------------------------|-----------------|--------------|-------|---------------|
-| RedHat 8.8 - 8.10             |    '19 -     '29| 4.18         | 2.28  | 8             |
+| Distro                                                               | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
+|----------------------------------------------------------------------|-----------------|--------------|-------|---------------|
+| RedHat 8.8 - 8.10                                                    |    '19 -     '29| 4.18         | 2.28  | 8             |
 | [Ubuntu 18.04 (Bionic Beaver)](https://releases.ubuntu.com/18.04/)   |Apr '18 - Apr '28| 4.15         | 2.27  | 7             |
 | [Ubuntu 22.04 (Jammy Jellyfish)](https://releases.ubuntu.com/22.04/) |Apr '22 - Apr '32| 5.15 or 5.17 | 2.35  | 11            |
 | [Ubuntu 24.04 (Noble Numbat)](https://releases.ubuntu.com/24.04/)    |Apr '24 - Apr '34| 6.8          | 2.39  | 13            |
-| [Ubuntu 26.04 (Resolute Raccoon)](https://releases.ubuntu.com/26.04/)|Apr '26 - Apr '36| 7.0          |       |               |
-| Fedora 43                     |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
+| Fedora 43                                                            |Oct '25 - Dec '26| 6.17         | 2.42  | 15            |
+| [Ubuntu 26.04 (Resolute Raccoon)](https://releases.ubuntu.com/26.04/)|Apr '26 - Apr '36| 7.0          | 2.43  | 16            |
 
 Please note that the Linux kernel version is determined by the host when running Docker containers, since containers doesn't contain their own kernel.
 
