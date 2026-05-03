@@ -3,6 +3,7 @@ Sample code project listing:
 
 | Module             | Description                                             |
 |--------------------|---------------------------------------------------------|
+|**bundle-libstdc++* | Bundle a new libstdc++ version with a shared library to allow it to run on older Linux distros |
 | **embed-file**     | Embed arbitrary files into shared libraries and executables |
 | **force-load**     | Forced loading of static and shared libraries           |
 |**static-lib-embed**| Merge multiple static libraries into one static library |
