@@ -27,7 +27,7 @@ if(APPLE)
         "-Wl,-u,_mystaticlib_init" # C symbols are prefixed with "_" on macOS
         MyStaticLibInner
     )
-elseif(EMSCRIPTEN)
+elseif(EMSCRIPTEN OR ANDROID)
     target_link_libraries(MyStaticLib INTERFACE
         "-Wl,--undefined=mystaticlib_init"
         MyStaticLibInner)
