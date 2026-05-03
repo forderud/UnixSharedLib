@@ -30,7 +30,7 @@ static std::string GetBundleFrameworksPath() {
 #ifdef __ANDROID__
 static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
-    AAsset* asset = AAssetManager_open(mgr, filename, AASSET_MODE_UNKNOWN);
+    AAsset* asset = AAssetManager_open(mgr, filename, AASSET_MODE_BUFFER);
     if (!asset)
         return;
 
