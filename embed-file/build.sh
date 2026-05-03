@@ -20,7 +20,11 @@ elif [ "$ARG" = "Android" ]; then
 else
     echo Building for native platform
     CONFIG=""
-    PLATFORM=""
+    if [ "$(uname)" = "Darwin" ]; then
+      PLATFORM="-GXcode"
+    else
+      PLATFORM=""
+    fi
     BUILD_PARAMS=""
 fi
 
@@ -32,15 +36,15 @@ cd build
 if [ "$ARG" = "" ]; then
     echo Running MyExecutable...
     if [ "$(uname)" = "Darwin" ]; then
-      MyExecutable/MyExecutable.app/Contents/MacOS/MyExecutable
+      MyExecutable/Debug/MyExecutable.app/Contents/MacOS/MyExecutable
     else
       MyExecutable/MyExecutable
     fi
 
     echo ""
     if [ "$(uname)" = "Darwin" ]; then
-        ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib embed_example
-        ParseMach/ParseMach MySharedLib/MySharedLib.framework/MySharedLib LibMetadata
+        ParseMach/Debug/ParseMach MySharedLib/Debug/MySharedLib.framework/MySharedLib embed_example
+        ParseMach/Debug/ParseMach MySharedLib/Debug/MySharedLib.framework/MySharedLib LibMetadata
     else
         ParseELF/ParseELF MySharedLib/libMySharedLib.so _binary_embed_example_txt
         ParseELF/ParseELF MySharedLib/libMySharedLib.so LibMetadata
