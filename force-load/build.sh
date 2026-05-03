@@ -34,11 +34,13 @@ cmake --install build $CONFIG --prefix install
 if [ "$ARG" = "" ]; then
     echo Running MyExecutable...
     build/MyExecutable/MyExecutable
+fi
 
     echo Building independent test...
     cmake -DCMAKE_PREFIX_PATH="../install" -S IndependentTest -B test $PLATFORM
     cmake --build test $CONFIG
 
+if [ "$ARG" = "" ]; then
     echo Running independent test...
     test/IndependentTest
 fi
