@@ -1,10 +1,31 @@
 set -e   # stop on first failure
 
+ARG=$1 # "", "iOS" or "Android"
+
 echo Cleaning up...
 rm -rf build
 
-cmake -S . -B build
-cmake --build build
+if [ "$ARG" = "iOS" ]; then
+    echo Building for iOS
+    # Open "Keychain Access". Select "login" keychain, filter by "Certificates" and look for a "Apple. Development: <your name>"  certificate. The 10-character development team code is found in the "Organizational Unit" attribute.
+    #XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
+    CONFIG="--config Debug"
+    PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
+    BUILD_PARAMS="-- -allowProvisioningUpdates"
+elif [ "$ARG" = "Android" ]; then
+    echo Building for Android
+    CONFIG=""
+    PLATFORM="-DCMAKE_BUILD_TYPE=Debug -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$ANDROID_NDK -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
+    BUILD_PARAMS=""
+else
+    echo Building for native platform
+    CONFIG=""
+    PLATFORM=""
+    BUILD_PARAMS=""
+fi
+
+cmake -S . -B build $PLATFORM
+cmake --build build $CONFIG $BUILD_PARAMS
 
 cd build
 
