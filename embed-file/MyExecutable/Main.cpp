@@ -75,7 +75,7 @@ int main() {
 #endif
 
 #ifdef __ANDROID__
-    // TODO: Parse shared libs in app bundle
+    // TODO: Discover and parse shared libs in app bundle
 #endif
 
     return 0;
