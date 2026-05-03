@@ -31,15 +31,15 @@ static std::string GetBundleFrameworksPath() {
 static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
     AAsset* asset = AAssetManager_open(mgr, filename, AASSET_MODE_UNKNOWN);
+    if (!asset)
+        return;
 
-    if (asset != nullptr) {
-        size_t size = AAsset_getLength(asset);
-        char* buffer = new char[size];
-        AAsset_read(asset, buffer, size);
-        // Process your data here
-        AAsset_close(asset);
-        delete[] buffer;
-    }
+    size_t size = AAsset_getLength(asset);
+    std::vector<char> buffer(size);
+    AAsset_read(asset, buffer.data(), size);
+    AAsset_close(asset);
+
+    // Process asset data here
 }
 
 /** Android entry point */
