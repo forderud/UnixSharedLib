@@ -1,5 +1,9 @@
 #pragma once
 #include <elf.h>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <vector>
 #include "../LibMetadata.hpp"
 
 

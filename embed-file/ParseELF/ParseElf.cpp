@@ -1,10 +1,6 @@
 // based on https://github.com/eklitzke/parse-elf
 #include <unistd.h>
 #include <cassert>
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <vector>
 #include "ParseElf.hpp"
 #include "../FileMap.hpp"
 
