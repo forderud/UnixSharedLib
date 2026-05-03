@@ -9,6 +9,9 @@ Sample code for embedding arbitrary binary or text files into binaries on variou
 | Linux/Android | Add a named `.symtab` symbol to the `.so` binary. |
 | macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` binary.|
 
+### Cross-platform alternative
+[`#embed`](https://en.cppreference.com/cpp/preprocessor/embed) that's introduced in C23/C++26 can be used as portable solution for arbitrary file embedding. There  **incbin** sample furthermore demonstrates how achieve the same with pre-C23/C++26 compilers.
+
 #### Demonstrates the following
 * Embed arbitrary binary files in shared libraries
 * Access the embedded files without running the binary
