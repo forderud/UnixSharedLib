@@ -7,7 +7,7 @@
 
 
 #ifdef __APPLE__
-static std::string get_bundle_frameworks_path() {
+static std::string GetBundleFrameworksPath() {
     CFBundleRef mainBundle = CFBundleGetMainBundle();
     CFURLRef url = CFBundleCopyPrivateFrameworksURL(mainBundle);
     char path[1024] {};
@@ -26,15 +26,17 @@ int main() {
     print_embedded_file("embed_example");
 
 #ifdef __APPLE__
-    std::string path = get_bundle_frameworks_path();
-    printf("Listing bundle frameworks in %s:\n", path.c_str());
+    printf("\n");
+    printf("Frameworks embedded in app bundle:\n");
+    std::string path = GetBundleFrameworksPath();
     if (!std::filesystem::is_directory(path)) {
-        std::cout << "(no Frameworks directory)\n";
+        printf("(no Frameworks directory)\n");
     } else {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
-            std::cout << entry.path().filename() << std::endl;
+            printf("- %s\n", entry.path().filename().c_str());
         }
     }
+    printf("\n");
 #endif
 
     return 0;
