@@ -3,6 +3,7 @@
     #include "../ParseMach/ParseMach.hpp"
 #endif
 #ifdef __ANDROID__
+    #include <jni.h>
     #include <android/asset_manager.h>
     #include <android/asset_manager_jni.h>
     #include "../ParseELF/ParseElf.hpp"
@@ -39,6 +40,13 @@ static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
         AAsset_close(asset);
         delete[] buffer;
     }
+}
+
+/** Android entry point */
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_example_myapp_MainActivity_stringFromJNI(JNIEnv* env, jobject /*this*/) {
+    std::string hello = "Hello from C++";
+    return env->NewStringUTF(hello.c_str());
 }
 #endif
 
