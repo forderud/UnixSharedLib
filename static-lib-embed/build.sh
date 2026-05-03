@@ -1,11 +1,11 @@
 set -e   # stop on first failure
 
-ARG=$1
+ARG=$1 # "" or "iOS"
 
 echo Cleaning up...
 rm -rf build install test
 
-if [ "$ARG" == "iOS" ]; then
+if [ "$ARG" = "iOS" ]; then
     echo Building for iOS
     # Open "Keychain Access". Select "login" keychain, filter by "Certificates" and look for a "Apple. Development: <your name>"  certificate. The 10-character development team code is found in the "Organizational Unit" attribute.
     #XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
@@ -26,7 +26,7 @@ cmake --build build $CONFIG $BUILD_PARAMS
 echo Installing projects...
 cmake --install build $CONFIG --prefix install
 
-if [ "$ARG" == "" ]; then
+if [ "$ARG" = "" ]; then
     echo Running MyExecutable...
     build/MyExecutable/MyExecutable
 
