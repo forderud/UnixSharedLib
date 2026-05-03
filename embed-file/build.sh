@@ -1,11 +1,10 @@
 echo Cleaning up...
 rm -r build
 
-mkdir build
-cd build
+cmake -S . -B build
+cmake --build build
 
-cmake ..
-cmake --build .
+cd build
 
 echo Running MyExecutable...
 MyExecutable/MyExecutable
