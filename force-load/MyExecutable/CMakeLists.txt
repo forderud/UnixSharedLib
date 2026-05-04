@@ -14,10 +14,10 @@ if (IOS)
         MACOSX_BUNDLE_GUI_IDENTIFIER "MyExecutable"
         MACOSX_BUNDLE_BUNDLE_NAME "MyExecutable"
 
-        # Look for embedded dylibs inside the .app bundle's Frameworks/ folder
+        # Look for dylibs inside .app bundle Frameworks folder
         BUILD_RPATH "@executable_path/Frameworks"
         INSTALL_RPATH "@executable_path/Frameworks"
-        # Embed (copy + code-sign) MySharedLibInner.dylib into the .app bundle
+        # Embed framework(s) into .app bundle
         XCODE_EMBED_FRAMEWORKS MySharedLibInner
     )
 endif()
