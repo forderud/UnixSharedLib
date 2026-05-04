@@ -48,7 +48,7 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     printf("    st_other = %d\n", sym.st_other);
     printf("    st_shndx = %d\n", sym.st_shndx); // associated section header table index
     printf("    st_value = %p\n", (void *)sym.st_value);
-    printf("    st_size = %zd\n", sym.st_size);
+    printf("    st_size = %zd\n", (size_t)sym.st_size);
     printf("\n");
   }
   printf("\n");
@@ -74,7 +74,7 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         }
         break;
       case SHT_STRTAB:
-        printf("found SHT_STRTAB (string) table, size %zd (index %d)\n", shdr.sh_size, i);
+        printf("found SHT_STRTAB (string) table, size %zd (index %d)\n", (size_t)shdr.sh_size, i);
         break;
       case SHT_DYNSYM:
         {
@@ -87,7 +87,7 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         break;
       case SHT_PROGBITS:
         {
-          printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
+          printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", (size_t)shdr.sh_size, i);
         }
         break;
       default:
