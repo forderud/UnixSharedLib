@@ -55,5 +55,5 @@ fi
 if [ "$ARG" = "iOS" ]; then
     echo Running MyExecutable on iOS Simulator...
     xcrun simctl install booted MyExecutable/Debug-iphonesimulator/MyExecutable.app
-    #xcrun simctl launch booted com.yourcompany.MyExecutable
+    xcrun simctl launch booted MyExecutable
 fi
