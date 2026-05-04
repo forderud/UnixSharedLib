@@ -91,7 +91,7 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         }
         break;
       default:
-        printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
+        printf("found %d table, size %zd (index %d)\n", shdr.sh_type, (size_t)shdr.sh_size, i);
         break;
     }
 
