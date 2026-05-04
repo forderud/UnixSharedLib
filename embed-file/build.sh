@@ -51,3 +51,9 @@ if [ "$ARG" = "" ]; then
         ParseELF/ParseELF MySharedLib/libMySharedLib.so LibMetadata
     fi
 fi
+
+if [ "$ARG" = "iOS" ]; then
+    echo Running MyExecutable on iOS Simulator...
+    #xcrun simctl install booted MyExecutable/Debug-iphoneos/MyExecutable.app
+    #xcrun simctl launch booted com.yourcompany.MyExecutable
+fi
