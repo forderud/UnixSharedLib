@@ -6,7 +6,6 @@ if (APPLE)
     set_target_properties(MyExecutable PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_GUI_IDENTIFIER MyExecutable
-        XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Automatic"
     )
 endif()
 
