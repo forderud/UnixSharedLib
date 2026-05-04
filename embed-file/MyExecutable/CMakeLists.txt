@@ -17,6 +17,10 @@ if (APPLE)
     target_link_libraries(MyExecutable PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
 
     set_target_properties(MyExecutable PROPERTIES
+        # Look for embedded dylibs inside the .app bundle's Frameworks folder
+        BUILD_RPATH "@executable_path/Frameworks"
+        INSTALL_RPATH "@executable_path/Frameworks"
+        # Embed framework(s) into .app bundle
         XCODE_EMBED_FRAMEWORKS MySharedLib
         XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
     )
