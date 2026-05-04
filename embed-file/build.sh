@@ -53,7 +53,8 @@ if [ "$ARG" = "" ]; then
 fi
 
 if [ "$ARG" = "iOS" ]; then
-    echo Running MyExecutable on iOS Simulator...
-    xcrun simctl install booted MyExecutable/Debug-iphonesimulator/MyExecutable.app
-    xcrun simctl launch booted MyExecutable
+    #echo Running MyExecutable on iOS Simulator...
+    #xcrun simctl install booted MyExecutable/Debug-iphonesimulator/MyExecutable.app
+    #xcrun simctl launch booted MyExecutable
+    echo Open project in Xcode to run MyExecutable on iOS Simulator
 fi
