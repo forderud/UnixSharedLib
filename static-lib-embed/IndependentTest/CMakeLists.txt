@@ -12,6 +12,7 @@ target_link_libraries(IndependentTest PRIVATE StaticLibEmbed::StaticLibEmbed)
 if (IOS)
     set_target_properties(IndependentTest PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_GUI_IDENTIFIER IndependentTest
+        MACOSX_BUNDLE_GUI_IDENTIFIER "IndependentTest"
+        MACOSX_BUNDLE_BUNDLE_NAME "IndependentTest"
     )
 endif()
