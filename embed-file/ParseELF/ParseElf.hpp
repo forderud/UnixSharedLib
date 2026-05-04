@@ -95,8 +95,8 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         break;
     }
 
-    printf("  sh_addr 0x%lx\n", shdr.sh_addr);
-    printf("  sh_offset 0x%lx\n", shdr.sh_offset);
+    printf("  sh_addr 0x%lx\n", (size_t)shdr.sh_addr);
+    printf("  sh_offset 0x%lx\n", (size_t)shdr.sh_offset);
     printf("  name: %s\n", file_ptr + shst.sh_offset + shdr.sh_name);
   }
 }
