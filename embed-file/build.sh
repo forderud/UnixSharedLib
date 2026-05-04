@@ -10,7 +10,7 @@ if [ "$ARG" = "iOS" ]; then
     # Open "Keychain Access". Select "login" keychain, filter by "Certificates" and look for a "Apple. Development: <your name>"  certificate. The 10-character development team code is found in the "Organizational Unit" attribute.
     #XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="<TODO>"
     CONFIG="--config Debug"
-    PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
+    PLATFORM="-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=$XCODE_ATTRIBUTE_DEVELOPMENT_TEAM -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
     BUILD_PARAMS="-- -allowProvisioningUpdates"
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
@@ -54,6 +54,6 @@ fi
 
 if [ "$ARG" = "iOS" ]; then
     echo Running MyExecutable on iOS Simulator...
-    xcrun simctl install booted MyExecutable/Debug-iphoneos/MyExecutable.app
+    xcrun simctl install booted MyExecutable/Debug-iphonesimulator/MyExecutable.app
     #xcrun simctl launch booted com.yourcompany.MyExecutable
 fi
