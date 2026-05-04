@@ -48,7 +48,7 @@ void PrintSymbolTable(const char *file_ptr, size_t str_off, size_t sym_off, size
     printf("    st_other = %d\n", sym.st_other);
     printf("    st_shndx = %d\n", sym.st_shndx); // associated section header table index
     printf("    st_value = %p\n", (void *)sym.st_value);
-    printf("    st_size = %llu\n", sym.st_size);
+    printf("    st_size = %zd\n", sym.st_size);
     printf("\n");
   }
   printf("\n");
@@ -74,7 +74,7 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         }
         break;
       case SHT_STRTAB:
-        printf("found SHT_STRTAB (string) table, size %llu (index %d)\n", shdr.sh_size, i);
+        printf("found SHT_STRTAB (string) table, size %zd (index %d)\n", shdr.sh_size, i);
         break;
       case SHT_DYNSYM:
         {
@@ -87,16 +87,16 @@ void PrintSectionHeadersInFile(const char *file_ptr) {
         break;
       case SHT_PROGBITS:
         {
-          printf("found SHT_PROGBITS (program data) table, size %llu (index %d)\n", shdr.sh_size, i);
+          printf("found SHT_PROGBITS (program data) table, size %zd (index %d)\n", shdr.sh_size, i);
         }
         break;
       default:
-        printf("found %d table, size %llu (index %d)\n", shdr.sh_type, shdr.sh_size, i);
+        printf("found %d table, size %zd (index %d)\n", shdr.sh_type, shdr.sh_size, i);
         break;
     }
 
-    printf("  sh_addr 0x%llx\n", shdr.sh_addr);
-    printf("  sh_offset 0x%llx\n", shdr.sh_offset);
+    printf("  sh_addr 0x%lx\n", shdr.sh_addr);
+    printf("  sh_offset 0x%lx\n", shdr.sh_offset);
     printf("  name: %s\n", file_ptr + shst.sh_offset + shdr.sh_name);
   }
 }
