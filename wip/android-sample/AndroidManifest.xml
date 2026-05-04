@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://android.com" package="com.example.nativeapp">
+    <application android:hasCode="false" android:label="NativeApp">
+        <activity android:name="android.app.NativeActivity"
+                  android:configChanges="orientation|keyboardHidden">
+            <meta-data android:name="android.app.lib_name" android:value="native-lib" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
