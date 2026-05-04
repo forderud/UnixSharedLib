@@ -8,7 +8,7 @@ if (APPLE)
   set_target_properties(MySharedLib PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION A
-    MACOSX_FRAMEWORK_IDENTIFIER com.MySharedLib
+    MACOSX_FRAMEWORK_IDENTIFIER MySharedLib
     MACOSX_FRAMEWORK_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
     VERSION 1.0.0   # "current version" in semantic format in Mach-O binary file
     SOVERSION 1.0.0 # "compatibility version" in semantic format in Mach-O binary file
