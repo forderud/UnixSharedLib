@@ -35,7 +35,9 @@ Since CMake 3.24, [`$<LINK_LIBRARY:WHOLE_ARCHIVE,StaticLibName>`](https://cmake.
 Since CMake 3.24, [`$<LINK_LIBRARY:NEEDED_LIBRARY,SharedLibName>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a convenient way to do the same for Apple platforms.
 
 ## Dependency checking
-
 Command for listing shared-lib dependencies:
 * **Linux**: `ldd <binary-file>`
 * **Mac**: `otool -L <binary-file>`
+
+## Documentation
+* macOS [`ld` linker](https://www.unix.com/man_page/osx/1/ld/)
