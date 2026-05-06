@@ -3,12 +3,12 @@
 #### Demonstrates the following
 * How to link to a dylib/shared library so that it`s automatically loaded at startup _without_ first being called.
   - [x] For Linux
-  - [ ] For Android (not yet tested)
+  - [ ] For Android (not directly testable from this repo)
   - [x] For Mac
   - [x] For iOS
 * How to link to an entire static library, including symbols that are _not_ accessed.
   - [x] For Linux
-  - [ ] For Android (not yet tested)
+  - [ ] For Android (not directly testable from this repo)
   - [x] For Mac
   - [x] For iOS
   - [x] For Emscripten (WebAssembly)
