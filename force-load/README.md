@@ -24,7 +24,7 @@
 #### For static libs:
 * **Linux**: `-Wl,--whole-archive -lStaticLibName -Wl,--no-whole-archive`. Alternatively, `-Wl,--require-defined=<symbol>` to force-include a selected symbol ([ld linker doc](https://man7.org/linux/man-pages/man1/ld.1.html))
 * **Android/Emscripten**: `-Wl,--undefined=<symbol>` to force-include a selected symbol
-* **Mac/iOS**: `-Wl,-force_load libStaticLibName.a`. Alternatively, `-Wl,-u,_<symbol>` to force-include a selected symbol.
+* **Mac/iOS**: `-Wl,-force_load libStaticLibName.a`. Alternatively, `-Wl,-u,_<symbol>` to force-include a selected symbol. It's also possible to pass `-Wl,-e,_<symbol>` to override the default entry point.
 
 Since CMake 3.24, [`$<LINK_LIBRARY:WHOLE_ARCHIVE,StaticLibName>`](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html) provides a portable way to do the same.
 
