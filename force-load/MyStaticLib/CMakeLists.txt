@@ -28,7 +28,7 @@ elseif(EMSCRIPTEN OR ANDROID)
     )
 else()
     target_link_options(MyStaticLib INTERFACE
-        "-Wl,--require-defined=mystaticlib_init"
+        "LINKER:--require-defined=mystaticlib_init"
     )
 endif()
 
