@@ -19,7 +19,7 @@ add_library(MyStaticLib::MyStaticLib ALIAS MyStaticLib)
 
 if(APPLE)
     target_link_options(MyStaticLib INTERFACE
-        "-Wl,-u,_mystaticlib_init" # C symbols are prefixed with "_" on macOS
+        "LINKER:-u,_mystaticlib_init" # C symbols are prefixed with "_" on macOS
     )
 elseif(EMSCRIPTEN OR ANDROID)
     # Emscripten and Android's linker doesn´t support --require-defined
