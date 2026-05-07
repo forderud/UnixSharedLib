@@ -22,7 +22,7 @@ endif()
 # Embed binary file as section in library
 if (APPLE)
   # NOTE: section names cannot be longer than 16 chars
-  target_link_options(MySharedLib PRIVATE -Wl,-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
+  target_link_options(MySharedLib PRIVATE LINKER:-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
 else()
   # run linker to embed file
   set(OBJ_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/embed_example.o")
