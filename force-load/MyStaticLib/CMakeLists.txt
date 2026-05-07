@@ -24,7 +24,7 @@ if(APPLE)
 elseif(EMSCRIPTEN OR ANDROID)
     # Emscripten and Android's linker doesn´t support --require-defined
     target_link_options(MyStaticLib INTERFACE
-        "-Wl,--undefined=mystaticlib_init"
+        "LINKER:--undefined=mystaticlib_init"
     )
 else()
     target_link_options(MyStaticLib INTERFACE
