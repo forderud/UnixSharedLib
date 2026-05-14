@@ -1,9 +1,6 @@
 #include <android_native_app_glue.h>
 
 void android_main(struct android_app* state) {
-    // Prevent the glue from being stripped by the linker
-    app_dummy();
-
     while (1) {
         int ident;
         int events;
