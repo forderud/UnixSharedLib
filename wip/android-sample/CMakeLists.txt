@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 project("NativeApp")
 
-# Use the shared C++ runtime (must be packaged alongside the .so).
-set(ANDROID_STL c++_shared)
-
 # Build native_app_glue
 set(APP_GLUE_DIR ${ANDROID_NDK}/sources/android/native_app_glue)
 add_library(native_app_glue STATIC
