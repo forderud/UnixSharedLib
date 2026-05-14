@@ -8,35 +8,13 @@ android {
 
     defaultConfig {
         applicationId = "com.example.nativeapp"
-        minSdk = 21  // Required for basic NativeActivity support
+        minSdk = 21
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        // Per-variant CMake configurations
-        externalNativeBuild {
-            cmake {
-                // Pass optional arguments to CMake if needed
-                arguments "-DANDROID_STL=c++_shared"
-            }
-        }
     }
 
-    // Link Gradle to your CMakeLists.txt
     externalNativeBuild {
         cmake {
-            path file('src/main/cpp/CMakeLists.txt')
+            path = file('src/main/cpp/CMakeLists.txt')
         }
     }
-
-    buildTypes {
-        release {
-            minifyEnabled = false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    // For a pure NativeActivity, you often don't need any Java dependencies
 }
