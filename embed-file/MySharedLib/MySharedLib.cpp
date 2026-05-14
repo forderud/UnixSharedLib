@@ -1,4 +1,10 @@
-#include <iostream>
+#ifdef __ANDROID__
+  #include <android/log.h>
+  #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "MySharedLib", __VA_ARGS__)
+#else
+    #include <stdio.h>
+#endif
+#include <string>
 #include <dlfcn.h>
 #if defined(__APPLE__)
   // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
