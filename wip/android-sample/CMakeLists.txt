@@ -13,11 +13,11 @@ add_library(MySharedLib SHARED
 target_link_libraries(MySharedLib PRIVATE log)
 
 # Create main shared library
-add_library(nativeapp-lib SHARED
+add_library(NativeApp SHARED
     main.cpp)
 
 # Link to android, log & glue libs.
-target_link_libraries(nativeapp-lib PRIVATE android log native_app_glue MySharedLib)
+target_link_libraries(NativeApp PRIVATE android log native_app_glue MySharedLib)
 
 # prevent linker from stripping away the entry point
-target_link_options(nativeapp-lib PRIVATE "-u" "ANativeActivity_onCreate")
+target_link_options(NativeApp PRIVATE "-u" "ANativeActivity_onCreate")
