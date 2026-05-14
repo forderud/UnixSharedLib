@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android-sample"
+// APK file name
+rootProject.name = "NativeApp"
