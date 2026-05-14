@@ -1,4 +1,10 @@
-add_executable(MyExecutable
+if(ANDROID)
+    add_library(MyExecutable SHARED)
+else()
+    add_executable(MyExecutable)
+endif()
+
+target_sources(MyExecutable PRIVATE
     Main.cpp
 )
 
