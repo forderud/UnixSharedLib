@@ -1,33 +1,34 @@
 #include <android_native_app_glue.h>
 #include <android/log.h>
 
+#define LOG_TAG "NativeApp"
 
 static void handle_cmd(android_app* /*app*/, int32_t cmd) {
     switch (cmd) {
     case APP_CMD_RESUME:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Entered foreground (RESUME).");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Entered foreground (RESUME).");
         break;
     case APP_CMD_PAUSE:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Entered background (PAUSE).");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Entered background (PAUSE).");
         break;
     case APP_CMD_START:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Activity visible (START).");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Activity visible (START).");
         break;
     case APP_CMD_STOP:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Activity hidden (STOP).");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Activity hidden (STOP).");
         break;
     case APP_CMD_GAINED_FOCUS:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Window gained focus.");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Window gained focus.");
         break;
     case APP_CMD_LOST_FOCUS:
-        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Window lost focus.");
+        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Window lost focus.");
         break;
     }
 }
 
 extern "C"
 void android_main(android_app* state) {
-    __android_log_print(ANDROID_LOG_INFO, "NativeApp", "App startup.\n");
+    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "App startup.\n");
 
     state->onAppCmd = handle_cmd;
 
