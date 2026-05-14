@@ -81,6 +81,7 @@ int main()
 #endif
 
 #ifdef __ANDROID__
+    printf("Libraries embedded in app bundle:\n");
     // TODO: Discover and parse shared libs in app bundle
 #endif
 
