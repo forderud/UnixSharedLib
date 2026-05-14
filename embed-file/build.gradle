@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application' version '9.2.0'
+}
+
+android {
+    namespace = 'com.example.nativeapp'
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.example.nativeapp"
+        minSdk = 21
+        targetSdk = 35
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file('CMakeLists.txt')
+        }
+    }
+}
