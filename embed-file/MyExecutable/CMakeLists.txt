@@ -10,6 +10,10 @@ if (APPLE)
     )
 endif()
 
+if(ANDROID)
+    target_link_libraries(MyExecutable PRIVATE log)
+endif()
+
 if (APPLE)
     find_library(CORE_FOUNDATION CoreFoundation)
     target_link_libraries(MyExecutable PRIVATE ${CORE_FOUNDATION})

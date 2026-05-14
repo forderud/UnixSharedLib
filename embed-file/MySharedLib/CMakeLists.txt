@@ -19,6 +19,10 @@ else()
     target_include_directories(MySharedLib INTERFACE ..)
 endif()
 
+if(ANDROID)
+    target_link_libraries(MySharedLib PRIVATE log)
+endif()
+
 # Embed binary file as section in library
 if (APPLE)
   # NOTE: section names cannot be longer than 16 chars
