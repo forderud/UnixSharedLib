@@ -4,7 +4,7 @@
 
 extern "C"
 void android_main(android_app* state) {
-    __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Hello from NativeApp!\n");
+    __android_log_print(ANDROID_LOG_INFO, "NativeApp", "App startup.\n");
 
     while (1) {
         int ident = 0;
@@ -19,10 +19,11 @@ void android_main(android_app* state) {
 
             if (state->destroyRequested) {
                 // app is exiting
+                __android_log_print(ANDROID_LOG_INFO, "NativeApp", "App exit.\n");
                 return;
             }
         }
-        
+
         // YOUR RENDER/LOGIC LOOP HERE
     }
 }
