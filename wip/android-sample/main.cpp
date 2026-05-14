@@ -1,5 +1,6 @@
 #include <android_native_app_glue.h>
 #include <android/log.h>
+#include "MySharedLib.hpp"
 
 #define LOG_TAG "NativeApp"
 
@@ -29,6 +30,8 @@ static void handle_cmd(android_app* /*app*/, int32_t cmd) {
 extern "C"
 void android_main(android_app* state) {
     __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "App startup.\n");
+
+    sharedlib_function();
 
     state->onAppCmd = handle_cmd;
 

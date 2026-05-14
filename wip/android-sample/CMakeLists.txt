@@ -17,7 +17,7 @@ add_library(nativeapp-lib SHARED
     main.cpp)
 
 # Link to android, log & glue libs.
-target_link_libraries(nativeapp-lib PRIVATE android log native_app_glue)
+target_link_libraries(nativeapp-lib PRIVATE android log native_app_glue MySharedLib)
 
 # prevent linker from stripping away the entry point
 target_link_options(nativeapp-lib PRIVATE "-u" "ANativeActivity_onCreate")
