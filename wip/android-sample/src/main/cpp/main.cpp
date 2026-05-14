@@ -6,9 +6,9 @@ void android_main(struct android_app* state) {
     __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Hello from NativeApp!\n");
 
     while (1) {
-        int ident;
-        int events;
-        struct android_poll_source* source;
+        int ident = 0;
+        int events = 0;
+        android_poll_source* source = nullptr;
 
         // Process system events (lifecycle, input, etc.)
         while ((ident = ALooper_pollOnce(0, nullptr, &events, (void**)&source)) >= 0) {
