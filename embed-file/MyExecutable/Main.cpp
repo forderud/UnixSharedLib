@@ -63,6 +63,8 @@ void android_main(android_app* state)
 int main()
 #endif
 {
+    printf("Hello from MyExecutable!\n");
+
     // call function in static library
     print_embedded_file("embed_example");
 
