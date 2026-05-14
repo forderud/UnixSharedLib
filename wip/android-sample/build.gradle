@@ -12,9 +12,15 @@ android {
         targetSdk = 35
     }
 
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+
     externalNativeBuild {
         cmake {
-            path = file('src/main/cpp/CMakeLists.txt')
+            path = file('CMakeLists.txt')
         }
     }
 }
