@@ -7,6 +7,10 @@ add_library(native_app_glue STATIC
     ${APP_GLUE_DIR}/android_native_app_glue.c)
 target_include_directories(native_app_glue INTERFACE ${APP_GLUE_DIR})
 
+# Create shared lib for testing
+add_library(MySharedLib SHARED
+    MySharedLib.cpp)
+
 # Create main shared library
 add_library(nativeapp-lib SHARED
     main.cpp)
