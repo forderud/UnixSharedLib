@@ -17,7 +17,16 @@ if (APPLE)
 endif()
 
 if(ANDROID)
-    target_link_libraries(MyExecutable PRIVATE log)
+    # Build native_app_glue
+    set(APP_GLUE_DIR ${ANDROID_NDK}/sources/android/native_app_glue)
+    add_library(native_app_glue STATIC
+        ${APP_GLUE_DIR}/android_native_app_glue.c)
+    target_include_directories(native_app_glue INTERFACE ${APP_GLUE_DIR})
+
+    target_link_libraries(MyExecutable PRIVATE android log native_app_glue)
+
+    # prevent linker from stripping away the entry point
+    target_link_options(MyExecutable PRIVATE "-u" "ANativeActivity_onCreate")
 endif()
 
 if (APPLE)
