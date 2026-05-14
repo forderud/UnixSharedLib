@@ -10,7 +10,7 @@ void android_main(struct android_app* state) {
         struct android_poll_source* source;
 
         // Process system events (lifecycle, input, etc.)
-        while ((ident = ALooper_pollAll(0, nullptr, &events, (void**)&source)) >= 0) {
+        while ((ident = ALooper_pollOnce(0, nullptr, &events, (void**)&source)) >= 0) {
             if (source != nullptr) {
                 source->process(state, source);
             }
