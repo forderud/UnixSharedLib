@@ -2,9 +2,34 @@
 #include <android/log.h>
 
 
+static void handle_cmd(android_app* /*app*/, int32_t cmd) {
+    switch (cmd) {
+    case APP_CMD_RESUME:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Entered foreground (RESUME).");
+        break;
+    case APP_CMD_PAUSE:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Entered background (PAUSE).");
+        break;
+    case APP_CMD_START:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Activity visible (START).");
+        break;
+    case APP_CMD_STOP:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Activity hidden (STOP).");
+        break;
+    case APP_CMD_GAINED_FOCUS:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Window gained focus.");
+        break;
+    case APP_CMD_LOST_FOCUS:
+        __android_log_print(ANDROID_LOG_INFO, "NativeApp", "Window lost focus.");
+        break;
+    }
+}
+
 extern "C"
 void android_main(android_app* state) {
     __android_log_print(ANDROID_LOG_INFO, "NativeApp", "App startup.\n");
+
+    state->onAppCmd = handle_cmd;
 
     while (1) {
         int ident = 0;
