@@ -1,5 +1,5 @@
 echo Cleaning up...
-rm -rf .gradle build
+rm -rf .gradle .cxx build
 
 echo Building Android project...
 ./gradlew assembleDebug
