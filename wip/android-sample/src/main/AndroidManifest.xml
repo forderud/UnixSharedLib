@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://android.com" package="com.example.nativeapp">
+<manifest xmlns:android="http://android.com">
     <application android:hasCode="false" android:label="NativeApp">
         <activity android:name="android.app.NativeActivity"
                   android:configChanges="orientation|keyboardHidden">
