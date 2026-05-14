@@ -12,9 +12,9 @@ add_library(native_app_glue STATIC
     ${APP_GLUE_DIR}/android_native_app_glue.c)
 
 # 3. Create your main shared library
-add_library(native-lib SHARED main.cpp)
+add_library(nativeapp-lib SHARED main.cpp)
 
 # 4. Link required libraries: log, android, and the glue
-target_include_directories(native-lib PRIVATE ${APP_GLUE_DIR})
-target_link_libraries(native-lib native_app_glue android log)
-target_link_options(native-lib PRIVATE "-u" "ANativeActivity_onCreate") # prevent linker from stripping the entry point
+target_include_directories(nativeapp-lib PRIVATE ${APP_GLUE_DIR})
+target_link_libraries(nativeapp-lib native_app_glue android log)
+target_link_options(nativeapp-lib PRIVATE "-u" "ANativeActivity_onCreate") # prevent linker from stripping the entry point
