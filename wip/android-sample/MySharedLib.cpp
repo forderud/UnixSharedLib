@@ -3,6 +3,6 @@
 
 
 __attribute__ ((visibility ("default")))
-void sharedlib_function () {
+void MySharedLib_function () {
     __android_log_print(ANDROID_LOG_INFO, "MySharedLib", "sharedlib_function called.");
 }

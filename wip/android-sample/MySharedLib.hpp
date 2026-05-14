@@ -1,3 +1,3 @@
 #pragma once
 
-void sharedlib_function ();
+void MySharedLib_function ();

@@ -31,7 +31,7 @@ extern "C"
 void android_main(android_app* state) {
     __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "App startup.\n");
 
-    sharedlib_function();
+    MySharedLib_function();
 
     state->onAppCmd = handle_cmd;
 
