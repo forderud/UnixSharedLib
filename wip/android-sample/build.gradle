@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = 'com.example.nativeapp'
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.nativeapp"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
     }
 
     externalNativeBuild {
