@@ -13,14 +13,16 @@ void android_main(android_app* state) {
 
         // Process system events (lifecycle, input, etc.)
         while ((ident = ALooper_pollOnce(0, nullptr, &events, (void**)&source)) >= 0) {
-            if (source != nullptr) {
+            if (source) {
                 source->process(state, source);
             }
-            // Check if the app is exiting
-            if (state->destroyRequested != 0) {
+
+            if (state->destroyRequested) {
+                // app is exiting
                 return;
             }
         }
+        
         // YOUR RENDER/LOGIC LOOP HERE
     }
 }
