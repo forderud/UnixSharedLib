@@ -3,6 +3,7 @@
     #include "../ParseMach/ParseMach.hpp"
 #endif
 #ifdef __ANDROID__
+    #include <android_native_app_glue.h>
     #include <jni.h>
     #include <android/asset_manager.h>
     #include <android/asset_manager_jni.h>
@@ -56,7 +57,12 @@ Java_com_example_myapp_MainActivity_stringFromJNI(JNIEnv* env, jobject /*this*/)
 #endif
 
 
-int main() {
+#ifdef __ANDROID__
+void android_main(android_app* state)
+#else
+int main()
+#endif
+{
     // call function in static library
     print_embedded_file("embed_example");
 
@@ -83,5 +89,5 @@ int main() {
     // TODO: Discover and parse shared libs in app bundle
 #endif
 
-    return 0;
+    return;
 }
