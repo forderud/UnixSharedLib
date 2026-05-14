@@ -14,9 +14,7 @@ if [ "$ARG" = "iOS" ]; then
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
     #ANDROID_NDK_ROOT=$HOME/Library/Android/sdk/ndk/<version>
-    CONFIG=""
-    PLATFORM="-DCMAKE_BUILD_TYPE=Debug -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=$ANDROID_NDK_ROOT -DANDROID_NDK=$ANDROID_NDK_ROOT -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH"
-    BUILD_PARAMS=""
+    ./gradlew assembleDebug
 else
     echo Building for native platform
     CONFIG=""
@@ -28,9 +26,10 @@ else
     BUILD_PARAMS=""
 fi
 
-cmake -S . -B build $PLATFORM
-cmake --build build $CONFIG $BUILD_PARAMS
-
+if [ "$ARG" != "Android" ]; then
+    cmake -S . -B build $PLATFORM
+    cmake --build build $CONFIG $BUILD_PARAMS
+fi
 cd build
 
 if [ "$ARG" = "" ]; then
