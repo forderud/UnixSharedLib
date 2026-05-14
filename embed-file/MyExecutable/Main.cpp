@@ -8,7 +8,12 @@
     #include <android/asset_manager_jni.h>
     #include "../ParseELF/ParseElf.hpp"
 #endif
-#include <iostream>
+#ifdef __ANDROID__
+  #include <android/log.h>
+  #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "MySharedLib", __VA_ARGS__)
+#else
+    #include <stdio.h>
+#endif
 #include <filesystem>
 #include <MySharedLib/MySharedLib.hpp>
 
