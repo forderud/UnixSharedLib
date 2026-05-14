@@ -18,7 +18,13 @@ if(ANDROID)
 endif()
 
 # Create main shared library
-add_library(NativeApp SHARED
+if(ANDROID)
+    add_library(NativeApp SHARED)
+else()
+    add_executable(NativeApp)
+endif()
+
+target_sources(NativeApp PRIVATE
     main.cpp)
 
 target_link_libraries(NativeApp PRIVATE MySharedLib)
