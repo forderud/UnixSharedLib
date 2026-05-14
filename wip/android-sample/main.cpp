@@ -1,35 +1,39 @@
 #include <android_native_app_glue.h>
-#include <android/log.h>
 #include "MySharedLib.hpp"
 
-#define LOG_TAG "NativeApp"
+#ifdef __ANDROID__
+  #include <android/log.h>
+  #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "NativeApp", __VA_ARGS__)
+#else
+    #include <stdio.h>
+#endif
 
 static void handle_cmd(android_app* /*app*/, int32_t cmd) {
     switch (cmd) {
     case APP_CMD_RESUME:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Entered foreground (RESUME).");
+        printf("Entered foreground (RESUME).");
         break;
     case APP_CMD_PAUSE:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Entered background (PAUSE).");
+        printf("Entered background (PAUSE).");
         break;
     case APP_CMD_START:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Activity visible (START).");
+        printf("Activity visible (START).");
         break;
     case APP_CMD_STOP:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Activity hidden (STOP).");
+        printf("Activity hidden (STOP).");
         break;
     case APP_CMD_GAINED_FOCUS:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Window gained focus.");
+        printf("Window gained focus.");
         break;
     case APP_CMD_LOST_FOCUS:
-        __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Window lost focus.");
+        printf("Window lost focus.");
         break;
     }
 }
 
 extern "C"
 void android_main(android_app* state) {
-    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "App startup.\n");
+    printf("App startup.\n");
 
     MySharedLib_function();
 
@@ -48,7 +52,7 @@ void android_main(android_app* state) {
 
             if (state->destroyRequested) {
                 // app is exiting
-                __android_log_print(ANDROID_LOG_INFO, "NativeApp", "App exit.\n");
+                printf("App exit.\n");
                 return;
             }
         }
