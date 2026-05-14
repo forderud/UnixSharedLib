@@ -13,6 +13,7 @@ if [ "$ARG" = "iOS" ]; then
     BUILD_PARAMS="-- -allowProvisioningUpdates"
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
+    rm -rf .cxx .gradle
     #ANDROID_NDK_ROOT=$HOME/Library/Android/sdk/ndk/<version>
     ./gradlew assembleDebug
 else
