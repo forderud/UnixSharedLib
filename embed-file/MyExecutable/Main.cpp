@@ -36,20 +36,6 @@ static std::string GetBundleFrameworksPath() {
 #endif
 
 #ifdef __ANDROID__
-static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
-    AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
-    AAsset* asset = AAssetManager_open(mgr, filename, AASSET_MODE_BUFFER);
-    if (!asset)
-        return;
-
-    size_t size = AAsset_getLength(asset);
-    std::vector<char> buffer(size);
-    AAsset_read(asset, buffer.data(), size);
-    AAsset_close(asset);
-
-    // Process asset data here
-}
-
 static std::string GetNativeLibraryDir(ANativeActivity* activity) {
     JNIEnv* env = nullptr;
     activity->vm->AttachCurrentThread(&env, nullptr);
