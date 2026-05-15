@@ -1,11 +1,9 @@
 #pragma once
-#include <fcntl.h>    // open/close
+#include <fcntl.h>    // open
+#include <unistd.h>   // close
 #include <sys/stat.h> // fstat
 #include <sys/mman.h> // mmap/munmap
-#if defined(__APPLE__)
-  #include <unistd.h> // open/close
-#endif
-#include <stdexcept> // std::runtime_error
+#include <stdexcept>  // std::runtime_error
 
 
 /** Memory-map a file into the process address space. */
