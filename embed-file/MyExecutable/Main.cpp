@@ -1,4 +1,5 @@
 #include <cassert>
+#include "../FileMap.hpp"
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include "../ParseMach/ParseMach.hpp"
@@ -132,10 +133,13 @@ int main()
     printf("Native lib dir: %s\n", libDir.c_str());
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("- %s\n", entry.path().filename().c_str());
-#if 0
         FileMap file(entry.path().c_str());
-        FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
-#endif
+        std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
+        if (!data.empty()) {
+            printf("- Found embedded metadata!\n");
+            auto* metadata = (const LibMetadataT*)data.data();
+            metadata->Print();
+        }
     }
 #endif
     return;
