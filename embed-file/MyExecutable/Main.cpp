@@ -75,7 +75,7 @@ int main()
 #ifdef USE_DLOPEN
     // dynamically load shared library at runtime
   #ifdef __APPLE__
-    void* handle = dlopen("libMySharedLib.dylib", RTLD_LAZY);
+    void* handle = dlopen("MySharedLib/Debug/MySharedLib.framework/MySharedLib", RTLD_LAZY);
   #else
     void* handle = dlopen("libMySharedLib.so", RTLD_LAZY);
   #endif
