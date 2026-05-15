@@ -1,5 +1,11 @@
 #include <cassert>
 #include "../FileMap.hpp"
+#ifdef __ANDROID__
+  #include <android/log.h>
+  #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "MySharedLib", __VA_ARGS__)
+#else
+    #include <stdio.h>
+#endif
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include "../ParseMach/ParseMach.hpp"
@@ -10,12 +16,6 @@
     #include <android/asset_manager.h>
     #include <android/asset_manager_jni.h>
     #include "../ParseELF/ParseElf.hpp"
-#endif
-#ifdef __ANDROID__
-  #include <android/log.h>
-  #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "MySharedLib", __VA_ARGS__)
-#else
-    #include <stdio.h>
 #endif
 #include <filesystem>
 #include <MySharedLib/MySharedLib.hpp>
@@ -135,9 +135,7 @@ int main()
         printf("* %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str());
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
-        if (data.empty()) {
-            printf("   - No metadata found.\n");
-        } else {
+        if (!data.empty()) {
             printf("   - Found embedded metadata!\n");
             auto* metadata = (const LibMetadataT*)data.data();
             metadata->Print();
