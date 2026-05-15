@@ -72,6 +72,8 @@ int main()
 {
     printf("Hello from MyExecutable!\n");
 
+
+    printf("Calling MySharedLib function...\n");
 #ifdef USE_DLOPEN
     // dynamically load shared library at runtime
   #ifdef __APPLE__
