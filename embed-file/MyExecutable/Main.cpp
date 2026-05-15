@@ -50,14 +50,6 @@ static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
     // Process asset data here
 }
 
-static void traverseAssets(AAssetDir* assetDir) {
-    const char* fileName = nullptr; // weak ptr.
-    // getNextFileName returns the relative path of files inside the directory
-    while ((fileName = AAssetDir_getNextFileName(assetDir))) {
-        printf("* Found file: %s\n", fileName);
-    }
-}
-
 static std::string GetNativeLibraryDir(ANativeActivity* activity) {
     JNIEnv* env = nullptr;
     activity->vm->AttachCurrentThread(&env, nullptr);
@@ -119,15 +111,6 @@ int main()
     std::string dataDir = activity->internalDataPath;
     printf("APK data directory: %s\n", dataDir.c_str());
     // TODO: Discover and parse shared libs in app bundle
-
-    {
-        // list files in "assets" folder (not possible to traverse lib/arm64-v8a this way)
-        AAssetDir* assetDir = AAssetManager_openDir(assetManager, "");
-        assert(assetDir);
-        traverseAssets(assetDir);
-        AAssetDir_close(assetDir);
-        printf("Asset listing completed.\n");
-    }
 
     std::string libDir = GetNativeLibraryDir(activity);
     printf("Native lib dir: %s\n", libDir.c_str());
