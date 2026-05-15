@@ -1,3 +1,4 @@
+#include <cassert>
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include "../ParseMach/ParseMach.hpp"
@@ -47,6 +48,14 @@ static void openAsset(JNIEnv* env, jobject assetManager, const char* filename) {
 
     // Process asset data here
 }
+
+static void traverseAssets(AAssetDir* assetDir) {
+    const char* fileName = nullptr; // weak ptr.
+    // getNextFileName returns the relative path of files inside the directory
+    while ((fileName = AAssetDir_getNextFileName(assetDir))) {
+        printf("* Found file: %s\n", fileName);
+    }
+}
 #endif
 
 
@@ -84,10 +93,18 @@ int main()
     printf("Libraries embedded in app bundle:\n");
     ANativeActivity* activity = state->activity;
     AAssetManager* assetManager = activity->assetManager;
+    assert(assetManager);
     std::string dataDir = activity->internalDataPath;
     printf("APK data directory: %s\n", dataDir.c_str());
     // TODO: Discover and parse shared libs in app bundle
-#endif
 
+    {
+        AAssetDir* assetDir = AAssetManager_openDir(assetManager, "");
+        assert(assetDir);
+        traverseAssets(assetDir);
+        AAssetDir_close(assetDir);
+        printf("Asset listing completed.\n");
+    }
+#endif
     return;
 }
