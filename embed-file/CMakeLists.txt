@@ -7,7 +7,7 @@ project(TestProject)
 add_compile_options(-O3)
 
 # use dlopen to load shared libs at runtime
-#add_compile_definitions(USE_DLOPEN)
+add_compile_definitions(USE_DLOPEN)
 
 # eliminate dead code
 if (APPLE)
