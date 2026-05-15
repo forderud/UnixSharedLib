@@ -5,6 +5,7 @@
 #if defined(__APPLE__)
   #include <unistd.h> // open/close
 #endif
+#include <stdexcept> // std::runtime_error
 
 
 /** Memory-map a file into the process address space. */
