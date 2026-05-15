@@ -130,13 +130,13 @@ int main()
 
     std::string libDir = GetNativeLibraryDir(activity);
     printf("Native lib dir: %s\n", libDir.c_str());
-#if 0
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("- %s\n", entry.path().filename().c_str());
+#if 0
         FileMap file(entry.path().c_str());
         FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
-    }
 #endif
+    }
 #endif
     return;
 }
