@@ -6,6 +6,9 @@ project(TestProject)
 # enable optimizations
 add_compile_options(-O3)
 
+# use dlopen to load shared libs at runtime
+#add_compile_definitions(USE_DLOPEN)
+
 # eliminate dead code
 if (APPLE)
     add_link_options("LINKER:-dead_strip")
