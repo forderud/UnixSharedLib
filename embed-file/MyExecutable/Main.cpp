@@ -56,6 +56,27 @@ static void traverseAssets(AAssetDir* assetDir) {
         printf("* Found file: %s\n", fileName);
     }
 }
+
+static std::string GetNativeLibraryDir(ANativeActivity* activity) {
+    JNIEnv* env = nullptr;
+    activity->vm->AttachCurrentThread(&env, nullptr);
+
+    jclass actCls       = env->GetObjectClass(activity->clazz);
+    jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo",
+                                            "()Landroid/content/pm/ApplicationInfo;");
+    jobject appInfo     = env->CallObjectMethod(activity->clazz, getAppInfo);
+
+    jclass aiCls        = env->GetObjectClass(appInfo);
+    jfieldID fid        = env->GetFieldID(aiCls, "nativeLibraryDir", "Ljava/lang/String;");
+    auto jstr           = (jstring)env->GetObjectField(appInfo, fid);
+
+    const char* c = env->GetStringUTFChars(jstr, nullptr);
+    std::string result = c;
+    env->ReleaseStringUTFChars(jstr, c);
+
+    activity->vm->DetachCurrentThread();
+    return result;
+}
 #endif
 
 
@@ -99,12 +120,23 @@ int main()
     // TODO: Discover and parse shared libs in app bundle
 
     {
+        // list files in "assets" folder (not possible to traverse lib/arm64-v8a this way)
         AAssetDir* assetDir = AAssetManager_openDir(assetManager, "");
         assert(assetDir);
         traverseAssets(assetDir);
         AAssetDir_close(assetDir);
         printf("Asset listing completed.\n");
     }
+
+    std::string libDir = GetNativeLibraryDir(activity);
+    printf("Native lib dir: %s\n", libDir.c_str());
+#if 0
+    for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
+        printf("- %s\n", entry.path().filename().c_str());
+        FileMap file(entry.path().c_str());
+        FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+    }
+#endif
 #endif
     return;
 }
