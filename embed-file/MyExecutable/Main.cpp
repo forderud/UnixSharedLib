@@ -144,5 +144,10 @@ int main()
         }
     }
 #endif
+
+#ifdef __ANDROID__
     return;
+#else
+    return 0;
+#endif
 }
