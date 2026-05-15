@@ -18,7 +18,12 @@
     #include "../ParseELF/ParseElf.hpp"
 #endif
 #include <filesystem>
-#include <MySharedLib/MySharedLib.hpp>
+
+#ifdef USE_DLOPEN
+    #include <dlfcn.h>
+#else
+    #include <MySharedLib/MySharedLib.hpp>
+#endif
 
 
 #ifdef __APPLE__
@@ -67,8 +72,28 @@ int main()
 {
     printf("Hello from MyExecutable!\n");
 
-    // call function in static library
+#ifdef USE_DLOPEN
+    // dynamically load shared library at runtime
+  #ifdef __APPLE__
+    void* handle = dlopen("libMySharedLib.dylib", RTLD_LAZY);
+  #else
+    void* handle = dlopen("libMySharedLib.so", RTLD_LAZY);
+  #endif
+    if (!handle) {
+        fprintf(stderr, "dlopen failed: %s\n", dlerror());
+        abort();
+    }
+    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
+    if (!print_func) {
+        fprintf(stderr, "dlsym failed: %s\n", dlerror());
+        abort();
+    }
+    print_func("embed_example");
+    dlclose(handle);
+#else
+    // call function in shared library directly
     print_embedded_file("embed_example");
+#endif
 
 #ifdef __APPLE__
     printf("\n");
