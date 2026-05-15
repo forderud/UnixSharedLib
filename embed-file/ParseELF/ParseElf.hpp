@@ -147,7 +147,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
 
 std::string_view FindDataSectionInFile(const char *file_ptr, const char* symbol_name_prefix) {
   // recipie for extracting embedded symbols:
-  // 1: Find SHT_SYMTAB section "st" with the desired symbol
+  // 1: Find SHT_DYNSYM section "st" with the desired symbol
   // 2: Find corresponding .data section "data" from st_shndx
   // 3: Content: file.ptr() + st.st_value + data.sh_offset - data.sh_addr
   const auto& elf_hdr = *(const Elf64_Ehdr*)file_ptr;
@@ -159,7 +159,7 @@ std::string_view FindDataSectionInFile(const char *file_ptr, const char* symbol_
   for (uint16_t i = 0; i < elf_hdr.e_shnum; i++) {
     ElfSectionHeader shdr(file_ptr, i);
 
-    if (shdr.sh_type != SHT_SYMTAB)
+    if (shdr.sh_type != SHT_DYNSYM)
       continue;
 
     // get corresponding string table entry
