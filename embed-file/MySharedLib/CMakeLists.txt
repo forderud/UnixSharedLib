@@ -46,3 +46,27 @@ else()
   
   target_sources(MySharedLib PRIVATE ${OBJ_OUTPUT})
 endif()
+
+# install rules
+install(
+    TARGETS MySharedLib
+    EXPORT MySharedLibTargets
+    BUNDLE DESTINATION bin
+)
+install(
+    EXPORT MySharedLibTargets
+    DESTINATION cmake
+    NAMESPACE MySharedLib::
+)
+
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
+    VERSION 1.0.0
+    COMPATIBILITY SameMinorVersion
+)
+install(
+    FILES
+        MySharedLibConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/MySharedLibConfigVersion.cmake
+    DESTINATION cmake
+)
