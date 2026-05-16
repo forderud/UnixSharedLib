@@ -3,7 +3,7 @@ set -e   # stop on first failure
 ARG=$1 # "", "iOS" or "Android"
 
 echo Cleaning up...
-rm -rf build
+rm -rf build install
 
 if [ "$ARG" = "iOS" ]; then
     echo Building for iOS
@@ -33,7 +33,7 @@ if [ "$ARG" != "Android" ]; then
 fi
 
 if [ "$ARG" = "" ]; then
-    #cmake --build build --target install
+    cmake --install build --config Debug --prefix $(pwd)/install
 
     cd build
 

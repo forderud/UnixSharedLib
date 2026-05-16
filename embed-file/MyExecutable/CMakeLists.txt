@@ -53,6 +53,7 @@ endif()
 install(
     TARGETS MyExecutable
     EXPORT MyExecutableTargets
+    BUNDLE DESTINATION bin
 )
 install(
     EXPORT MyExecutableTargets
