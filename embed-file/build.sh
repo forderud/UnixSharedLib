@@ -35,21 +35,21 @@ fi
 if [ "$ARG" = "" ]; then
     cmake --install build --config Debug --prefix install
 
-    cd build
+    cd install
 
     echo Running MyExecutable...
     if [ "$(uname)" = "Darwin" ]; then
-      MyExecutable/Debug/MyExecutable.app/Contents/MacOS/MyExecutable
+      MyExecutable.app/Contents/MacOS/MyExecutable
     else
-      MyExecutable/MyExecutable
+      ./MyExecutable
     fi
 
     echo ""
     if [ "$(uname)" = "Darwin" ]; then
-        ParseMach/Debug/ParseMach MySharedLib/Debug/MySharedLib.framework/MySharedLib embed_example
-        ParseMach/Debug/ParseMach MySharedLib/Debug/MySharedLib.framework/MySharedLib LibMetadata
+        ./ParseMach Frameworks/MySharedLib.framework/MySharedLib embed_example
+        ./ParseMach Frameworks/MySharedLib.framework/MySharedLib LibMetadata
     else
-        ParseELF/ParseELF MySharedLib/libMySharedLib.so _binary_embed_example_txt
-        ParseELF/ParseELF MySharedLib/libMySharedLib.so LibMetadata
+        ./ParseELF libMySharedLib.so _binary_embed_example_txt
+        ./ParseELF libMySharedLib.so LibMetadata
     fi
 fi
