@@ -9,3 +9,9 @@ if (IOS)
         MACOSX_BUNDLE_BUNDLE_NAME "ParseMach"
     )
 endif()
+
+# install rules
+install(
+    TARGETS ParseMach
+    BUNDLE DESTINATION bin
+)
