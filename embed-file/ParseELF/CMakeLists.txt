@@ -6,5 +6,5 @@ add_executable(ParseELF
 # install rules
 install(
     TARGETS ParseELF
-    BUNDLE DESTINATION .
+    DESTINATION .
 )
