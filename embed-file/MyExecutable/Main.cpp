@@ -72,35 +72,6 @@ int main()
 {
     printf("Hello from MyExecutable!\n");
 
-
-    printf("Calling MySharedLib function...\n");
-#ifdef USE_DLOPEN
-    // dynamically load shared library at runtime
-  #ifdef __APPLE__
-    #if TARGET_OS_IPHONE
-      void* handle = dlopen("MySharedLib.framework/MySharedLib", RTLD_LAZY);
-    #else
-      void* handle = dlopen("MySharedLib/Debug/MySharedLib.framework/MySharedLib", RTLD_LAZY);
-    #endif
-  #else
-    void* handle = dlopen("libMySharedLib.so", RTLD_LAZY);
-  #endif
-    if (!handle) {
-        fprintf(stderr, "dlopen failed: %s\n", dlerror());
-        abort();
-    }
-    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
-    if (!print_func) {
-        fprintf(stderr, "dlsym failed: %s\n", dlerror());
-        abort();
-    }
-    print_func("embed_example");
-    dlclose(handle);
-#else
-    // call function in shared library directly
-    print_embedded_file("embed_example");
-#endif
-
 #ifdef __APPLE__
     printf("\n");
     printf("Frameworks embedded in app bundle:\n");
@@ -141,6 +112,34 @@ int main()
             metadata->Print();
         }
     }
+#endif
+
+    printf("Calling MySharedLib function...\n");
+#ifdef USE_DLOPEN
+    // dynamically load shared library at runtime
+  #ifdef __APPLE__
+    #if TARGET_OS_IPHONE
+      void* handle = dlopen("MySharedLib.framework/MySharedLib", RTLD_LAZY);
+    #else
+      void* handle = dlopen("MySharedLib/Debug/MySharedLib.framework/MySharedLib", RTLD_LAZY);
+    #endif
+  #else
+    void* handle = dlopen("libMySharedLib.so", RTLD_LAZY);
+  #endif
+    if (!handle) {
+        fprintf(stderr, "dlopen failed: %s\n", dlerror());
+        abort();
+    }
+    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
+    if (!print_func) {
+        fprintf(stderr, "dlsym failed: %s\n", dlerror());
+        abort();
+    }
+    print_func("embed_example");
+    dlclose(handle);
+#else
+    // call function in shared library directly
+    print_embedded_file("embed_example");
 #endif
 
 #ifdef __ANDROID__
