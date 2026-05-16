@@ -59,5 +59,6 @@ endif()
 # install rules
 install(
     TARGETS MyExecutable
+    DESTINATION .
     BUNDLE DESTINATION .
 )
