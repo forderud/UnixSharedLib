@@ -1,3 +1,5 @@
+include(CMakePackageConfigHelpers)
+
 if(ANDROID)
     add_library(MyExecutable SHARED)
 else()
