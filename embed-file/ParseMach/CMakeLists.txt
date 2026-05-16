@@ -13,5 +13,5 @@ endif()
 # install rules
 install(
     TARGETS ParseMach
-    BUNDLE DESTINATION bin
+    BUNDLE DESTINATION .
 )
