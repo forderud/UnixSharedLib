@@ -1,3 +1,5 @@
+include(CMakePackageConfigHelpers)
+
 add_library(MySharedLib SHARED
   MySharedLib.cpp
   MySharedLib.hpp
@@ -51,7 +53,7 @@ endif()
 install(
     TARGETS MySharedLib
     EXPORT MySharedLibTargets
-    BUNDLE DESTINATION bin
+    FRAMEWORK DESTINATION bin
 )
 install(
     EXPORT MySharedLibTargets
