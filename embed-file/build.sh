@@ -46,8 +46,8 @@ if [ "$ARG" = "" ]; then
 
     echo ""
     if [ "$(uname)" = "Darwin" ]; then
-        ./ParseMach Frameworks/MySharedLib.framework/MySharedLib embed_example
-        ./ParseMach Frameworks/MySharedLib.framework/MySharedLib LibMetadata
+        ./ParseMach MySharedLib.framework/MySharedLib embed_example
+        ./ParseMach MySharedLib.framework/MySharedLib LibMetadata
     else
         ./ParseELF libMySharedLib.so _binary_embed_example_txt
         ./ParseELF libMySharedLib.so LibMetadata

@@ -56,7 +56,7 @@ endif()
 install(
     TARGETS MySharedLib
     EXPORT MySharedLibTargets
-    FRAMEWORK DESTINATION Frameworks
+    FRAMEWORK DESTINATION .
 )
 install(
     EXPORT MySharedLibTargets
