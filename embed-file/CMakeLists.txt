@@ -9,6 +9,11 @@ add_compile_options(-O3)
 # use dlopen to load shared libs at runtime
 add_compile_definitions(USE_DLOPEN)
 
+if(APPLE)
+    # prevent cmake install from breaking code signing
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+endif()
+
 # eliminate dead code
 if (APPLE)
     add_link_options("LINKER:-dead_strip")
