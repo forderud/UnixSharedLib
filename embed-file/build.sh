@@ -4,6 +4,7 @@ ARG=$1 # "", "iOS" or "Android"
 
 echo Cleaning up...
 rm -rf build install
+rm -rf .cxx .gradle
 
 if [ "$ARG" = "iOS" ]; then
     echo Building for iOS
@@ -13,7 +14,6 @@ if [ "$ARG" = "iOS" ]; then
     BUILD_PARAMS="-- -allowProvisioningUpdates"
 elif [ "$ARG" = "Android" ]; then
     echo Building for Android
-    rm -rf .cxx .gradle
     #ANDROID_NDK_ROOT=$HOME/Library/Android/sdk/ndk/<version>
     ./gradlew assembleDebug
 else
