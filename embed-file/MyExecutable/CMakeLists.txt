@@ -46,3 +46,26 @@ if (APPLE)
 else()
     target_link_libraries(MyExecutable PRIVATE MySharedLib)
 endif()
+
+# install rules
+install(
+    TARGETS MyExecutable
+    EXPORT MyExecutableTargets
+)
+install(
+    EXPORT MyExecutableTargets
+    DESTINATION cmake
+    NAMESPACE MyExecutable::
+)
+
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/MyExecutableConfigVersion.cmake
+    VERSION 1.0.0
+    COMPATIBILITY SameMinorVersion
+)
+install(
+    FILES
+        MyExecutableConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/MyExecutableConfigVersion.cmake
+    DESTINATION cmake
+)
