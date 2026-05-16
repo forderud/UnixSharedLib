@@ -38,7 +38,7 @@ if (APPLE)
     if(IOS)
         set_target_properties(MyExecutable PROPERTIES
             # Look for dylibs inside .app bundle Frameworks folder
-            INSTALL_RPATH "@loader_path/Frameworks"
+            INSTALL_RPATH "@executable_path/Frameworks"
             # Embed framework(s) into .app bundle
             XCODE_EMBED_FRAMEWORKS MySharedLib
             XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
@@ -46,7 +46,7 @@ if (APPLE)
     else()
         set_target_properties(MyExecutable PROPERTIES
             # Look for dylibs inside .app bundle Frameworks folder
-            INSTALL_RPATH "@loader_path/../Frameworks"
+            INSTALL_RPATH "@executable_path/../Frameworks"
             # Embed framework(s) into .app bundle
             XCODE_EMBED_FRAMEWORKS MySharedLib
             XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
