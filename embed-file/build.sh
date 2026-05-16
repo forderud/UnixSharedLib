@@ -31,9 +31,12 @@ if [ "$ARG" != "Android" ]; then
     cmake -S . -B build $PLATFORM
     cmake --build build $CONFIG $BUILD_PARAMS
 fi
-cd build
 
 if [ "$ARG" = "" ]; then
+    #cmake --build build --target install
+
+    cd build
+
     echo Running MyExecutable...
     if [ "$(uname)" = "Darwin" ]; then
       MyExecutable/Debug/MyExecutable.app/Contents/MacOS/MyExecutable
