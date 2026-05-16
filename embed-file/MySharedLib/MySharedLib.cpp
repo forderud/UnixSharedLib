@@ -45,8 +45,7 @@ static std::string_view GetSectionData(const char* section_name) {
 #endif
 }
 
-__attribute__ ((visibility ("default")))
-extern "C"
+extern "C" __attribute__ ((visibility ("default")))
 void print_embedded_file (const char* section_name) {
     auto section = GetSectionData(section_name);
 
