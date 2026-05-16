@@ -18,7 +18,10 @@ if (APPLE)
   )
 else()
     # enable "#include <MySharedLib/MySharedLib.hpp>" in client projects
-    target_include_directories(MySharedLib INTERFACE ..)
+    target_include_directories(MySharedLib INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+        $<INSTALL_INTERFACE:include>
+    )
 endif()
 
 if(ANDROID)
