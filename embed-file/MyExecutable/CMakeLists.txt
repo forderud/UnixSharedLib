@@ -54,6 +54,11 @@ if (APPLE)
     endif()
 else()
     target_link_libraries(MyExecutable PRIVATE MySharedLib)
+
+    set_target_properties(MyExecutable PROPERTIES
+        # Look for .so files in same directory as executable
+        INSTALL_RPATH "\$ORIGIN"
+    )
 endif()
 
 # install rules
