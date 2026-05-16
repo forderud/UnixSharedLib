@@ -33,7 +33,7 @@ if [ "$ARG" != "Android" ]; then
 fi
 
 if [ "$ARG" = "" ]; then
-    cmake --install build --config Debug --prefix $(pwd)/install
+    cmake --install build --config Debug --prefix install
 
     cd build
 
