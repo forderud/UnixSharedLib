@@ -80,7 +80,7 @@ int main()
         printf("(no Frameworks directory)\n");
     } else {
         for (const auto entry : std::filesystem::directory_iterator(path)) {
-            printf("- %s\n", entry.path().filename().c_str());
+            printf("- %s\n", entry.path().c_str());
             std::string path = entry.path().string();
             path += "/";
             path += entry.path().stem(); // filename without extension
@@ -103,7 +103,7 @@ int main()
     std::string libDir = GetNativeLibraryDir(activity);
     printf("Native lib dir: %s\n", libDir.c_str());
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
-        printf("* %s\n", entry.path().filename().c_str());
+        printf("* %s\n", entry.path().c_str());
         FileMap file(entry.path().c_str());
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
         if (!data.empty()) {
