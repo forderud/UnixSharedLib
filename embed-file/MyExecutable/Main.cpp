@@ -41,14 +41,14 @@ static std::string GetBundleFrameworksPath() {
 #endif
 
 #ifdef __ANDROID__
-static std::string GetNativeLibraryDir(ANativeActivity* activity) {
+static std::string GetNativeLibraryDir(ANativeActivity& activity) {
     JNIEnv* env = nullptr;
-    activity->vm->AttachCurrentThread(&env, nullptr);
+    activity.vm->AttachCurrentThread(&env, nullptr);
 
-    jclass actCls       = env->GetObjectClass(activity->clazz);
+    jclass actCls       = env->GetObjectClass(activity.clazz);
     jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo",
                                             "()Landroid/content/pm/ApplicationInfo;");
-    jobject appInfo     = env->CallObjectMethod(activity->clazz, getAppInfo);
+    jobject appInfo     = env->CallObjectMethod(activity.clazz, getAppInfo);
 
     jclass aiCls        = env->GetObjectClass(appInfo);
     jfieldID fid        = env->GetFieldID(aiCls, "nativeLibraryDir", "Ljava/lang/String;");
@@ -58,7 +58,7 @@ static std::string GetNativeLibraryDir(ANativeActivity* activity) {
     std::string result = c;
     env->ReleaseStringUTFChars(jstr, c);
 
-    activity->vm->DetachCurrentThread();
+    activity.vm->DetachCurrentThread();
     return result;
 }
 #endif
@@ -100,7 +100,7 @@ int main()
     printf("APK data directory: %s\n", dataDir.c_str());
     // TODO: Discover and parse shared libs in app bundle
 
-    std::string libDir = GetNativeLibraryDir(activity);
+    std::string libDir = GetNativeLibraryDir(*activity);
     printf("Native lib dir: %s\n", libDir.c_str());
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("* %s\n", entry.path().c_str());
