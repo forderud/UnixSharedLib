@@ -1,6 +1,5 @@
 #pragma once
 #include <stdio.h>
-#include <stdexcept>
 #include <string.h>
 #include <string_view>
 #include <mach-o/loader.h>
