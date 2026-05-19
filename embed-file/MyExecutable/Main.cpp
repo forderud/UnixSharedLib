@@ -113,13 +113,14 @@ int main(int argc, char *argv[]) {
         path += entry.path().stem(); // append filename without extension
         FileMap file(path.c_str());
         std::string_view data = FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
-        if (!data.empty()) {
-            printf("   - Found embedded metadata!\n");
-            auto* metadata = (const LibMetadataT*)(data.data());
-            metadata->Print();
+        if (data.empty())
+            continue;
 
-            LoadLibAndCallFunction(entry.path());
-        }
+        printf("   - Found embedded metadata!\n");
+        auto* metadata = (const LibMetadataT*)(data.data());
+        metadata->Print();
+
+        LoadLibAndCallFunction(entry.path());
     }
 
     return 0;
@@ -139,13 +140,14 @@ void android_main(android_app* state) {
         printf("* %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str());
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
-        if (!data.empty()) {
-            printf("   - Found embedded metadata!\n");
-            auto* metadata = (const LibMetadataT*)data.data();
-            metadata->Print();
+        if (data.empty())
+            continue;
 
-            LoadLibAndCallFunction(entry.path());
-        }
+        printf("   - Found embedded metadata!\n");
+        auto* metadata = (const LibMetadataT*)data.data();
+        metadata->Print();
+
+        LoadLibAndCallFunction(entry.path());
     }
 }
 #endif
