@@ -22,7 +22,7 @@ objcopy --input-target binary --output $bfdname --add-section .note.GNU-stack=/d
 
 ## readelf symbol dump (extract of output)
 ```
-embed-file/linux-embed-file$ readelf -s libmylib.so 
+mobile-dlopen/linux-embed-file$ readelf -s libmylib.so 
 ...
 Symbol table of section table .dynsym (Index 3) with 15 entries
 -----------------------
