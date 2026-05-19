@@ -47,8 +47,7 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
     std::string result;
     {
         jclass actCls = env->GetObjectClass(activity.clazz);
-        jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo",
-                                                "()Landroid/content/pm/ApplicationInfo;");
+        jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo", "()Landroid/content/pm/ApplicationInfo;");
         jobject appInfo = env->CallObjectMethod(activity.clazz, getAppInfo);
 
         jclass aiCls = env->GetObjectClass(appInfo);
