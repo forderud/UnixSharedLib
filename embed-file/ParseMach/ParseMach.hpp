@@ -1,6 +1,5 @@
 #pragma once
 #include <stdio.h>
-#include <string.h>
 #include <string_view>
 #include <mach-o/loader.h>
 #include "../FileMap.hpp"
