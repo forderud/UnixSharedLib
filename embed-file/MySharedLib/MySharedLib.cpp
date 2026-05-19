@@ -1,6 +1,6 @@
+#include <cassert>
 #include <string>
 #include <dlfcn.h>
-#include "../LogRedirect.hpp"
 #if defined(__APPLE__)
   // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
   #include <mach-o/getsect.h> // for getsectiondata
