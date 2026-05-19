@@ -44,20 +44,21 @@ static std::string GetBundleFrameworksDir() {
 static std::string GetNativeLibraryDir(ANativeActivity& activity) {
     JNIEnv* env = nullptr;
     activity.vm->AttachCurrentThread(&env, nullptr);
+    std::string result;
+    {
+        jclass actCls = env->GetObjectClass(activity.clazz);
+        jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo",
+                                                "()Landroid/content/pm/ApplicationInfo;");
+        jobject appInfo = env->CallObjectMethod(activity.clazz, getAppInfo);
 
-    jclass actCls       = env->GetObjectClass(activity.clazz);
-    jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo",
-                                            "()Landroid/content/pm/ApplicationInfo;");
-    jobject appInfo     = env->CallObjectMethod(activity.clazz, getAppInfo);
+        jclass aiCls = env->GetObjectClass(appInfo);
+        jfieldID fid = env->GetFieldID(aiCls, "nativeLibraryDir", "Ljava/lang/String;");
+        auto jstr = (jstring)env->GetObjectField(appInfo, fid);
 
-    jclass aiCls        = env->GetObjectClass(appInfo);
-    jfieldID fid        = env->GetFieldID(aiCls, "nativeLibraryDir", "Ljava/lang/String;");
-    auto jstr           = (jstring)env->GetObjectField(appInfo, fid);
-
-    const char* c = env->GetStringUTFChars(jstr, nullptr);
-    std::string result = c;
-    env->ReleaseStringUTFChars(jstr, c);
-
+        const char* buffer = env->GetStringUTFChars(jstr, nullptr);
+        result = buffer;
+        env->ReleaseStringUTFChars(jstr, buffer);
+    }
     activity.vm->DetachCurrentThread();
     return result;
 }
