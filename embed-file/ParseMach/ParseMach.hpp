@@ -3,7 +3,6 @@
 #include <string.h>
 #include <string_view>
 #include <mach-o/loader.h>
-#include <mach-o/swap.h>
 #include "../FileMap.hpp"
 #include "../LibMetadata.hpp"
 
