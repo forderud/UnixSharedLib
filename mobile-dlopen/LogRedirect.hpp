@@ -12,16 +12,20 @@
     #include <CoreFoundation/CoreFoundation.h>
     #include <TargetConditionals.h>
     #if TARGET_OS_IPHONE
-        // route printf to the unified system log
+        // route printf to both the unified system log and the on-screen UITextView.
         #include <os/log.h>
         #include <stdarg.h>
+        #include <string.h>
+        extern "C" void iOSLogAppend(const char* msg); // defined in iOSApp.mm
         static inline void ios_log_printf(const char* fmt, ...) {
             va_list args;
             va_start(args, fmt);
             char buf[1024];
             vsnprintf(buf, sizeof(buf), fmt, args);
             va_end(args);
-            // Strip trailing newline (os_log adds its own).
+            // Append to on-screen log (keep trailing newline for readability).
+            iOSLogAppend(buf);
+            // Strip trailing newline before forwarding to os_log (it adds one).
             size_t n = strlen(buf);
             if (n && buf[n-1] == '\n') buf[n-1] = '\0';
             os_log(OS_LOG_DEFAULT, "%{public}s", buf);
