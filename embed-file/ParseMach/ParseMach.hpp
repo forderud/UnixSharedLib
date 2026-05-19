@@ -43,9 +43,8 @@ std::string_view FindSegmentInSections(const char* file_ptr, const char* sect_pt
     auto* sect = (const section_64*)sect_ptr;
     sect_ptr += sizeof(section_64);
 
-    if (strcmp(sect->sectname, segment_name) == 0) {
+    if (strcmp(sect->sectname, segment_name) == 0)
       return std::string_view(file_ptr + sect->offset, sect->size);
-    }
   }
 
   return std::string_view(); // not found
@@ -63,9 +62,8 @@ std::string_view FindSegmentInFile(const FileMap& file, const char* segment_name
     if (cmd->cmd == LC_SEGMENT_64) {
       const auto* seg = (const segment_command_64*)cmd;
       std::string_view data = FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
-      if (!data.empty()) {
+      if (!data.empty())
         return data;
-      }
     }
   }
   return std::string_view(); // not found
