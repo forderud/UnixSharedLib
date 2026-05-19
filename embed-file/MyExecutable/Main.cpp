@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
 
     printf("Frameworks embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
-        printf("* %s\n", entry.path().c_str());
+        printf("* %s\n", entry.path().filename().c_str());
         std::string path = entry.path();
         path += "/";
         path += entry.path().stem(); // append filename without extension
@@ -131,7 +131,7 @@ void android_main(android_app* state) {
 
     printf("Libraries embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
-        printf("* %s\n", entry.path().c_str());
+        printf("* %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str());
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
         if (!data.empty()) {
