@@ -9,9 +9,8 @@
 #ifdef __APPLE__
     #include <CoreFoundation/CoreFoundation.h>
     #include <TargetConditionals.h>
-    #include "../ParseMach/ParseMach.hpp"
     #if TARGET_OS_IPHONE
-        // oute printf to the unified system log
+        // route printf to the unified system log
         #include <os/log.h>
         #include <stdarg.h>
         static inline void ios_log_printf(const char* fmt, ...) {
@@ -27,6 +26,7 @@
         }
         #define printf(...) ios_log_printf(__VA_ARGS__)
     #endif
+    #include "../ParseMach/ParseMach.hpp"
 #endif
 #ifdef __ANDROID__
     #include <android_native_app_glue.h>
