@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
         printf("ERROR: Frameworks directory not found\n");
         abort();
     }
-
+    printf("Frameworks dir: %s\n", libDir.c_str());
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("* %s\n", entry.path().c_str());
         std::string path = entry.path();
