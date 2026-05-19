@@ -28,7 +28,7 @@ add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
 add_subdirectory(MySharedLib)
 
-add_subdirectory(MyExecutable)
+add_subdirectory(MobileDlopen)
 
 if (APPLE)
     add_subdirectory(ParseMach)

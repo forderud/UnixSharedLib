@@ -37,11 +37,11 @@ if [ "$ARG" = "" ]; then
 
     cd install
 
-    echo Running MyExecutable...
+    echo Running MobileDlopen...
     if [ "$(uname)" = "Darwin" ]; then
-      MyExecutable.app/Contents/MacOS/MyExecutable
+      MobileDlopen.app/Contents/MacOS/MobileDlopen
     else
-      ./MyExecutable
+      ./MobileDlopen
     fi
 
     echo ""
