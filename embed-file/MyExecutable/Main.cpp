@@ -112,9 +112,14 @@ int main(int argc, char *argv[]) {
         path += "/";
         path += entry.path().stem(); // append filename without extension
         FileMap file(path.c_str());
-        FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+        std::string_view data = FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+        if (!data.empty()) {
+            printf("   - Found embedded metadata!\n");
+            auto* metadata = (const LibMetadataT*)(data.data());
+            metadata->Print();
 
-        LoadLibAndCallFunction(entry.path());
+            LoadLibAndCallFunction(entry.path());
+        }
     }
 
     return 0;

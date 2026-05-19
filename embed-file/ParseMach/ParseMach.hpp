@@ -51,7 +51,7 @@ std::string_view FindSegmentInSections(const char* file_ptr, const char* sect_pt
   return std::string_view(); // not found
 }
 
-void FindSegmentInFile(const FileMap& file, const char* segment_name) {
+std::string_view FindSegmentInFile(const FileMap& file, const char* segment_name) {
   auto& hdr = *(const mach_header_64*)file.ptr();
 
   const char* cmd_ptr = file.ptr() + sizeof(hdr);
@@ -64,6 +64,7 @@ void FindSegmentInFile(const FileMap& file, const char* segment_name) {
       const auto* seg = (const segment_command_64*)cmd;
       std::string_view data = FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
       if (!data.empty()) {
+#if 0
         printf("Found segment: %s:\n", segment_name);
         if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
           auto* metadata = (const LibMetadataT*)(data.data());
@@ -71,8 +72,10 @@ void FindSegmentInFile(const FileMap& file, const char* segment_name) {
         } else {
           printf("%s\n", data.data());
         }
-
+#endif
+        return data;
       }
     }
   }
+  return std::string_view(); // not found
 }
