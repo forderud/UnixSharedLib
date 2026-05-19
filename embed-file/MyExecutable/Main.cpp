@@ -93,15 +93,11 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 #endif
 }
 
-#ifdef __ANDROID__
-void android_main(android_app* state)
-#else
-int main()
-#endif
-{
-    printf("Hello from MyExecutable!\n");
 
 #ifdef __APPLE__
+int main() {
+    printf("Hello from MyExecutable!\n");
+
     printf("\n");
     printf("Frameworks embedded in app bundle:\n");
     std::string path = GetBundleFrameworksPath();
@@ -119,10 +115,15 @@ int main()
             LoadLibAndCallFunction(entry.path());
         }
     }
-    printf("\n");
+
+    return 0;
+}
 #endif
 
 #ifdef __ANDROID__
+void android_main(android_app* state) {
+    printf("Hello from MyExecutable!\n");
+
     printf("Libraries embedded in app bundle:\n");
     ANativeActivity* activity = state->activity;
     AAssetManager* assetManager = activity->assetManager;
@@ -145,11 +146,5 @@ int main()
             LoadLibAndCallFunction(entry.path());
         }
     }
-#endif
-
-#ifdef __ANDROID__
-    return;
-#else
-    return 0;
-#endif
 }
+#endif
