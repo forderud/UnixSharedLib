@@ -129,10 +129,6 @@ void android_main(android_app* state) {
 
     printf("Libraries embedded in app bundle:\n");
     ANativeActivity* activity = state->activity;
-    std::string dataDir = activity->internalDataPath;
-    printf("APK data directory: %s\n", dataDir.c_str());
-    // TODO: Discover and parse shared libs in app bundle
-
     std::string libDir = GetNativeLibraryDir(*activity);
     printf("Native lib dir: %s\n", libDir.c_str());
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
