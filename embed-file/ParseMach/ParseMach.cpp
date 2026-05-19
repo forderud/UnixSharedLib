@@ -33,7 +33,16 @@ int main(int argc, char **argv) {
     DumpSegmentsInFile(file);
   } else {
     const char* segment_name = argv[2];
-    FindSegmentInFile(file, segment_name);
+    std::string_view data = FindSegmentInFile(file, segment_name);
+    if (!data.empty()) {
+        printf("Found segment: %s:\n", segment_name);
+        if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
+          auto* metadata = (const LibMetadataT*)(data.data());
+          metadata->Print();
+        } else {
+          printf("%s\n", data.data());
+        }
+      }
   }
 
   printf("\n");
