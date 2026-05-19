@@ -101,22 +101,22 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 int main() {
     printf("Hello from MyExecutable!\n");
 
-    printf("\n");
     printf("Frameworks embedded in app bundle:\n");
     std::string libDir = GetBundleFrameworksDir();
     if (!std::filesystem::is_directory(libDir)) {
-        printf("(no Frameworks directory)\n");
-    } else {
-        for (const auto entry : std::filesystem::directory_iterator(libDir)) {
-            printf("- %s\n", entry.path().c_str());
-            std::string path = entry.path().string();
-            path += "/";
-            path += entry.path().stem(); // append filename without extension
-            FileMap file(path.c_str());
-            FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+        printf("ERROR: Frameworks directory not found\n");
+        abort();
+    }
 
-            LoadLibAndCallFunction(entry.path());
-        }
+    for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
+        printf("* %s\n", entry.path().c_str());
+        std::string path = entry.path();
+        path += "/";
+        path += entry.path().stem(); // append filename without extension
+        FileMap file(path.c_str());
+        FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+
+        LoadLibAndCallFunction(entry.path());
     }
 
     return 0;
