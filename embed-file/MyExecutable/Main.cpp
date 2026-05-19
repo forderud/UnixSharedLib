@@ -100,11 +100,11 @@ int main() {
 
     printf("\n");
     printf("Frameworks embedded in app bundle:\n");
-    std::string path = GetBundleFrameworksDir();
-    if (!std::filesystem::is_directory(path)) {
+    std::string libDir = GetBundleFrameworksDir();
+    if (!std::filesystem::is_directory(libDir)) {
         printf("(no Frameworks directory)\n");
     } else {
-        for (const auto entry : std::filesystem::directory_iterator(path)) {
+        for (const auto entry : std::filesystem::directory_iterator(libDir)) {
             printf("- %s\n", entry.path().c_str());
             std::string path = entry.path().string();
             path += "/";
