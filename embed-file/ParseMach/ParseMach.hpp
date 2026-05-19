@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdexcept>
 #include <string.h>
+#include <string_view>
 #include <mach-o/loader.h>
 #include <mach-o/swap.h>
 #include "../FileMap.hpp"
@@ -37,22 +38,17 @@ void DumpSegmentsInFile(const FileMap& file) {
   }
 }
 
-void FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects, const char* segment_name) {
+std::string_view FindSegmentInSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects, const char* segment_name) {
   for (uint32_t i = 0; i < nsects; ++i) {
     auto* sect = (const section_64*)sect_ptr;
     sect_ptr += sizeof(section_64);
 
     if (strcmp(sect->sectname, segment_name) == 0) {
-      printf("Found segment: %s:\n", segment_name);
-      if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
-        auto* metadata = (const LibMetadataT*)(file_ptr + sect->offset);
-        metadata->Print();
-      } else {
-        printf("%s\n", file_ptr + sect->offset);
-      }
-      return;
+      return std::string_view(file_ptr + sect->offset, sect->size);
     }
   }
+
+  return std::string_view(); // not found
 }
 
 void FindSegmentInFile(const FileMap& file, const char* segment_name) {
@@ -66,7 +62,17 @@ void FindSegmentInFile(const FileMap& file, const char* segment_name) {
     // only parse 64bit segment commands
     if (cmd->cmd == LC_SEGMENT_64) {
       const auto* seg = (const segment_command_64*)cmd;
-      FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
+      std::string_view data = FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
+      if (!data.empty()) {
+        printf("Found segment: %s:\n", segment_name);
+        if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
+          auto* metadata = (const LibMetadataT*)(data.data());
+          metadata->Print();
+        } else {
+          printf("%s\n", data.data());
+        }
+
+      }
     }
   }
 }
