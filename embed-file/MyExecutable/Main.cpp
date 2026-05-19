@@ -46,10 +46,13 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
     activity.vm->AttachCurrentThread(&env, nullptr);
     std::string result;
     {
+        // get ApplicationInfo object
+        // DOC: https://developer.android.com/reference/android/content/pm/ApplicationInfo
         jclass actCls = env->GetObjectClass(activity.clazz);
         jmethodID getAppInfo = env->GetMethodID(actCls, "getApplicationInfo", "()Landroid/content/pm/ApplicationInfo;");
         jobject appInfo = env->CallObjectMethod(activity.clazz, getAppInfo);
 
+        // access nativeLibraryDir field
         jclass aiCls = env->GetObjectClass(appInfo);
         jfieldID fid = env->GetFieldID(aiCls, "nativeLibraryDir", "Ljava/lang/String;");
         auto jstr = (jstring)env->GetObjectField(appInfo, fid);
