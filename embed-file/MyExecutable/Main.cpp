@@ -12,7 +12,6 @@
 #endif
 #ifdef __ANDROID__
     #include <android_native_app_glue.h>
-    #include <jni.h>
     #include <android/asset_manager.h>
     #include <android/asset_manager_jni.h>
     #include "../ParseELF/ParseElf.hpp"
