@@ -98,13 +98,14 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 int main(int argc, char *argv[]) {
     printf("Hello from MyExecutable!\n");
 
-    printf("Frameworks embedded in app bundle:\n");
     std::string libDir = GetBundleFrameworksDir();
     if (!std::filesystem::is_directory(libDir)) {
         printf("ERROR: Frameworks directory not found\n");
         abort();
     }
     printf("Frameworks dir: %s\n", libDir.c_str());
+
+    printf("Frameworks embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("* %s\n", entry.path().c_str());
         std::string path = entry.path();
@@ -124,10 +125,11 @@ int main(int argc, char *argv[]) {
 void android_main(android_app* state) {
     printf("Hello from MyExecutable!\n");
 
-    printf("Libraries embedded in app bundle:\n");
     ANativeActivity* activity = state->activity;
     std::string libDir = GetNativeLibraryDir(*activity);
     printf("Native lib dir: %s\n", libDir.c_str());
+
+    printf("Libraries embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("* %s\n", entry.path().c_str());
         FileMap file(entry.path().c_str());
