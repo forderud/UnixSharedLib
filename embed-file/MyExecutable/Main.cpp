@@ -114,9 +114,8 @@ int main()
     }
 #endif
 
-    printf("Calling MySharedLib function...\n");
 #ifdef USE_DLOPEN
-    // dynamically load shared library at runtime
+    printf("Loading MySharedLib using dlopen...\n");
   #ifdef __APPLE__
       void* handle = dlopen("MySharedLib.framework/MySharedLib", RTLD_LAZY);
   #else
@@ -131,10 +130,11 @@ int main()
         fprintf(stderr, "dlsym failed: %s\n", dlerror());
         abort();
     }
+    printf("Calling print_embedded_file function through funtion pointer:\n");
     print_func("embed_example");
     dlclose(handle);
 #else
-    // call function in shared library directly
+    printf("Calling print_embedded_file function directly:\n");
     print_embedded_file("embed_example");
 #endif
 
