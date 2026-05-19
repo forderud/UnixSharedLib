@@ -8,6 +8,11 @@ target_sources(MobileDlopen PRIVATE
     Main.cpp
 )
 
+if (IOS)
+    # UIKit host that displays printf log messages on screen.
+    target_sources(MobileDlopen PRIVATE iOSApp.mm)
+endif()
+
 if (APPLE)
     # Asset catalog containing AppIcon (1024x1024 PNG in AppIcon.appiconset)
     target_sources(MobileDlopen PRIVATE Assets.xcassets)
@@ -49,12 +54,22 @@ if (APPLE)
     target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
 
     if(IOS)
+        # UIKit + Foundation for the on-screen log view in iOSApp.mm.
+        find_library(UIKIT_FRAMEWORK UIKit)
+        find_library(FOUNDATION_FRAMEWORK Foundation)
+        target_link_libraries(MobileDlopen PRIVATE
+            ${UIKIT_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+
         set_target_properties(MobileDlopen PROPERTIES
             # Look for dylibs inside .app bundle Frameworks folder
             INSTALL_RPATH "@executable_path/Frameworks"
             # Embed framework(s) into .app bundle
             XCODE_EMBED_FRAMEWORKS MySharedLib
             XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
+            # Auto-generate a launch screen so the app actually launches on iOS 14+.
+            XCODE_ATTRIBUTE_INFOPLIST_KEY_UILaunchScreen_Generation YES
+            # Target iPhone + iPad.
+            XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
         )
     else()
         set_target_properties(MobileDlopen PROPERTIES

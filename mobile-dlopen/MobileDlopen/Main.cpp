@@ -94,7 +94,7 @@ static void LoadLibAndCallFunction(std::string libFilename) {
 
 #ifdef __APPLE__
 /** macOS & iOS entry point */
-int main(int argc, char *argv[]) {
+static void RunEmbeddedDemo() {
     std::string libDir = GetBundleFrameworksDir();
     if (!std::filesystem::is_directory(libDir)) {
         printf("ERROR: Frameworks directory not found\n");
@@ -119,10 +119,19 @@ int main(int argc, char *argv[]) {
 
         LoadLibAndCallFunction(DylibPath(entry.path(), false)); // remove path prefix
     }
+}
 
+#if TARGET_OS_IPHONE
+// iOS entry point lives in iOSApp.mm; it calls RunEmbeddedDemo() from a
+// background queue once the UI is on screen. Expose it with C linkage.
+extern "C" void RunEmbeddedDemo_C() { RunEmbeddedDemo(); }
+#else
+int main(int /*argc*/, char* /*argv*/[]) {
+    RunEmbeddedDemo();
     return 0;
 }
 #endif
+#endif // __APPLE__
 
 #ifdef __ANDROID__
 /** Android NativeActivity entry point */
