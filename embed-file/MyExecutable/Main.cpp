@@ -129,8 +129,6 @@ void android_main(android_app* state) {
 
     printf("Libraries embedded in app bundle:\n");
     ANativeActivity* activity = state->activity;
-    AAssetManager* assetManager = activity->assetManager;
-    assert(assetManager);
     std::string dataDir = activity->internalDataPath;
     printf("APK data directory: %s\n", dataDir.c_str());
     // TODO: Discover and parse shared libs in app bundle
