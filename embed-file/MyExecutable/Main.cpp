@@ -30,7 +30,7 @@
 static std::string GetBundleFrameworksPath() {
     CFBundleRef mainBundle = CFBundleGetMainBundle();
     CFURLRef url = CFBundleCopyPrivateFrameworksURL(mainBundle);
-    char path[1024] {};
+    char path[PATH_MAX] {};
     if (CFURLGetFileSystemRepresentation(url, true, (UInt8 *)path, 1024)) {
         CFRelease(url);
         return std::string(path);
