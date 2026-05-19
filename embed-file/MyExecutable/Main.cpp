@@ -114,8 +114,6 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 
 #ifdef __APPLE__
 int main(int argc, char *argv[]) {
-    printf("Hello from MyExecutable!\n");
-
     std::string libDir = GetBundleFrameworksDir();
     if (!std::filesystem::is_directory(libDir)) {
         printf("ERROR: Frameworks directory not found\n");
@@ -148,8 +146,6 @@ int main(int argc, char *argv[]) {
 
 #ifdef __ANDROID__
 void android_main(android_app* state) {
-    printf("Hello from MyExecutable!\n");
-
     ANativeActivity* activity = state->activity;
     std::string libDir = GetNativeLibraryDir(*activity);
     printf("Native lib dir: %s\n", libDir.c_str());
