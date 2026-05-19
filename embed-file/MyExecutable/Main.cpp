@@ -95,7 +95,7 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 
 
 #ifdef __APPLE__
-int main() {
+int main(int argc, char *argv[]) {
     printf("Hello from MyExecutable!\n");
 
     printf("Frameworks embedded in app bundle:\n");
