@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
 
         auto* metadata = (const LibMetadataT*)(data.data());
         metadata->Print();
+        printf("\n");
 
         LoadLibAndCallFunction(entry.path());
     }
@@ -140,6 +141,7 @@ void android_main(android_app* state) {
 
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
+        printf("\n");
 
         LoadLibAndCallFunction(entry.path());
     }
