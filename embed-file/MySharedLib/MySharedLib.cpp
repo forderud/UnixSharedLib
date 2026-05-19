@@ -41,11 +41,15 @@ static std::string_view GetSectionData(const char* section_name) {
 }
 
 extern "C" __attribute__ ((visibility ("default")))
-void print_embedded_file (const char* section_name) {
+std::string_view print_embedded_file (const char* section_name) {
     auto section = GetSectionData(section_name);
 
-    printf("Content of %s section (%u bytes):\n", section_name, (unsigned int)section.size());
-    printf("%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
-    printf("\n");
-    printf("Content of internal array (%u bytes):\n%s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
+    static char buffer[1024] = {};
+    size_t i = 0;
+    i += sprintf(buffer+i, "Content of %s section (%u bytes):\n", section_name, (unsigned int)section.size());
+    i += sprintf(buffer+i, "%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
+    i += sprintf(buffer+i, "\n");
+    i += sprintf(buffer+i, "Content of internal array (%u bytes):\n%s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
+    assert(i <= sizeof(buffer));
+    return std::string_view(buffer, i);
 }

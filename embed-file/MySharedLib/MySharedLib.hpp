@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 
 extern "C"
-void print_embedded_file (const char* section_name);
+std::string_view print_embedded_file (const char* section_name);

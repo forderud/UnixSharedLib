@@ -73,17 +73,19 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
         fprintf(stderr, "dlopen failed: %s\n", dlerror());
         abort();
     }
-    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
+    auto print_func = (std::string_view (*)(const char*))dlsym(handle, "print_embedded_file");
     if (!print_func) {
         fprintf(stderr, "dlsym failed: %s\n", dlerror());
         abort();
     }
     printf("Calling print_embedded_file function through funtion pointer:\n");
-    print_func("embed_example");
+    auto data = print_func("embed_example");
+    printf("%.*s\n", (int)data.size(), data.data());
     dlclose(handle);
 #else
     printf("Calling print_embedded_file function directly:\n");
-    print_embedded_file("embed_example");
+    auto data = print_embedded_file("embed_example");
+    printf("%.*s\n", (int)data.size(), data.data());
 #endif
 }
 
