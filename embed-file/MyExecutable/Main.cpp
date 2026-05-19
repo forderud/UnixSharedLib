@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     }
     printf("Frameworks dir: %s\n", libDir.c_str());
 
-    printf("Frameworks embedded in app bundle:\n");
+    printf("\nFrameworks embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("\n## %s\n", entry.path().filename().c_str());
         std::string path = entry.path();
@@ -154,7 +154,7 @@ void android_main(android_app* state) {
     std::string libDir = GetNativeLibraryDir(*activity);
     printf("Native lib dir: %s\n", libDir.c_str());
 
-    printf("Libraries embedded in app bundle:\n");
+    printf("\nLibraries embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("\n## %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str());
