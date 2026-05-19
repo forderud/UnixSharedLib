@@ -64,6 +64,35 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
 #endif
 
 
+static void LoadLibAndCallFunction(std::filesystem::path libPath) {
+#ifdef USE_DLOPEN
+    printf("Loading MySharedLib using dlopen...\n");
+    std::string path = libPath.filename();
+  #ifdef __APPLE__
+    path += "/";
+    path += libPath.stem(); // append filename without extension
+    void* handle = dlopen(path.c_str(), RTLD_LAZY);
+  #else
+    void* handle = dlopen(path.c_str(), RTLD_LAZY);
+  #endif
+    if (!handle) {
+        fprintf(stderr, "dlopen failed: %s\n", dlerror());
+        abort();
+    }
+    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
+    if (!print_func) {
+        fprintf(stderr, "dlsym failed: %s\n", dlerror());
+        abort();
+    }
+    printf("Calling print_embedded_file function through funtion pointer:\n");
+    print_func("embed_example");
+    dlclose(handle);
+#else
+    printf("Calling print_embedded_file function directly:\n");
+    print_embedded_file("embed_example");
+#endif
+}
+
 #ifdef __ANDROID__
 void android_main(android_app* state)
 #else
@@ -83,9 +112,11 @@ int main()
             printf("- %s\n", entry.path().c_str());
             std::string path = entry.path().string();
             path += "/";
-            path += entry.path().stem(); // filename without extension
+            path += entry.path().stem(); // append filename without extension
             FileMap file(path.c_str());
             FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+
+            LoadLibAndCallFunction(entry.path());
         }
     }
     printf("\n");
@@ -110,32 +141,10 @@ int main()
             printf("   - Found embedded metadata!\n");
             auto* metadata = (const LibMetadataT*)data.data();
             metadata->Print();
+
+            LoadLibAndCallFunction(entry.path());
         }
     }
-#endif
-
-#ifdef USE_DLOPEN
-    printf("Loading MySharedLib using dlopen...\n");
-  #ifdef __APPLE__
-      void* handle = dlopen("MySharedLib.framework/MySharedLib", RTLD_LAZY);
-  #else
-    void* handle = dlopen("libMySharedLib.so", RTLD_LAZY);
-  #endif
-    if (!handle) {
-        fprintf(stderr, "dlopen failed: %s\n", dlerror());
-        abort();
-    }
-    auto print_func = (void (*)(const char*))dlsym(handle, "print_embedded_file");
-    if (!print_func) {
-        fprintf(stderr, "dlsym failed: %s\n", dlerror());
-        abort();
-    }
-    printf("Calling print_embedded_file function through funtion pointer:\n");
-    print_func("embed_example");
-    dlclose(handle);
-#else
-    printf("Calling print_embedded_file function directly:\n");
-    print_embedded_file("embed_example");
 #endif
 
 #ifdef __ANDROID__
