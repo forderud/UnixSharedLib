@@ -125,16 +125,17 @@ int main(int argc, char *argv[]) {
 
     printf("Frameworks embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
-        printf("* %s\n", entry.path().filename().c_str());
+        printf("\n## %s\n", entry.path().filename().c_str());
         std::string path = entry.path();
         path += "/";
         path += entry.path().stem(); // append filename without extension
         FileMap file(path.c_str());
         std::string_view data = FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
-        if (data.empty())
+        if (data.empty()) {
+            printf("No embedded metadata found.\n");
             continue;
+        }
 
-        printf("   - Found embedded metadata!\n");
         auto* metadata = (const LibMetadataT*)(data.data());
         metadata->Print();
 
@@ -155,13 +156,14 @@ void android_main(android_app* state) {
 
     printf("Libraries embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
-        printf("* %s\n", entry.path().filename().c_str());
+        printf("\n## %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str());
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
-        if (data.empty())
+        if (data.empty()) {
+            printf("No embedded metadata found.\n");
             continue;
+        }
 
-        printf("   - Found embedded metadata!\n");
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
 
