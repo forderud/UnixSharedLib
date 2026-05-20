@@ -9,6 +9,12 @@ target_sources(MobileDlopen PRIVATE
 )
 
 if (APPLE)
+    # Asset catalog containing AppIcon (1024x1024 PNG in AppIcon.appiconset)
+    target_sources(MobileDlopen PRIVATE Assets.xcassets)
+    set_source_files_properties(Assets.xcassets PROPERTIES
+        MACOSX_PACKAGE_LOCATION Resources
+    )
+
     set_target_properties(MobileDlopen PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_GUI_IDENTIFIER "MobileDlopen"
@@ -16,9 +22,10 @@ if (APPLE)
         XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MobileDlopen" # avoid Xcode warning
         MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}"
-        MACOSX_BUNDLE_ICON_FILE "icon.png"
         XCODE_ATTRIBUTE_INSTALL_PATH "/Applications" # to avoid "archive" packaging problems
         MACOSX_BUNDLE_INFO_PLIST "Info.plist.in"
+        # Tell asset compiler which icon set to use as the app icon
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
     )
 endif()
 
