@@ -1,3 +1,10 @@
+## Package bundle structure
+| Platform | Structure |
+|----------|-----------|
+| macOS    | ![macOS_bundle](doc/macOS_bundle.png) |
+| iOS      | ![iOS_bundle](doc/iOS_bundle.png) |
+| Android  | ![Android_bundle](doc/Android_bundle.png) |
+
 ## ELF & Mach-O file embed and parsing samples
 
 Sample code for embedding arbitrary binary or text files into binaries on various platforms.
