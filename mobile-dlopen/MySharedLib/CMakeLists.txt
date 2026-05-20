@@ -14,6 +14,8 @@ if (APPLE)
     XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MySharedLib" # avoid Xcode warning
     VERSION 1.0.0   # "current version" in semantic format in Mach-O binary file
     SOVERSION 1.0.0 # "compatibility version" in semantic format in Mach-O binary file
+    MACOSX_FRAMEWORK_BUNDLE_VERSION "${VERSION}" # to avoid app store validation error
+    MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${VERSION}" # to avoid app store validation error
     PUBLIC_HEADER   ${CMAKE_CURRENT_LIST_DIR}/MySharedLib.hpp
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
     XCODE_ATTRIBUTE_SKIP_INSTALL YES # to avoid "archive" packaging problems
