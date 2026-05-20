@@ -9,8 +9,9 @@ target_sources(MobileDlopen PRIVATE
 )
 
 if (IOS)
-    # UIKit host that displays printf log messages on screen.
-    target_sources(MobileDlopen PRIVATE iOSApp.mm)
+    # UIKit host (Swift) that displays printf log messages on screen.
+    enable_language(Swift)
+    target_sources(MobileDlopen PRIVATE iOSApp.swift)
 endif()
 
 if (APPLE)
