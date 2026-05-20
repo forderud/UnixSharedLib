@@ -17,7 +17,7 @@
 #include "../LibMetadata.hpp"
 
 
-static const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded file array.";
+static const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded array.";
 
 
 static std::string_view GetSectionData(const char* section_name) {
