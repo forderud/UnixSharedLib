@@ -7,6 +7,7 @@ if (IOS)
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_GUI_IDENTIFIER "ParseMach"
         MACOSX_BUNDLE_BUNDLE_NAME "ParseMach"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "ParseMach" # avoid Xcode warning
     )
 endif()
 

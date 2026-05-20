@@ -13,6 +13,7 @@ if (APPLE)
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_GUI_IDENTIFIER "MobileDlopen"
         MACOSX_BUNDLE_BUNDLE_NAME "MobileDlopen"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MobileDlopen" # avoid Xcode warning
     )
 endif()
 

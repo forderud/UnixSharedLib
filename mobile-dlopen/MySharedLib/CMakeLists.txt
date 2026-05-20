@@ -11,6 +11,7 @@ if (APPLE)
     FRAMEWORK TRUE
     FRAMEWORK_VERSION A
     MACOSX_FRAMEWORK_IDENTIFIER "MySharedLib"
+    XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MySharedLib" # avoid Xcode warning
     VERSION 1.0.0   # "current version" in semantic format in Mach-O binary file
     SOVERSION 1.0.0 # "compatibility version" in semantic format in Mach-O binary file
     PUBLIC_HEADER   ${CMAKE_CURRENT_LIST_DIR}/MySharedLib.hpp
