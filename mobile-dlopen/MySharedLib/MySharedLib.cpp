@@ -48,9 +48,10 @@ std::string_view print_embedded_file (const char* section_name) {
     static char buffer[1024] = {}; // static to allow string_view return
     size_t i = 0;
     i += snprintf(buffer+i, sizeof(buffer)-i, "Hello from MySharedLib!\n");
-    i += snprintf(buffer+i, sizeof(buffer)-i, "%s section (%u bytes): ", section_name, (unsigned int)section.size());
-    i += snprintf(buffer+i, sizeof(buffer)-i, "%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
-    i += snprintf(buffer+i, sizeof(buffer)-i, "Internal array (%u bytes): %s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
+    i += snprintf(buffer+i, sizeof(buffer)-i, "%s section (%u bytes): %.*s\n", // specify size since file content is not null-terminated
+                  section_name, (unsigned int)section.size(), (int)section.size(), section.data());
+    i += snprintf(buffer+i, sizeof(buffer)-i, "Internal array (%u bytes): %s\n",
+                  (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
     assert(i <= sizeof(buffer));
     return std::string_view(buffer, i);
 }
