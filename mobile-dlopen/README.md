@@ -1,8 +1,8 @@
 ## Package bundle structure
 | Platform | Structure | Shared lib. placement |
 |----------|-----------|-----------------------|
-| macOS    | ![macOS_bundle](doc/macOS_bundle.png) | `Frameworks`` folder (`@executable_path/../Frameworks`) | 
-| iOS      | ![iOS_bundle](doc/iOS_bundle.png) | `Frameworks`` folder (`@executable_path/Frameworks`) |
+| macOS    | ![macOS_bundle](doc/macOS_bundle.png) | `Frameworks` folder (`@executable_path/../Frameworks`) | 
+| iOS      | ![iOS_bundle](doc/iOS_bundle.png) | `Frameworks` folder (`@executable_path/Frameworks`) |
 | Android  | ![Android_bundle](doc/Android_bundle.png) | Same `lib/arm64-v8a` folder as entry-point shared lib. |
 
 ## ELF & Mach-O file embed and parsing samples
