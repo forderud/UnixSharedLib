@@ -3,6 +3,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(TestProject)
 
+set(VERSION "0.1")
+
 # enable optimizations
 add_compile_options(-O3)
 

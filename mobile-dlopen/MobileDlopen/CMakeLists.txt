@@ -14,6 +14,8 @@ if (APPLE)
         MACOSX_BUNDLE_GUI_IDENTIFIER "MobileDlopen"
         MACOSX_BUNDLE_BUNDLE_NAME "MobileDlopen"
         XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MobileDlopen" # avoid Xcode warning
+        MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}"
     )
 endif()
 
