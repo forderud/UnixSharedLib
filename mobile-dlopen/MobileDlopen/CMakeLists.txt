@@ -16,6 +16,7 @@ if (APPLE)
         XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MobileDlopen" # avoid Xcode warning
         MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}"
+        MACOSX_BUNDLE_ICON_FILE "icon.png"
         XCODE_ATTRIBUTE_INSTALL_PATH "/Applications" # to avoid "archive" packaging problems
     )
 endif()
