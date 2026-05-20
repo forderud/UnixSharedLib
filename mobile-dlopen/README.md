@@ -5,8 +5,9 @@
 | iOS      | ![iOS_bundle](doc/iOS_bundle.png) | `Frameworks` folder (`@executable_path/Frameworks`) |
 | Android  | ![Android_bundle](doc/Android_bundle.png) | `lib/arm64-v8a` folder (same as entry-point shared lib.) |
 
-## File embedding samples
+The *MobileDlopen* project demonstrates how to use `std::filesystem::directory_iterator` for iterating over all shared libs. in the package bundles for the above platforms.
 
+## File embedding samples
 Sample code for embedding arbitrary binary or text files into Mach-O and ELF binaries on various platforms.
 
 ### Platform support
