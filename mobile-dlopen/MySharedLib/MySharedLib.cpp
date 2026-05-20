@@ -22,18 +22,17 @@ static const char INTERNAL_MYLIB_ARRAY[] = "This is an embedded array.";
 
 static std::string_view GetSectionData(const char* section_name) {
 #if defined(__APPLE__)
-    static int rcs_addr_handle = 0; // in-library variable
-
     // get image header from a global address
+    static int rcs_addr_handle = 0; // in-library variable
     Dl_info img_info = {};
     int img_index = dladdr(&rcs_addr_handle, &img_info);
     auto* header = (mach_header_64*)img_info.dli_fbase; // or &_mh_execute_header for an executable
 
-    // access embedded binary file
+    // access embedded file
     const char segment_name[] = "__TEXT"; // __TEXT for read-only data and __DATA for writable data
-    unsigned long embed_example_size = 0;
-    const uint8_t* embed_example_start = getsectiondata(header, segment_name, section_name, &embed_example_size);
-    return std::string_view((const char*)embed_example_start, embed_example_size);
+    unsigned long size = 0;
+    const uint8_t* ptr = getsectiondata(header, segment_name, section_name, &size);
+    return std::string_view((const char*)ptr, size);
 #else
     size_t fileSize = _binary_embed_example_txt_end - _binary_embed_example_txt_start;
     return std::string_view(_binary_embed_example_txt_start, fileSize);
