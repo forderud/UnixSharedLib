@@ -13,8 +13,8 @@ Sample code for embedding arbitrary binary or text files into Mach-O and ELF bin
 | Platform | Approach |
 |----------|----------------|
 | Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. |
-| Linux/Android | Add a named `.symtab` symbol to the `.so` binary. |
-| macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` binary.|
+| Linux/Android | Add a named `.symtab` symbol to the `.so` ELF binary. |
+| macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` Mach-O binary.|
 
 ### Cross-platform alternative
 [`#embed`](https://en.cppreference.com/cpp/preprocessor/embed) that's introduced in C23/C++26 can be used as portable solution for arbitrary file embedding. There  **incbin** sample furthermore demonstrates how achieve the same with pre-C23/C++26 compilers.
