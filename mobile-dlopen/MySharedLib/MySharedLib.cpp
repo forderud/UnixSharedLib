@@ -1,6 +1,7 @@
 #include <cassert>
 #include <string>
 #include <dlfcn.h>
+#include <stdio.h>
 #if defined(__APPLE__)
   // "mach-o" header folder path: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/mach-o/
   #include <mach-o/getsect.h> // for getsectiondata
@@ -45,10 +46,10 @@ std::string_view print_embedded_file (const char* section_name) {
 
     static char buffer[1024] = {}; // static to allow string_view return
     size_t i = 0;
-    i += sprintf(buffer+i, "Hello from MySharedLib!\n");
-    i += sprintf(buffer+i, "Content of %s section (%u bytes): ", section_name, (unsigned int)section.size());
-    i += sprintf(buffer+i, "%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
-    i += sprintf(buffer+i, "Content of internal array (%u bytes): %s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
+    i += snprintf(buffer+i, sizeof(buffer)-i, "Hello from MySharedLib!\n");
+    i += snprintf(buffer+i, sizeof(buffer)-i, "Content of %s section (%u bytes): ", section_name, (unsigned int)section.size());
+    i += snprintf(buffer+i, sizeof(buffer)-i, "%.*s\n", (int)section.size(), section.data()); // specify size since file content is not null-terminated
+    i += snprintf(buffer+i, sizeof(buffer)-i, "Content of internal array (%u bytes): %s\n", (unsigned int)sizeof(INTERNAL_MYLIB_ARRAY), INTERNAL_MYLIB_ARRAY);
     assert(i <= sizeof(buffer));
     return std::string_view(buffer, i);
 }
