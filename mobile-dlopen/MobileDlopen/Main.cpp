@@ -78,7 +78,7 @@ static void LoadLibAndCallFunction(std::filesystem::path libPath) {
         fprintf(stderr, "dlsym failed: %s\n", dlerror());
         abort();
     }
-    printf("Calling print_embedded_file function through funtion pointer:\n");
+    // calling print_embedded_file function through function pointer
     auto data = print_func("embed_example");
     printf("%.*s\n", (int)data.size(), data.data());
     dlclose(handle);
