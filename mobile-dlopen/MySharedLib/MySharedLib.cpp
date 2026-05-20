@@ -26,10 +26,10 @@ static std::string_view GetSectionData(const char* section_name) {
     static int rcs_addr_handle = 0; // in-library variable
     Dl_info img_info = {};
     int img_index = dladdr(&rcs_addr_handle, &img_info);
-    auto* header = (mach_header_64*)img_info.dli_fbase; // or &_mh_execute_header for an executable
+    auto* header = (mach_header_64*)img_info.dli_fbase; // or &_mh_execute_header for executables
 
     // access embedded file
-    const char segment_name[] = "__TEXT"; // __TEXT for read-only data and __DATA for writable data
+    const char segment_name[] = "__TEXT"; // __TEXT for read-only data, __DATA for writable data
     unsigned long size = 0;
     const uint8_t* ptr = getsectiondata(header, segment_name, section_name, &size);
     return std::string_view((const char*)ptr, size);
