@@ -29,6 +29,14 @@ static std::string GetBundleFrameworksDir() {
     CFRelease(url);
     abort();
 }
+
+/** Get path to dylib inside framework */
+static std::string DylibPath(std::filesystem::path frameworkPath, bool fullPath) {
+    std::string path = fullPath ? frameworkPath : frameworkPath.filename();
+    path += "/";
+    path += frameworkPath.stem(); // filename without extension
+    return path;
+}
 #endif
 
 #ifdef __ANDROID__
@@ -61,12 +69,11 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
 static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 #ifdef USE_DLOPEN
     printf("Loading MySharedLib using dlopen...\n");
-    std::string path = libPath.filename(); // remove path prefix
   #ifdef __APPLE__
-    path += "/";
-    path += libPath.stem(); // filename without extension
+    std::string path = DylibPath(libPath, false); // remove path prefix
     void* handle = dlopen(path.c_str(), RTLD_LAZY);
   #else
+    std::string path = libPath.filename(); // remove path prefix
     void* handle = dlopen(path.c_str(), RTLD_LAZY);
   #endif
     if (!handle) {
@@ -102,9 +109,7 @@ int main(int argc, char *argv[]) {
     printf("\nFrameworks embedded in app bundle:\n");
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("\n## %s\n", entry.path().filename().c_str());
-        std::string path = entry.path(); // full path
-        path += "/";
-        path += entry.path().stem(); // filename without extension
+        std::string path = DylibPath(entry.path(), true); // keep path prefix
         FileMap file(path.c_str());
         std::string_view data = FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
         if (data.empty()) {
