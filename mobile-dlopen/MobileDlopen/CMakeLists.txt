@@ -18,6 +18,7 @@ if (APPLE)
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}"
         MACOSX_BUNDLE_ICON_FILE "icon.png"
         XCODE_ATTRIBUTE_INSTALL_PATH "/Applications" # to avoid "archive" packaging problems
+        MACOSX_BUNDLE_INFO_PLIST "Info.plist.in"
     )
 endif()
 
