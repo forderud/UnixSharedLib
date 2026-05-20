@@ -1,9 +1,9 @@
 ## Package bundle structure
-| Platform | Structure |
-|----------|-----------|
-| macOS    | ![macOS_bundle](doc/macOS_bundle.png) |
-| iOS      | ![iOS_bundle](doc/iOS_bundle.png) |
-| Android  | ![Android_bundle](doc/Android_bundle.png) |
+| Platform | Structure | Shared lib. placement |
+|----------|-----------|-----------------------|
+| macOS    | ![macOS_bundle](doc/macOS_bundle.png) | `@executable_path/../Frameworks` | 
+| iOS      | ![iOS_bundle](doc/iOS_bundle.png) | `@executable_path/Frameworks` |
+| Android  | ![Android_bundle](doc/Android_bundle.png) | Same folder as executable |
 
 ## ELF & Mach-O file embed and parsing samples
 
