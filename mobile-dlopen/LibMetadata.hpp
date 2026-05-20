@@ -30,9 +30,9 @@ __attribute__ ((section("__TEXT,LibMetadata")))
 #endif
 extern const LibMetadataT LibMetadata = {
     "MySharedLib",
-    "A sample ELF/Mach-O shared library.",
+    "Sample shared library.",
     {1, 2, 3, 4},
-    true,
+    false,
     true
 };
 
