@@ -1,11 +1,11 @@
-## Package bundle structure
+## App bundle structure
 | Platform  | Structure                                 | Shared lib. placement |
 |-----------|-------------------------------------------|-----------------------|
 | **macOS** | ![macOS_bundle](doc/macOS_bundle.png)     | `Contents/Frameworks` folder (`@executable_path/../Frameworks`) | 
 | **iOS**   | ![iOS_bundle](doc/iOS_bundle.png)         | `Frameworks` folder (`@executable_path/Frameworks`) |
 |**Android**| ![Android_bundle](doc/Android_bundle.png) | `lib/arm64-v8a` folder (same as entry-point shared lib.) |
 
-The **MobileDlopen** project demonstrates how to use `std::filesystem::directory_iterator` for iterating over all shared libs. in package bundles for the above platforms. Is also shows how to open (with `open`/`fopen`) and load (with `dlopen`) the run-time detected shared libs.
+The **MobileDlopen** project demonstrates how to use `std::filesystem::directory_iterator` for iterating over all shared libs. in app bundles for the above platforms. Is also shows how to open (with `open`/`fopen`) and load (with `dlopen`) the run-time detected shared libs.
 
 ## File embedding samples
 Sample code for embedding arbitrary binary or text files into Mach-O and ELF binaries on various platforms.
