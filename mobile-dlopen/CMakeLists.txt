@@ -5,8 +5,8 @@ project(TestProject)
 
 set(VERSION "0.1")
 
-# enable optimizations
-add_compile_options(-O3)
+# enable optimizations (C/C++ only; Swift uses its own -O flag)
+add_compile_options("$<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-O3>")
 
 # use dlopen to load shared libs at runtime
 add_compile_definitions(USE_DLOPEN)
@@ -25,8 +25,11 @@ else()
     add_link_options("LINKER:--gc-sections")
 endif()
 
-# hidden visibility by default
-add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
+# hidden visibility by default (C/C++ only; Swift rejects these flags)
+add_compile_options(
+    "$<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-fvisibility=hidden>"
+    "$<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-fvisibility-inlines-hidden>"
+)
 
 add_subdirectory(MySharedLib)
 
