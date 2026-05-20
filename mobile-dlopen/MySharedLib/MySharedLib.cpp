@@ -26,7 +26,8 @@ static std::string_view GetSectionData(const char* section_name) {
     // get image header from a global address
     static int rcs_addr_handle = 0; // in-library variable
     Dl_info img_info = {};
-    int img_index = dladdr(&rcs_addr_handle, &img_info);
+    int ok = dladdr(&rcs_addr_handle, &img_info);
+    assert(ok); (void)ok;
     auto* header = (mach_header_64*)img_info.dli_fbase; // or &_mh_execute_header for executables
 
     // access embedded file
