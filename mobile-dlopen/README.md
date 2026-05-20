@@ -13,7 +13,7 @@ Sample code for embedding arbitrary binary or text files into Mach-O and ELF bin
 | Platform | Approach |
 |----------|----------------|
 | Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. |
-| Linux/Android | Add a named `.symtab` symbol to the `.so` ELF binary. |
+| Linux/Android | Add a named `.dynsym` symbol to the `.so` ELF binary. |
 | macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` Mach-O binary.|
 
 ### Cross-platform alternative
