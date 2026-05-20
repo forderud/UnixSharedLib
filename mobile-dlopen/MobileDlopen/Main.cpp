@@ -68,7 +68,7 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
 
 static void LoadLibAndCallFunction(std::filesystem::path libPath) {
 #ifdef USE_DLOPEN
-    printf("Loading and calling shared lib using dlopen...\n");
+    printf("Loading and calling shared lib using dlopen:\n");
   #ifdef __APPLE__
     std::string path = DylibPath(libPath, false); // remove path prefix
     void* handle = dlopen(path.c_str(), RTLD_LAZY);
