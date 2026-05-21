@@ -66,16 +66,10 @@ static std::string GetNativeLibraryDir(ANativeActivity& activity) {
 #endif
 
 
-static void LoadLibAndCallFunction(std::filesystem::path libPath) {
+static void LoadLibAndCallFunction(std::string libFilename) {
 #ifdef USE_DLOPEN
     printf("Loading and calling shared lib using dlopen:\n");
-  #ifdef __APPLE__
-    std::string path = DylibPath(libPath, false); // remove path prefix
-    void* handle = dlopen(path.c_str(), RTLD_LAZY);
-  #else
-    std::string path = libPath.filename(); // remove path prefix
-    void* handle = dlopen(path.c_str(), RTLD_LAZY);
-  #endif
+    void* handle = dlopen(libFilename.c_str(), RTLD_LAZY);
     if (!handle) {
         fprintf(stderr, "dlopen failed: %s\n", dlerror());
         abort();
@@ -121,7 +115,7 @@ int main(int argc, char *argv[]) {
         metadata->Print();
         printf("\n");
 
-        LoadLibAndCallFunction(entry.path());
+        LoadLibAndCallFunction(DylibPath(entry.path(), false)); // remove path prefix
     }
 
     return 0;
@@ -148,7 +142,7 @@ void android_main(android_app* state) {
         metadata->Print();
         printf("\n");
 
-        LoadLibAndCallFunction(entry.path());
+        LoadLibAndCallFunction(entry.path().filename()); // remove path prefix
     }
 }
 #endif
