@@ -92,6 +92,7 @@ static void LoadLibAndCallFunction(std::string libFilename) {
 
 
 #ifdef __APPLE__
+/** macOS & iOS entry point */
 int main(int argc, char *argv[]) {
     std::string libDir = GetBundleFrameworksDir();
     if (!std::filesystem::is_directory(libDir)) {
@@ -123,6 +124,7 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifdef __ANDROID__
+/** Android NativeActivity entry point */
 void android_main(android_app* state) {
     ANativeActivity* activity = state->activity;
     std::string libDir = GetNativeLibraryDir(*activity);
