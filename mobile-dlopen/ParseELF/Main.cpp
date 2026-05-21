@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
         metadata->Print();
       } else {
         printf("%s content (size %u):\n", argv[2], (unsigned int)data.size());
-        printf("%.*s\n", (int)data.size(), data.data());
+        printf("  %.*s\n", (int)data.size(), data.data());
       }
     } else {
       printf("ERROR: Unable to find symbol %s\n", argv[2]);
