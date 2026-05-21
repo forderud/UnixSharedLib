@@ -7,14 +7,13 @@
 
 The **MobileDlopen** project demonstrates how to use `std::filesystem::directory_iterator` for iterating over all shared libs. in app bundles for the above platforms. Is also shows how to open (with `open`/`fopen`) and load (with `dlopen`) the run-time detected shared libs.
 
-
 ### Plugin infrastrcture pseudocode
 For each shared-lib in app bundle:
-* Check if shared-lib contain a magic data segment indicating a compatible plugin.
+* Check if shared-lib contain a magic data symbol indicating a compatible plugin.
 * If yes, add shared-lib to relevant in-app menus. Load and call the shared-lib with `dlopen` when relevant.
 
 ## File embedding samples
-Sample code for embedding arbitrary binary or text files into Mach-O and ELF binaries on various platforms.
+Sample code for embedding arbitrary binary or text files into Mach-O and ELF binaries.
 
 ### Platform support
 | Platform | Approach |
