@@ -42,7 +42,7 @@ static std::string_view GetSectionData(const char* section_name) {
 }
 
 extern "C" __attribute__ ((visibility ("default")))
-std::string_view print_embedded_file (const char* section_name) {
+std::string_view LibraryFunction (const char* section_name) {
     auto section = GetSectionData(section_name);
 
     static char buffer[1024] = {}; // static to allow string_view return
