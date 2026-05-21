@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
           auto* metadata = (const LibMetadataT*)(data.data());
           metadata->Print();
         } else {
-          printf("Found segment: %s:\n", segment_name);
+          printf("%s content (size %u):\n", argv[2], (unsigned int)data.size());
           printf("  %s\n", data.data());
         }
       }
