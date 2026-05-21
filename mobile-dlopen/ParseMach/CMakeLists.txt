@@ -1,5 +1,5 @@
 add_executable(ParseMach
-    ParseMach.cpp
+    Main.cpp
 )
 
 if (IOS)

@@ -1,5 +1,5 @@
 add_executable(ParseELF
-    ParseElf.cpp
+    Main.cpp
     ParseElf.hpp
 )
 
