@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     std::string_view data = FindDataSectionInFile(file.ptr(), argv[2]);
     if (data.size() > 0) {
       if (strcmp(argv[2], LibMetadata_SYMBOL_NAME) == 0) {
-        // special handling of LibMetadata symbols
+        printf("LibMetadata content:\n");
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
       } else {

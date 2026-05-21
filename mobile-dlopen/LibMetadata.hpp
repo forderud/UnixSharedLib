@@ -12,11 +12,11 @@ struct __attribute__((packed)) LibMetadataT {
     uint8_t trusted : 1;
 
     void Print() const {
-        printf("Library Name: %s\n", name);
-        printf("Description: %s\n", description);
-        printf("Version: %u.%u.%u.%u\n", version[0], version[1], version[2], version[3]);
-        printf("Diagnostic: %s\n", diagnostic ? "Yes" : "No");
-        printf("Trusted: %s\n", trusted ? "Yes" : "No");
+        printf("  Library Name: %s\n", name);
+        printf("  Description: %s\n", description);
+        printf("  Version: %u.%u.%u.%u\n", version[0], version[1], version[2], version[3]);
+        printf("  Diagnostic: %s\n", diagnostic ? "Yes" : "No");
+        printf("  Trusted: %s\n", trusted ? "Yes" : "No");
     }
 };
 
