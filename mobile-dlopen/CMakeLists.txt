@@ -31,11 +31,14 @@ add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 add_subdirectory(MySharedLib)
 
 if (APPLE OR ANDROID)
+    # macOS, iOS & Android (Linux doesn´t support app bundles)
     add_subdirectory(MobileDlopen)
 endif()
 
 if (APPLE)
+    # macOS & iOS
     add_subdirectory(ParseMach)
 else()
+    # Linux & Android
     add_subdirectory(ParseELF)
 endif()
