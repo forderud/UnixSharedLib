@@ -4,7 +4,6 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
-#include "../LibMetadata.hpp"
 
 
 struct ElfSectionHeader : Elf64_Shdr {
@@ -115,10 +114,11 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
     const char* cur_name = file_ptr + str_off + sym.st_name;
     size_t cur_len = strlen(cur_name);
 
-    if ((strcmp(cur_name, LibMetadata_SYMBOL_NAME) == 0) && (strcmp(symbol_name_prefix, LibMetadata_SYMBOL_NAME) == 0)){
+    if (strcmp(cur_name, symbol_name_prefix) == 0){
+      // detect symbol with size metadata
       ElfSectionHeader data(file_ptr, sym.st_shndx);
       const char* start = file_ptr + sym.st_value + data.sh_offset - data.sh_addr;
-      const char* end = start + sizeof(LibMetadataT);
+      const char* end = start + sym.st_size;
       return std::string_view(start, end - start);
     }
 

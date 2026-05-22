@@ -3,6 +3,7 @@
 #include <cassert>
 #include "ParseElf.hpp"
 #include "../FileMap.hpp"
+#include "../LibMetadata.hpp"
 
 
 int main(int argc, char **argv) {
