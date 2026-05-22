@@ -118,8 +118,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
       // detect symbol with size metadata
       ElfSectionHeader data(file_ptr, sym.st_shndx);
       const char* start = file_ptr + sym.st_value + data.sh_offset - data.sh_addr;
-      const char* end = start + sym.st_size;
-      return std::string_view(start, end - start);
+      return std::string_view(start, sym.st_size);
     }
 
     if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len) && (sym.st_size == 0 )) {
