@@ -9,6 +9,7 @@
     #include "../ParseELF/ParseElf.hpp"
 #endif
 #include <filesystem>
+#include "../LibMetadata.hpp"
 
 #ifdef USE_DLOPEN
     #include <dlfcn.h>

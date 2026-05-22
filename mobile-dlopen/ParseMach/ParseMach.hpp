@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string_view>
 #include <mach-o/loader.h>
-#include "../LibMetadata.hpp"
 
 
 void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) {
