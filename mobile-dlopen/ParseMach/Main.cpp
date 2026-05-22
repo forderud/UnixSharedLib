@@ -1,3 +1,4 @@
+#include <cassert>
 #include "ParseMach.hpp"
 #include "../FileMap.hpp"
 #include "../LibMetadata.hpp"
