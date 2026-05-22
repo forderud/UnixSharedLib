@@ -47,10 +47,10 @@ std::string_view FindSegmentInSections(const char* file_ptr, const char* sect_pt
   return std::string_view(); // not found
 }
 
-std::string_view FindSegmentInFile(const FileMap& file, const char* segment_name) {
-  auto& hdr = *(const mach_header_64*)file.ptr();
+std::string_view FindSegmentInFile(const char* file_ptr, const char* segment_name) {
+  auto& hdr = *(const mach_header_64*)file_ptr;
 
-  const char* cmd_ptr = file.ptr() + sizeof(hdr);
+  const char* cmd_ptr = file_ptr + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
     const auto* cmd = (const load_command*)cmd_ptr;
     cmd_ptr += cmd->cmdsize;
@@ -58,7 +58,7 @@ std::string_view FindSegmentInFile(const FileMap& file, const char* segment_name
     // only parse 64bit segment commands
     if (cmd->cmd == LC_SEGMENT_64) {
       const auto* seg = (const segment_command_64*)cmd;
-      std::string_view data = FindSegmentInSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
+      std::string_view data = FindSegmentInSections(file_ptr, (const char*)seg + sizeof(segment_command_64), seg->nsects, segment_name);
       if (!data.empty())
         return data;
     }

@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
         printf("\n## %s\n", entry.path().filename().c_str());
         std::string path = DylibPath(entry.path(), true); // keep path prefix
         FileMap file(path.c_str());
-        std::string_view data = FindSegmentInFile(file, LibMetadata_SYMBOL_NAME);
+        std::string_view data = FindSegmentInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
         if (data.empty()) {
             printf("No embedded metadata found.\n");
             continue;
