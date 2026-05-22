@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
     std::string_view data = FindSegmentInFile(file.ptr(), segment_name);
     if (!data.empty()) {
         if (strcmp(segment_name, LibMetadata_SYMBOL_NAME) == 0) {
+          assert(data.size() == sizeof(LibMetadataT));
           printf("LibMetadata content:\n");
           auto* metadata = (const LibMetadataT*)(data.data());
           metadata->Print();

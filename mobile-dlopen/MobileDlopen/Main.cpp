@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
             continue;
         }
 
+        assert(data.size() == sizeof(LibMetadataT));
         auto* metadata = (const LibMetadataT*)(data.data());
         metadata->Print();
         printf("\n");
@@ -142,6 +143,7 @@ void android_main(android_app* state) {
             continue;
         }
 
+        assert(data.size() == sizeof(LibMetadataT));
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
         printf("\n");
