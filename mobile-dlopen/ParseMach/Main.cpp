@@ -1,4 +1,5 @@
 #include "ParseMach.hpp"
+#include "../FileMap.hpp"
 
 
 int main(int argc, char **argv) {

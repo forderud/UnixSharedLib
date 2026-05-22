@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string_view>
 #include <mach-o/loader.h>
-#include "../FileMap.hpp"
 #include "../LibMetadata.hpp"
 
 
