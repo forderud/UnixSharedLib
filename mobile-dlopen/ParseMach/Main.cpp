@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
   }
 
   if (argc == 2) {
-    DumpSegmentsInFile(file);
+    DumpSegmentsInFile(file.ptr());
   } else {
     const char* segment_name = argv[2];
     std::string_view data = FindSegmentInFile(file, segment_name);

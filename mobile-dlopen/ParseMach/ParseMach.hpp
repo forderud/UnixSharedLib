@@ -16,10 +16,10 @@ void ParseSections(const char* file_ptr, const char* sect_ptr, uint32_t nsects) 
   }
 }
 
-void DumpSegmentsInFile(const FileMap& file) {
-  auto& hdr = *(const mach_header_64*)file.ptr();
+void DumpSegmentsInFile(const char* file_ptr) {
+  auto& hdr = *(const mach_header_64*)file_ptr;
 
-  const char* cmd_ptr = file.ptr() + sizeof(hdr);
+  const char* cmd_ptr = file_ptr + sizeof(hdr);
   for (uint32_t i = 0; i < hdr.ncmds; ++i) {
     const auto* cmd = (const load_command*)cmd_ptr;
     cmd_ptr += cmd->cmdsize;
@@ -30,7 +30,7 @@ void DumpSegmentsInFile(const FileMap& file) {
       const auto* seg = (const segment_command_64*)cmd;
       printf("Segment command: segname=%s, vmaddr=0x%llx, vmsize=0x%llx, fileoff=0x%llx, filesize=0x%llx, nsects=%u\n",
              seg->segname, seg->vmaddr, seg->vmsize, seg->fileoff, seg->filesize, seg->nsects);
-      ParseSections(file.ptr(), (const char*)seg + sizeof(segment_command_64), seg->nsects);
+      ParseSections(file_ptr, (const char*)seg + sizeof(segment_command_64), seg->nsects);
     }
   }
 }
