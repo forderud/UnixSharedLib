@@ -122,7 +122,7 @@ std::string_view FindDataInSymbolTable(const char *file_ptr, size_t str_off, siz
       return std::string_view(start, end - start);
     }
 
-    if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len)) {
+    if ((strncmp(cur_name, symbol_name_prefix, sym_len) == 0) && (cur_len > sym_len) && (sym.st_size == 0 )) {
       // detect _start/_end symbols separately
       if (strcmp(cur_name + sym_len, "_start") == 0) {
         //printf("found symbol %s START at index %zd\n", symbol_name_prefix, i);
