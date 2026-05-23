@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.22)
 set(CMAKE_CXX_STANDARD 17)
 
 project(TestProject)
@@ -30,10 +30,7 @@ add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
 # OpenGL detection
 if(ANDROID)
-    find_library(GLES3_LIBRARY GLESv3)
-    if(NOT GLES3_LIBRARY)
-        message(FATAL_ERROR "OpenGL ES3 not found")
-    endif()
+    find_library(GLES3_LIBRARY GLESv3 REQUIRED)
 elseif (IOS)
     # CMake's FindOpenGL does not support GLES on iOS; OpenGL ES 3 is
     # provided by the system OpenGLES.framework (header <OpenGLES/ES3/gl.h>).
