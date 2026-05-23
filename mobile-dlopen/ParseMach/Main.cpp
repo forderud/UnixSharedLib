@@ -3,6 +3,9 @@
 #include "../FileMap.hpp"
 #include "../LibMetadata.hpp"
 
+#if TARGET_OS_IPHONE
+    #include <OpenGLES/ES3/gl.h> // OpenGL ES 3.0 header test
+#endif
 
 int main(int argc, char **argv) {
   if (argc < 2) {

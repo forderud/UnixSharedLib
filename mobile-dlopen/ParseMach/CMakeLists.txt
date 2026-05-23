@@ -11,6 +11,14 @@ if (IOS)
     )
 endif()
 
+if(APPLE)
+    if (IOS)
+        target_link_libraries(ParseMach PRIVATE ${GLES3_LIBRARY})
+    else()
+        target_link_libraries(ParseMach PRIVATE OpenGL::GL)
+    endif()
+endif()
+
 # install rules
 install(
     TARGETS ParseMach
