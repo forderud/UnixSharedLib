@@ -35,6 +35,9 @@ elseif (IOS)
     # OpenGL ES3 check requre CMake 3.27
     #find_package(OpenGL REQUIRED COMPONENTS GLES3) # GLES2 also fail
     find_library(OPENGLES3_LIBRARY OpenGLES)
+    if(NOT OPENGLES3_LIBRARY)
+        message(FATAL_ERROR "OpenGL ES3 not found")
+    endif()
 else()
     find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 endif()
