@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.27)
 set(CMAKE_CXX_STANDARD 17)
 
 project(TestProject)
@@ -35,12 +35,9 @@ if(ANDROID)
         message(FATAL_ERROR "OpenGL ES3 not found")
     endif()
 elseif (IOS)
-    # OpenGL ES3 check requre CMake 3.27
-    #find_package(OpenGL REQUIRED COMPONENTS GLES3) # GLES2 also fail
-    find_library(OPENGLES3_LIBRARY OpenGLES)
-    if(NOT OPENGLES3_LIBRARY)
-        message(FATAL_ERROR "OpenGL ES3 not found")
-    endif()
+    # CMake's FindOpenGL does not support GLES on iOS; OpenGL ES 3 is
+    # provided by the system OpenGLES.framework (header <OpenGLES/ES3/gl.h>).
+    find_library(GLES3_LIBRARY OpenGLES REQUIRED)
 else()
     find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 endif()
