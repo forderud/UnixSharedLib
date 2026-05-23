@@ -28,6 +28,16 @@ endif()
 # hidden visibility by default
 add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 
+# OpenGL detection
+if(ANDROID)
+    find_library(GLES3_LIBRARY GLESv3)
+elseif (IOS)
+    # OpenGL ES3 check requre CMake 3.27
+    #find_package(OpenGL REQUIRED COMPONENTS GLES3) # GLES2 also fail
+else()
+    find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+endif()
+
 add_subdirectory(MySharedLib)
 
 if (APPLE OR ANDROID)
