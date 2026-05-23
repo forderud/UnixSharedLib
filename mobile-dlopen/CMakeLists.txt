@@ -31,12 +31,15 @@ add_compile_options("-fvisibility=hidden" "-fvisibility-inlines-hidden")
 # OpenGL detection
 if(ANDROID)
     find_library(GLES3_LIBRARY GLESv3 REQUIRED)
+    message(STATUS "Detected OpenGL library ${GLES3_LIBRARY}")
 elseif (IOS)
     # CMake's FindOpenGL does not support GLES on iOS; OpenGL ES 3 is
     # provided by the system OpenGLES.framework (header <OpenGLES/ES3/gl.h>).
     find_library(GLES3_LIBRARY OpenGLES REQUIRED)
+    message(STATUS "Detected OpenGL library ${GLES3_LIBRARY}")
 else()
-    find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+    find_package(OpenGL REQUIRED)
+    message(STATUS "Detected OpenGL library ${OPENGL_LIBRARIES}")
 endif()
 
 add_subdirectory(MySharedLib)
