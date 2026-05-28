@@ -48,21 +48,21 @@ if (APPLE)
 
     target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
 
+    set_target_properties(MobileDlopen PROPERTIES
+        # Embed framework(s) into .app bundle
+        XCODE_EMBED_FRAMEWORKS MySharedLib
+        XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
+    )
+
     if(IOS)
         set_target_properties(MobileDlopen PROPERTIES
             # Look for dylibs inside .app bundle Frameworks folder
             INSTALL_RPATH "@executable_path/Frameworks"
-            # Embed framework(s) into .app bundle
-            XCODE_EMBED_FRAMEWORKS MySharedLib
-            XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
         )
     else()
         set_target_properties(MobileDlopen PROPERTIES
             # Look for dylibs inside .app bundle Frameworks folder
             INSTALL_RPATH "@executable_path/../Frameworks"
-            # Embed framework(s) into .app bundle
-            XCODE_EMBED_FRAMEWORKS MySharedLib
-            XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
         )
     endif()
 else()
