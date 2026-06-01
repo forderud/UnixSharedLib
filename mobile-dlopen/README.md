@@ -18,7 +18,7 @@ Sample code for embedding arbitrary binary or text files into Mach-O and ELF bin
 ### Platform support
 | Platform | Approach |
 |----------|----------------|
-| Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. Use [`FindResourceW`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-findresourcew) followed by [LoadResource`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource) and [`LockResource`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-lockresource) to access the data at run-time.  |
+| Windows  | Use [`RCDATA`](https://learn.microsoft.com/en-us/windows/win32/menurc/rcdata-resource) resources to embed arbitrary files into a `.dll` or `.exe`. Use [`FindResourceW`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-findresourcew) followed by [`LoadResource`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource) and [`LockResource`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-lockresource) to access the data at run-time.  |
 | Linux/Android | Add a named `.dynsym` symbol to the `.so` ELF binary. |
 | macOS/iOS     | Add a named `__TEXT` symbol to the `.dylib` Mach-O binary.|
 
