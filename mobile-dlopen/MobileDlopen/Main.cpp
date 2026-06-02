@@ -109,12 +109,11 @@ int main(int argc, char *argv[]) {
         std::string path = DylibPath(entry.path(), true); // keep path prefix
         FileMap file(path.c_str());
         std::string_view data = FindSegmentInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
-        if (data.empty()) {
+        if (data.size() != sizeof(LibMetadataT)) {
             printf("No embedded metadata found.\n");
             continue;
         }
 
-        assert(data.size() == sizeof(LibMetadataT));
         auto* metadata = (const LibMetadataT*)(data.data());
         metadata->Print();
         printf("\n");
@@ -138,12 +137,11 @@ void android_main(android_app* state) {
         printf("\n## %s\n", entry.path().filename().c_str());
         FileMap file(entry.path().c_str()); // full path
         std::string_view data = FindDataSectionInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
-        if (data.empty()) {
+        if (data.size() != sizeof(LibMetadataT)) {
             printf("No embedded metadata found.\n");
             continue;
         }
 
-        assert(data.size() == sizeof(LibMetadataT));
         auto* metadata = (const LibMetadataT*)data.data();
         metadata->Print();
         printf("\n");
