@@ -11,6 +11,10 @@ struct __attribute__((packed)) LibMetadataT {
     uint8_t diagnostic : 1;
     uint8_t trusted : 1;
 
+    bool IsValid() const {
+        return true;
+    }
+    
     void Print() const {
         printf("  Library Name: %s\n", name);
         printf("  Description: %s\n", description);

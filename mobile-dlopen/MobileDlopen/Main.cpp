@@ -115,6 +115,8 @@ int main(int argc, char *argv[]) {
         }
 
         auto* metadata = (const LibMetadataT*)(data.data());
+        if (!metadata->IsValid())
+            continue;
         metadata->Print();
         printf("\n");
 
