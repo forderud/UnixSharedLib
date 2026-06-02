@@ -45,7 +45,7 @@ __attribute__ ((section("__TEXT,LibMetadata")))
 extern const LibMetadataT LibMetadata(
     "MySharedLib",
     "Sample shared library.",
-    (uint8_t[4]){(uint8_t)1, (uint8_t)2, (uint8_t)3, (uint8_t)4},
+    (uint8_t[4]){1, 2, 3, 4},
     false,
     true
 );
