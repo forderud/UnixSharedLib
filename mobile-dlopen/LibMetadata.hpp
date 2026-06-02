@@ -6,7 +6,8 @@
 
 /** Shared library metadata */
 struct __attribute__((packed)) LibMetadataT {
-    char    header[4] = {'L', 'I', 'B', 'M'}; // magic value for validation
+    static constexpr char S_HEADER[] = "LIBM"; // magic value for validation
+    char    header[4];
     char    name[16];
     char    description[64];
     uint8_t version[4];
@@ -14,6 +15,7 @@ struct __attribute__((packed)) LibMetadataT {
     uint8_t trusted : 1;
 
     LibMetadataT(std::string _name, std::string _description, uint8_t _version[4], bool _diagnostic, bool _trusted) {
+        strncpy(header, S_HEADER, sizeof(header)-1);
         strncpy(name, _name.c_str(), sizeof(name)-1);
         strncpy(description, _description.c_str(), sizeof(description)-1);
         memcpy(version, _version, sizeof(version));
@@ -22,7 +24,7 @@ struct __attribute__((packed)) LibMetadataT {
     }
 
     bool IsValid() const {
-        return (header[0] == 'L') && (header[1] == 'I') && (header[2] == 'B') && (header[3] == 'M');
+        return strncmp(header, S_HEADER, sizeof(header)) == 0;
     }
 
     void Print() const {
