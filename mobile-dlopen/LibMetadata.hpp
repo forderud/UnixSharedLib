@@ -42,12 +42,12 @@ __attribute__ ((visibility("default")))
 #if defined(__APPLE__)
 __attribute__ ((section("__TEXT,LibMetadata")))
 #endif
-extern const LibMetadataT LibMetadata(
+extern const LibMetadataT LibMetadata = {
     "MySharedLib",
     "Sample shared library.",
     (uint8_t[4]){1, 2, 3, 4},
     false,
     true
-);
+};
 
 #endif // EXPORT_LIB_METADATA
