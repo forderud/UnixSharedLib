@@ -36,6 +36,7 @@ struct __attribute__((packed)) LibMetadataT {
         printf("  Trusted: %s\n", trusted ? "Yes" : "No");
     }
 };
+static_assert(sizeof(LibMetadataT) == 89, "LibMetadataT size mismatch");
 
 
 #ifdef EMBED_SAMPLE_LIB_METADATA
