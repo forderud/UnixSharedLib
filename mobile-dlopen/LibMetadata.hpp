@@ -1,6 +1,5 @@
 #pragma once
 #include <cstdint>
-#include <string>
 
 #define LibMetadata_SYMBOL_NAME "LibMetadata"
 
@@ -14,13 +13,21 @@ struct __attribute__((packed)) LibMetadataT {
     uint8_t diagnostic : 1;
     uint8_t trusted : 1;
 
-    LibMetadataT(std::string _name, std::string _description, uint8_t _version[4], bool _diagnostic, bool _trusted) {
-        strncpy(header, S_HEADER, sizeof(header)-1);
-        strncpy(name, _name.c_str(), sizeof(name)-1);
-        strncpy(description, _description.c_str(), sizeof(description)-1);
-        memcpy(version, _version, sizeof(version));
-        diagnostic = _diagnostic;
-        trusted = _trusted;
+    // constexpr to allow constant-initialization into read-only section
+    template <size_t N, size_t M>
+    constexpr LibMetadataT(const char (&_name)[N], const char (&_description)[M],
+                           uint8_t _version[4], bool _diagnostic, bool _trusted)
+        : header{S_HEADER[0], S_HEADER[1], S_HEADER[2], S_HEADER[3]}, name{}, description{},
+          version{_version[0], _version[1], _version[2], _version[3]},
+          diagnostic(_diagnostic), trusted(_trusted)
+    {
+        static_assert(N <= sizeof(name), "name too long");
+        for (size_t i = 0; i < N; ++i)
+            name[i] = _name[i];
+
+        static_assert(M <= sizeof(description), "description too long");
+        for (size_t i = 0; i < M; ++i)
+            description[i] = _description[i];
     }
 
     bool IsValid() const {
