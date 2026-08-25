@@ -17,7 +17,7 @@
 #include "../LibMetadata.hpp"
 
 
-// embed sample metadata in shared library
+// embed metadata in shared library
 __attribute__ ((visibility("default")))
 #if defined(__APPLE__)
 __attribute__ ((section("__TEXT,LibMetadata")))
