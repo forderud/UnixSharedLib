@@ -48,7 +48,7 @@ if (APPLE)
 
     target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MyFramework>")
 
-    target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
+    target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:MySharedLib>")
 
     set_target_properties(MobileDlopen PROPERTIES
         # Embed framework(s) into .app bundle
