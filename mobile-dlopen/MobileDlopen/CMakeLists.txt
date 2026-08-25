@@ -52,7 +52,7 @@ if (APPLE)
 
     set_target_properties(MobileDlopen PROPERTIES
         # Embed framework(s) into .app bundle
-        XCODE_EMBED_FRAMEWORKS MySharedLib
+        XCODE_EMBED_FRAMEWORKS "MyFramework;MySharedLib"
         XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
     )
 
