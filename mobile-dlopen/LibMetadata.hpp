@@ -54,4 +54,4 @@ extern const LibMetadataT LibMetadata(
     true
 );
 
-#endif // EXPORT_LIB_METADATA
+#endif // EMBED_SAMPLE_LIB_METADATA
