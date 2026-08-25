@@ -44,21 +44,3 @@ struct __attribute__((packed)) LibMetadataT {
     }
 };
 static_assert(sizeof(LibMetadataT) == 89, "LibMetadataT size mismatch");
-
-
-#ifdef EMBED_SAMPLE_LIB_METADATA
-
-// embed sample metadata in shared library
-__attribute__ ((visibility("default")))
-#if defined(__APPLE__)
-__attribute__ ((section("__TEXT,LibMetadata")))
-#endif
-extern const LibMetadataT LibMetadata(
-    "MySharedLib",
-    "Sample shared library.",
-    (uint8_t[4]){1, 2, 3, 4},
-    false,
-    true
-);
-
-#endif // EMBED_SAMPLE_LIB_METADATA
