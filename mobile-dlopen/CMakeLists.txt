@@ -43,7 +43,9 @@ else()
 endif()
 
 add_subdirectory(MySharedLib)
-add_subdirectory(MyFramework)
+if (APPLE)
+    add_subdirectory(MyFramework)
+endif()
 
 if (APPLE OR ANDROID)
     # macOS, iOS & Android (Linux doesn´t support app bundles)

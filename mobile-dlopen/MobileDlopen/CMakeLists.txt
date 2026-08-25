@@ -46,6 +46,8 @@ if (APPLE)
     find_library(CORE_FOUNDATION CoreFoundation)
     target_link_libraries(MobileDlopen PRIVATE ${CORE_FOUNDATION})
 
+    target_link_libraries(MobileDlopen PRIVATE MyFramework)
+
     target_link_libraries(MobileDlopen PRIVATE "$<LINK_LIBRARY:FRAMEWORK,MySharedLib>")
 
     set_target_properties(MobileDlopen PROPERTIES
