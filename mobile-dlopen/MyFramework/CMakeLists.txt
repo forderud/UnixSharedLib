@@ -32,30 +32,6 @@ if(ANDROID)
     target_link_libraries(MyFramework PRIVATE log)
 endif()
 
-# Embed binary file as section in library
-if (APPLE)
-  # NOTE: section names cannot be longer than 16 chars
-  target_link_options(MyFramework PRIVATE LINKER:-sectcreate,__TEXT,embed_example,${CMAKE_CURRENT_SOURCE_DIR}/embed_example.txt)
-else()
-  # run linker to embed file
-  set(OBJ_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/embed_example.o")
-
-  set(LD_EMULATION "")
-  if (ANDROID)
-    set(LD_EMULATION -m aarch64linux) # aarch64 regardless of host architecture
-  endif()
-
-  # convert embed_example.txt into an object file
-  add_custom_command(
-    OUTPUT ${OBJ_OUTPUT}
-    COMMAND ${CMAKE_LINKER} -r -b binary -z noexecstack ${LD_EMULATION} embed_example.txt -o ${OBJ_OUTPUT}
-    DEPENDS embed_example.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  )
-  
-  target_sources(MyFramework PRIVATE ${OBJ_OUTPUT})
-endif()
-
 # install rules
 install(
     TARGETS MyFramework
