@@ -116,8 +116,10 @@ int main(int argc, char *argv[]) {
         }
 
         auto* metadata = (const LibMetadataT*)(data.data());
-        if (!metadata->IsValid())
+        if (!metadata->IsValid()) {
+            printf("Embedded metadata is invalid.\n");
             continue;
+        }
         metadata->Print();
         printf("\n");
 
