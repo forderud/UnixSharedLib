@@ -6,9 +6,9 @@
 /** Shared library metadata */
 struct __attribute__((packed)) LibMetadataT {
     static constexpr char S_HEADER[] = "LIBM"; // magic value for validation
-    char    header[4];
-    char    name[16];
-    char    description[64];
+    char    header[4] = {S_HEADER[0], S_HEADER[1], S_HEADER[2], S_HEADER[3]};
+    char    name[16]{};
+    char    description[64]{};
     uint8_t version[4];
     uint8_t diagnostic : 1;
     uint8_t trusted : 1;
@@ -16,8 +16,7 @@ struct __attribute__((packed)) LibMetadataT {
     // constexpr to allow constant-initialization into read-only section
     template <size_t N, size_t M>
     constexpr LibMetadataT(const char (&_name)[N], const char (&_description)[M],
-                           uint8_t _version[4], bool _diagnostic, bool _trusted)
-        : header{S_HEADER[0], S_HEADER[1], S_HEADER[2], S_HEADER[3]}, name{}, description{},
+                           uint8_t _version[4], bool _diagnostic, bool _trusted) : 
           version{_version[0], _version[1], _version[2], _version[3]},
           diagnostic(_diagnostic), trusted(_trusted)
     {
