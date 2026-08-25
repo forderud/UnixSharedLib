@@ -24,6 +24,7 @@ struct __attribute__((packed)) LibMetadataT {
     }
 
     bool IsValid() const {
+        printf("Metadata header: %.4s\n", header);
         return strncmp(header, S_HEADER, sizeof(header)) == 0;
     }
 
