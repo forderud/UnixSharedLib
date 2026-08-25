@@ -107,6 +107,7 @@ int main(int argc, char *argv[]) {
     for (const auto& entry : std::filesystem::directory_iterator(libDir)) {
         printf("\n## %s\n", entry.path().filename().c_str());
         std::string path = DylibPath(entry.path(), true); // keep path prefix
+        printf("dylib path: %s\n", path.c_str());
         FileMap file(path.c_str());
         std::string_view data = FindSegmentInFile(file.ptr(), LibMetadata_SYMBOL_NAME);
         if (data.size() != sizeof(LibMetadataT)) {
