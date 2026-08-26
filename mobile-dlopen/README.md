@@ -2,7 +2,7 @@
 | Platform  | Structure                                 | Shared lib. placement |
 |-----------|-------------------------------------------|-----------------------|
 | **macOS** | ![macOS_bundle](doc/macOS_bundle.png)     | `Contents/Frameworks` folder (`@executable_path/../Frameworks`) | 
-| **iOS**   | ![iOS_bundle](doc/iOS_bundle.png)         | `Frameworks` folder (`@executable_path/Frameworks`). <br><br> NOTE: App Store Connect are [rejecting iOS apps containing `.dylib` binaries](https://developer.apple.com/library/archive/technotes/tn2435) with a misleading `90426: Invalid Swift Support. The SwiftSupport folder is missing` error. Wrap the `.dylib` in a framework bundle to work around this limitation. |
+| **iOS**   | ![iOS_bundle](doc/iOS_bundle.png)         | `Frameworks` folder (`@executable_path/Frameworks`). <br><br> NOTE: Dynamic libraries (`.dylib` files) outside of a framework bundle are [not supported on iOS](https://developer.apple.com/library/archive/technotes/tn2435). App Store Connect will reject them with a misleading `90426: Invalid Swift Support. The SwiftSupport folder is missing` error. Wrap the `.dylib` in a framework bundle to work around this limitation. |
 |**Android**| ![Android_bundle](doc/Android_bundle.png) | `lib/arm64-v8a` folder (same as entry-point shared lib.) |
 
 The **MobileDlopen** project demonstrates how to use `std::filesystem::directory_iterator` for iterating over all shared libs. in app bundles for the above platforms. Is also shows how to open (with `open`/`fopen`) and load (with `dlopen`) the run-time detected shared libs.
