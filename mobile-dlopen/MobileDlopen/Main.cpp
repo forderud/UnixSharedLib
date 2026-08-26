@@ -35,7 +35,6 @@ static std::string GetBundleFrameworksDir() {
 static std::string DylibPath(std::filesystem::path frameworkPath, bool fullPath) {
     std::string path = fullPath ? frameworkPath : frameworkPath.filename();
 
-
     size_t framework_idx = path.rfind(".framework");
     if (framework_idx == path.size() - 10) {
         // dylib path within framework
