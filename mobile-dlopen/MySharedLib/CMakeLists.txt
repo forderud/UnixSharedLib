@@ -6,7 +6,7 @@ add_library(MySharedLib SHARED
 )
 
 if (APPLE)
-  # package shared lib as a framework
+  # package shared lib
   set_target_properties(MySharedLib PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "MySharedLib" # avoid Xcode warning
     VERSION 1.0.0   # "current version" in semantic format in Mach-O binary file
