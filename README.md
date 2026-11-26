@@ -11,6 +11,7 @@ Sample code project listing:
 ## Linux resources
 
 ### C/C++ libraries bundled with Linux distros
+Listing only Ubuntu LTS releases.
 
 | Distro                                                               | Extended support| Linux kernel | Glibc | GCC/libstdc++ |
 |----------------------------------------------------------------------|-----------------|--------------|-------|---------------|
