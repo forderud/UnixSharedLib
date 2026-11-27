@@ -24,7 +24,7 @@ Listing only Ubuntu LTS releases.
 | [Ubuntu 26.04 (Resolute Raccoon)](https://releases.ubuntu.com/26.04/)|Apr '26 - Apr '36| 7.0          | 2.43  | 16            |
 | Fedora 45                                                            |Nov '26 - Dec '27| 7.3          | 2.44  | 16            | 
 
-Please note that the Linux kernel version is determined by the host when running Docker containers, since containers doesn't contain their own kernel.
+Please note that the  <mark>Linux kernel version is determined by the host when running Docker containers</mark>, since containers doesn't contain their own kernel.
 
 Kernel versions taken from Wikipedia [Ubuntu version history](https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions) and [Fedora Linux release history](https://en.wikipedia.org/wiki/Fedora_Linux_release_history).
 
